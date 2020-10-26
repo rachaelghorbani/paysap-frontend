@@ -10,6 +10,10 @@ const userReducer = (state = defaultState.user, action) => {
 			return action.payload;
 		case 'LOGIN_FROM_TOKEN':
 			return action.payload;
+		case 'LOGOUT_USER':
+			return action.payload;
+		case 'SIGNUP_USER':
+			return action.payload;
 		default:
 			return state;
 	}
