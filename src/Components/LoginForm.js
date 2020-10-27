@@ -1,7 +1,7 @@
 import React from 'react'
 import {Container, Form, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {onLoginSubmit} from '../Redux/actions/actions'
+import {onLoginSubmit} from '../Redux/actions/UserActions'
 
 class LoginForm extends React.Component {
 

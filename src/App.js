@@ -4,9 +4,9 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavBar from './Components/NavBar';
 import Header from './Components/Header';
-import LoginForm from './Components/LoginForm';
-import { findUserByToken } from './Redux/actions/actions';
+import { findUserByToken } from './Redux/actions/UserActions';
 import WelcomePage from './Components/WelcomePage';
+import JobsContainer from './Containers/JobsContainer';
 
 class App extends React.Component {
 	componentDidMount = () => {
@@ -21,7 +21,11 @@ class App extends React.Component {
 					<div>
 						<Header />
 						<NavBar />
-						{/* additional paths will go here with a switch statement*/}
+                        <Switch>
+                            <Route path="/jobs" render={() => <JobsContainer/>}/>
+                            <Route path="/profile"/> 
+                            {/* above will render a profile component eventually */}
+                        </Switch>
 					</div>
 				) : (
 					<div>

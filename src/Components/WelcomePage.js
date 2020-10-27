@@ -17,7 +17,8 @@ class WelcomePage extends React.Component {
     signupHandler = () => {
         this.setState({show_signup: true, show_buttons: false})
     }
-    backHandler = () => {
+
+    backToLoginOrSignupOptions = () => {
         this.setState({show_login: false, show_signup: false, show_buttons: true})
     }
 
@@ -33,8 +34,8 @@ class WelcomePage extends React.Component {
 						<Button onClick={this.signupHandler}>Signup</Button>
 					</div>
 				) : null}
-				{this.state.show_login ? <div><Button onClick={this.backHandler}>Back</Button><LoginForm /></div> : null}
-				{this.state.show_signup ? <div><Button onClick={this.backHandler}>Back</Button><SignUp /> </div>: null}
+				{this.state.show_login ? <div><Button onClick={this.backToLoginOrSignupOptions}>Back</Button><LoginForm /></div> : null}
+				{this.state.show_signup ? <div><Button onClick={this.backToLoginOrSignupOptions}>Back</Button><SignUp /> </div>: null}
 			</div>
 		);
 	}

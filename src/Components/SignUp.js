@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import {connect} from 'react-redux'
-import {signupUser} from '../Redux/actions/actions'
+import {signupUser} from '../Redux/actions/UserActions'
 
 class SignUp extends React.Component {
 	state = {

@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 
 let defaultState = {
-	user: null
+	user: null,
+	users: []
 };
 
 const userReducer = (state = defaultState.user, action) => {
@@ -18,9 +19,17 @@ const userReducer = (state = defaultState.user, action) => {
 			return state;
 	}
 };
-
+const usersReducer = (state = defaultState.users, action) => {
+	switch (action.type) {
+		case 'FETCH_ALL_USERS':
+			return action.payload;
+		default:
+			return state;
+	}
+};
 let rootReducer = combineReducers({
-	user: userReducer
+	user: userReducer,
+	users: usersReducer
 });
 
 export default rootReducer;
