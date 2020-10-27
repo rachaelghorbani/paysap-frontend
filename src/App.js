@@ -9,9 +9,12 @@ import WelcomePage from './Components/WelcomePage';
 import JobsContainer from './Containers/JobsContainer';
 
 class App extends React.Component {
+
 	componentDidMount = () => {
 		this.props.checkIfLoggedIn(this.props.history);
-	};
+    };
+    
+    
 
 	render() {
 		//if this.props.user isnt' null show them the good stuff, otherwise just show the welcome page

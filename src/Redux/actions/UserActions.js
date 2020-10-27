@@ -8,7 +8,7 @@ export const onLoginSubmit = user => {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify({user})
         }
         fetch('http://localhost:3000/login', options)
         .then(resp =>  resp.json())
