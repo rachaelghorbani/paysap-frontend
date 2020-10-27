@@ -3,7 +3,6 @@ import { Navbar, Nav } from 'react-bootstrap';
 import navbarImg from '../assets/navbarImg.svg';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import './headerstyles.css';
 import { logoutUser } from '../Redux/actions/UserActions';
 
 const NavBar = (props) => {
