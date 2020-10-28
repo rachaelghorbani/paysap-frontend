@@ -46,7 +46,6 @@ getCoordinates = position => {
     } else {
         this.setState({showModal: true})
         //setatate of show modal to true
-        console.log("out of range")
     }
 
 
@@ -158,6 +157,8 @@ hourFormatToShow = () => {
         const slicedDate = date.slice(0, 21)
         return slicedDate
     }
+
+    
     rowToRender = () => {
         const job = this.props.job
 

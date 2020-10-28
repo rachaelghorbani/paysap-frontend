@@ -1,10 +1,11 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
-import FormContainer from '../Components/NewJobForm'
+import NewJobForm from '../Components/NewJobForm'
 import FreelanceJobsContainer from './FreelanceJobsContainer'
 
 class JobsContainer extends React.Component{
+    
 
     //this component will be responsible for rendering 
         // a users freelance jobs component
@@ -15,7 +16,7 @@ class JobsContainer extends React.Component{
         return(
             <div>
                 <Switch>
-                    <Route path="/jobs/new" render={() => <FormContainer />}/>
+                    <Route path="/jobs/new" render={() => <NewJobForm />}/>
                     <Route path='/jobs/freelance' render={() => <FreelanceJobsContainer />} />
 
                     inside my freelance jobs we want to render all the jobs where the freelancer id match the current user id. will render them differently based on whether or not they are completed
