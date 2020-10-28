@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Table, Button, Container } from 'react-bootstrap';
+import { Table, Container } from 'react-bootstrap';
 import CompletedFreelanceCard from '../Components/CompletedFreelanceJobCard';
 import OpenFreelanceCard from '../Components/OpenFreelanceCard'
 
@@ -19,7 +19,6 @@ class FreelanceJobsContainer extends React.Component {
 	usersOpenFreelanceJobs = () => {
 		const openJobs = this.usersFreelanceJobs().filter((job) => job.completed === false);
 		return openJobs.map((job) => {
-            console.log(job)
         return <OpenFreelanceCard key={job.id} job={job} />});
 	};
 	//will create the taable here. will then create a freelance job card that will be a table row with the appropriate buttons
@@ -28,7 +27,7 @@ class FreelanceJobsContainer extends React.Component {
 	render() {
 		return (
 			<Container>
-				<Table bordered>
+				<Table bordered className="mt-2">
 					<thead>
 						<tr>
 							<th>Open Freelance Jobs</th>

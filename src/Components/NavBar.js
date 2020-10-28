@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import navbarImg from '../assets/navbarImg.svg';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -17,15 +17,23 @@ const NavBar = (props) => {
 				Welcome to PAY.S.A.P. {props.user.first_name}!
 			</Navbar.Brand>
 			<Nav className="ml-auto align-items-center">
-				<Link to="/jobs/new" className="mx-2">
-					Create Job
-				</Link>
-				<Link to="/jobs/clientside" className="mx-2">
-					My Client-Side Jobs
-				</Link>
-				<Link to="/jobs/freelance" className="mx-2">
-					My Freelance Jobs
-				</Link>
+				<NavDropdown title="Jobs" id="basic-nav-dropdown">
+					<NavDropdown.Item>
+						<Link to="/jobs/new" className="mx-2">
+							Create Job
+						</Link>
+					</NavDropdown.Item>
+					<NavDropdown.Item>
+						<Link to="/jobs/clientside" className="mx-2">
+							My Client-Side Jobs
+						</Link>
+					</NavDropdown.Item>
+					<NavDropdown.Item>
+						<Link to="/jobs/freelance" className="mx-2">
+							My Freelance Jobs
+						</Link>
+					</NavDropdown.Item>
+				</NavDropdown>
 				<Link to="/profile" className="mx-2">
 					Profile
 				</Link>

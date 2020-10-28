@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { Route, Switch,  withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavBar from './Components/NavBar';
 import Header from './Components/Header';
@@ -14,7 +14,7 @@ class App extends React.Component {
 		this.props.checkIfLoggedIn(this.props.history);
     };
     
-    
+
 
 	render() {
 		//if this.props.user isnt' null show them the good stuff, otherwise just show the welcome page
