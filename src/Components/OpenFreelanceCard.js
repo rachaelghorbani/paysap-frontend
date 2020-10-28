@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from 'react-bootstrap'
+import {Modal, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {completeJob} from '../Redux/actions/JobActions'
@@ -9,7 +9,8 @@ class OpenFreelanceCard extends React.Component{
         disableButtons: true,
         startTimer: false,
         hours: 0,
-        minutes: 0
+        minutes: 0,
+        showModal: false
         //timerstarted true or false to toggle
         //disable buttons set to true to turn off when in range
         //timer count
@@ -27,6 +28,10 @@ class OpenFreelanceCard extends React.Component{
         alert("geolocation not avail")
     }
 }
+
+hideModal = () =>{
+    this.setState({showModal: false})
+}
 //for lat and long of your own computer
 getCoordinates = position => {
     const parsedJobDate = Date.parse(this.props.job.start_time)
@@ -39,6 +44,8 @@ getCoordinates = position => {
         console.log("i worked!")
         this.setState({disableButtons: false})
     } else {
+        this.setState({showModal: true})
+        //setatate of show modal to true
         console.log("out of range")
     }
 
@@ -166,7 +173,16 @@ hourFormatToShow = () => {
                 <td ><Button onClick={this.getLocation}style={{fontSize: 12}}>Locate</Button></td>
                 <td colSpan="2"></td>
                 <td><Button onClick={this.localCompleteJobSubmitHandler} disabled={this.state.disableButtons} style={{fontSize: 12}}>Complete</Button></td>
-                </>
+                <Modal show={this.state.showModal} onHide={this.hideModal}>
+                    <Modal.Header>
+                        <Modal.Title>Sorry, you're either out of range or too early! Check your start time and/or try moving closer to the location.</Modal.Title></Modal.Header>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.hideModal}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+      </>
             )
         } else {
             return (
@@ -181,6 +197,15 @@ hourFormatToShow = () => {
                 <td>{this.startOrStopTimerButton()}</td>
                 {this.hourFormatToShow()}
                 <td><Button onClick={this.localCompleteJobSubmitHandler} disabled={this.state.disableButtons} style={{fontSize: 12}}>Complete</Button></td>
+                <Modal show={this.state.showModal} onHide={this.hideModal}>
+                    <Modal.Header>
+                        <Modal.Title>Sorry, you're either out of range or too early! Check your start time and/or try moving closer to the location.</Modal.Title></Modal.Header>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.hideModal}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
                 </>
             )
         }
