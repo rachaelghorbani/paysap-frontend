@@ -62,13 +62,18 @@ class NewJobForm extends React.Component {
 	};
 
 	localSubmitHandler = (e) => {
-		e.preventDefault();
-		const freelancer = this.props.users.find((user) => user.email === this.state.freelancer_email);
+        e.preventDefault();
+        //need if statement for if you can't find freelancer
+        const freelancer = this.props.users.find((user) => user.email === this.state.freelancer_email);
 		const freelancer_id = freelancer.id;
 		const stringDate = this.state.date.toString();
 		const rate = parseInt(this.state.rate);
 
 		const jobObj = {
+            hours: null,
+            completed: false,
+            freelancer_bank_account: freelancer.account.id,
+            freelancer_email: freelancer.email,
 			description: this.state.description,
 			start_time: stringDate,
 			client_id: this.props.user.id,

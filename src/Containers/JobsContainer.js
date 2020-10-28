@@ -2,15 +2,14 @@ import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import FormContainer from '../Components/NewJobForm'
-import {fetchAllJobs} from '../Redux/actions/JobActions'
 import FreelanceJobsContainer from './FreelanceJobsContainer'
 
 class JobsContainer extends React.Component{
 
-    componentDidMount = () => {
-        this.props.fetchAllJobs()
-        //set all jobs in state
-    }
+    // componentDidMount = () => {
+    //     this.props.fetchAllJobs()
+    //     //set all jobs in state
+    // }
     //this component will be responsible for rendering 
         // a users freelance jobs component
         // a users client-side jobs component
@@ -39,13 +38,12 @@ class JobsContainer extends React.Component{
 const mapStateToProps = state => {
     return {
         user: state.user,
-        jobs: state.jobs
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchAllJobs: () => dispatch(fetchAllJobs())
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(JobsContainer)
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         fetchAllJobs: () => dispatch(fetchAllJobs())
+//     }
+// }
+export default connect(mapStateToProps)(JobsContainer)

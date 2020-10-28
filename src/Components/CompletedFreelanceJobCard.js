@@ -17,7 +17,7 @@ const CompletedFreelanceCard = props => {
     return (
        <tr>
            <td>{props.job.description}</td>
-           <td><a href={`mailto: ${props.job.client.email}`}>{props.job.client.email}</a></td>
+           <td><a href={`mailto: ${props.job.client_email}`}>{props.job.client_email}</a></td>
            <td>{restructuredDate()}</td>
            <td>{props.job.dayrate_or_hourly}</td>
            {tdToReturnForHourlyVsDay()}

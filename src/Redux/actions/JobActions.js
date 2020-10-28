@@ -1,5 +1,19 @@
 export const createJob = (jobObj, history) => {
 	return function(dispatch, getState) {
+        const jobToCreate = {
+			description: jobObj.description,
+			start_time: jobObj.start_time,
+			client_id: jobObj.client_id,
+			freelancer_id: jobObj.freelancer_id,
+			dayrate_or_hourly: jobObj.dayrate_or_hourly,
+			lat: jobObj.lat,
+			long: jobObj.long,
+			location: jobObj.location,
+            rate: jobObj.rate
+        }
+
+
+       
 		const token = localStorage.getItem('token');
 		const options = {
 			method: 'POST',
@@ -8,12 +22,13 @@ export const createJob = (jobObj, history) => {
 				Accept: 'application/json',
 				Authorization: `Bearer ${token}`
 			},
-			body: JSON.stringify(jobObj)
+			body: JSON.stringify(jobToCreate)
 		};
         fetch('http://localhost:3000/jobs', options)
         .then((resp) => resp.json())
         .then((job) => {
-            const newArr = [ ...getState().jobs, job ];
+            jobObj.id = job.id
+            const newArr = {...getState().user, jobs_as_client:[...getState().user.jobs_as_client, jobObj ]}
             history.push('/jobs/clientside')
 
             return dispatch({ type: 'CREATE_JOB', payload: newArr });
@@ -24,10 +39,3 @@ export const createJob = (jobObj, history) => {
 	};
 };
 
-export const fetchAllJobs = () => {
-	return function(dispatch) {
-		fetch('http://localhost:3000/jobs').then((resp) => resp.json()).then((jobs) => {
-			return dispatch({ type: 'FETCH_ALL_JOBS', payload: jobs });
-		});
-	};
-};

@@ -117,7 +117,7 @@ hourFormatToShow = () => {
             return (
                 <>
                 <td>{job.description}</td>
-                <td><a href={`mailto: ${job.client.email}`}>{job.client.email}</a></td>
+                <td><a href={`mailto: ${job.client_email}`}>{job.client_email}</a></td>
                 <td>{this.restructuredDate()}</td>
                 <td>{job.dayrate_or_hourly}</td>
                 <td>${job.rate}/day</td>
@@ -131,7 +131,7 @@ hourFormatToShow = () => {
             return (
                 <>
                 <td>{job.description}</td>
-                <td><a href={`mailto: ${job.client.email}`}>{job.client.email}</a></td>
+                <td><a href={`mailto: ${job.client_email}`}>{job.client_email}</a></td>
                 <td>{this.restructuredDate()}</td>
                 <td>{job.dayrate_or_hourly}</td>
                 <td>${job.rate}/hr</td>

@@ -7,17 +7,15 @@ import OpenFreelanceCard from '../Components/OpenFreelanceCard'
 
 
 class FreelanceJobsContainer extends React.Component {
-	usersFreelanceJobs = () => {
-		return this.props.jobs.filter((job) => job.freelancer.id === this.props.user.id);
-	};
+
 
 	usersCompletedFreelanceJobs = () => {
-		const completedJobs = this.usersFreelanceJobs().filter((job) => job.completed === true);
+		const completedJobs = this.props.user.jobs_as_freelancer.filter((job) => job.completed === true);
 		return completedJobs.map((job) => <CompletedFreelanceCard key={job.id} job={job} />);
 	};
 
 	usersOpenFreelanceJobs = () => {
-		const openJobs = this.usersFreelanceJobs().filter((job) => job.completed === false);
+		const openJobs = this.props.user.jobs_as_freelancer.filter((job) => job.completed === false);
 		return openJobs.map((job) => {
         return <OpenFreelanceCard key={job.id} job={job} />});
 	};
@@ -88,7 +86,6 @@ class FreelanceJobsContainer extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		user: state.user,
-		jobs: state.jobs
 	};
 };
 
