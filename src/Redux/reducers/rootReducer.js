@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 let defaultState = {
 	user: null,
-	users: [],
+	users: []
 };
 
 const userReducer = (state = defaultState.user, action) => {
@@ -16,9 +16,9 @@ const userReducer = (state = defaultState.user, action) => {
 		case 'SIGNUP_USER':
 			return action.payload;
 		case 'CREATE_JOB':
-            return action.payload;
-            case 'COMPLETE_JOB':
-                return action.payload
+			return action.payload;
+		case 'COMPLETE_JOB':
+			return action.payload;
 		default:
 			return state;
 	}
@@ -32,10 +32,9 @@ const usersReducer = (state = defaultState.users, action) => {
 	}
 };
 
-
 let rootReducer = combineReducers({
 	user: userReducer,
-	users: usersReducer,
+	users: usersReducer
 });
 
 export default rootReducer;

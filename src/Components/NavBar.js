@@ -14,7 +14,7 @@ const NavBar = (props) => {
 		<Navbar className="NavbarText" style={{ background: '#1D3557' }} variant="dark">
 			<Navbar.Brand>
 				<img alt="" src={navbarImg} width="30" height="30" className="d-inline-block align-top mr-2" />
-				Welcome to PAY.S.A.P. {props.user.first_name}!
+				Welcome to PAY.S.A.P. {props.user.first_name}! ACCT: xxxxxx{props.user.account.account_number}, BAL:  ${props.user.account.amount}
 			</Navbar.Brand>
 			<Nav className="ml-auto align-items-center">
 				<NavDropdown title="Jobs" id="basic-nav-dropdown">

@@ -59,9 +59,10 @@ localCompleteJobSubmitHandler = () => {
         const hours = (this.state.minutes/60) + this.state.hours
         const roundedHours = +hours.toFixed(2)
         const totalAmount = Math.floor(this.props.job.rate * roundedHours)
-
+        console.log(roundedHours)
       const completedJobObj = {
           id: this.props.job.id,
+          client_balance: this.props.job.client_balance,
           client_bank_account_id: this.props.job.client_bank_account_id,
           freelancer_bank_account_id: this.props.user.account.id,
            hours: roundedHours,
@@ -72,6 +73,7 @@ localCompleteJobSubmitHandler = () => {
     } else if(this.props.job.dayrate_or_hourly === "Day Rate"){
         const completedJobObj = {
             id: this.props.job.id,
+            client_balance: this.props.job.client_balance,
             client_bank_account_id: this.props.job.client_bank_account_id,
             freelancer_bank_account_id: this.props.user.account.id,
             hours: 10,
