@@ -1,5 +1,8 @@
 import React from 'react'
 import {Button} from 'react-bootstrap'
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import {completeJob} from '../Redux/actions/JobActions'
 
 class OpenFreelanceCard extends React.Component{
     state = {
@@ -31,7 +34,7 @@ getCoordinates = position => {
     const parsedDateNow = Date.parse(dateNow)
     const lat = parseFloat(JSON.stringify(position.coords.latitude), 10)
     const long = parseFloat(JSON.stringify(position.coords.longitude), 10)
-    console.log("myLat:", lat, "jl", this.props.job.lat, "mylong", long, "jlo", this.props.job.long)
+    // console.log("myLat:", lat, "jl", this.props.job.lat, "mylong", long, "jlo", this.props.job.long)
     if(((long <= this.props.job.long + 0.0005) && (long >= this.props.job.long - 0.0005)) && ((lat <= this.props.job.lat + 0.0005) && (lat >= this.props.job.lat - 0.0005)) && (parsedDateNow >= parsedJobDate)){
         console.log("i worked!")
         this.setState({disableButtons: false})
@@ -50,6 +53,41 @@ getCoordinates = position => {
 
 //function to update state to pass to setTimeout
 
+localCompleteJobSubmitHandler = () => {
+    this.stopTimer()
+    if(this.props.job.dayrate_or_hourly === "Hourly"){
+        const hours = (this.state.minutes/60) + this.state.hours
+        const roundedHours = +hours.toFixed(2)
+        const totalAmount = Math.floor(this.props.job.rate * roundedHours)
+
+      const completedJobObj = {
+          id: this.props.job.id,
+          client_bank_account_id: this.props.job.client_bank_account_id,
+          freelancer_bank_account_id: this.props.user.account.id,
+           hours: roundedHours,
+           total_amount: totalAmount,
+           completed: true
+       }
+       this.props.completeJob(completedJobObj)
+    } else if(this.props.job.dayrate_or_hourly === "Day Rate"){
+        const completedJobObj = {
+            id: this.props.job.id,
+            client_bank_account_id: this.props.job.client_bank_account_id,
+            freelancer_bank_account_id: this.props.user.account.id,
+            hours: 10,
+            total_amount: this.props.job.rate,
+            completed: true
+        }
+        this.props.completeJob(completedJobObj)
+    }
+
+    //check to see if hourly or daily
+    //if hourly have to do some math to calculate total amount
+    //must also update hours and total amount
+    //will then call on a dispatch thingy that takes in history and the obj and then creates 
+    //otherwise reacreate object with completed value to send back
+}
+
 intervalId = 0
 startTimer = () => {
     this.setState({startTimer: true})
@@ -59,6 +97,7 @@ startTimer = () => {
 }
 
 stopTimer = () => {
+    this.setState({startTimer: false})
     clearInterval(this.intervalId)
 }
 
@@ -124,7 +163,7 @@ hourFormatToShow = () => {
                 <td>{job.location}</td>
                 <td ><Button onClick={this.getLocation}style={{fontSize: 12}}>Locate</Button></td>
                 <td colSpan="2"></td>
-                <td><Button disabled={this.state.disableButtons} style={{fontSize: 12}}>Complete</Button></td>
+                <td><Button onClick={this.localCompleteJobSubmitHandler} disabled={this.state.disableButtons} style={{fontSize: 12}}>Complete</Button></td>
                 </>
             )
         } else {
@@ -139,7 +178,7 @@ hourFormatToShow = () => {
                 <td><Button onClick={this.getLocation} style={{fontSize: 12}}>Locate</Button></td>
                 <td>{this.startOrStopTimerButton()}</td>
                 {this.hourFormatToShow()}
-                <td><Button disabled={this.state.disableButtons} style={{fontSize: 12}}>Complete</Button></td>
+                <td><Button onClick={this.localCompleteJobSubmitHandler} disabled={this.state.disableButtons} style={{fontSize: 12}}>Complete</Button></td>
                 </>
             )
         }
@@ -147,7 +186,7 @@ hourFormatToShow = () => {
     //if the job is hourly, render a certain row with certain buttons
     //else render another way without those buttons
     render(){
-        console.log("min", this.state.minutes, "hour", this.state.hours, "intid", this.intervalId)
+        // console.log("min", this.state.minutes, "hour", this.state.hours, "intid", this.intervalId)
         return(
             <tr>
                 {this.rowToRender()}
@@ -156,6 +195,15 @@ hourFormatToShow = () => {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        completeJob: (jobObj) => dispatch(completeJob(jobObj))
+    }
+}
 
-
-export default OpenFreelanceCard
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OpenFreelanceCard));

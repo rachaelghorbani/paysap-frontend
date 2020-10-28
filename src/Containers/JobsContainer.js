@@ -6,10 +6,6 @@ import FreelanceJobsContainer from './FreelanceJobsContainer'
 
 class JobsContainer extends React.Component{
 
-    // componentDidMount = () => {
-    //     this.props.fetchAllJobs()
-    //     //set all jobs in state
-    // }
     //this component will be responsible for rendering 
         // a users freelance jobs component
         // a users client-side jobs component
@@ -41,9 +37,4 @@ const mapStateToProps = state => {
     }
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         fetchAllJobs: () => dispatch(fetchAllJobs())
-//     }
-// }
 export default connect(mapStateToProps)(JobsContainer)

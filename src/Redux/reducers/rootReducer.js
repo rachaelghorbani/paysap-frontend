@@ -16,7 +16,9 @@ const userReducer = (state = defaultState.user, action) => {
 		case 'SIGNUP_USER':
 			return action.payload;
 		case 'CREATE_JOB':
-			return action.payload;
+            return action.payload;
+            case 'COMPLETE_JOB':
+                return action.payload
 		default:
 			return state;
 	}
