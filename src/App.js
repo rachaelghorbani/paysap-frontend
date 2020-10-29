@@ -17,7 +17,7 @@ class App extends React.Component {
 
 
 	render() {
-        console.log(this.props.user)
+        // console.log(this.props.user)
 		//if this.props.user isnt' null show them the good stuff, otherwise just show the welcome page
 		return (
 			<div className="App">

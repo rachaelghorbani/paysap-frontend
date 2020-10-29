@@ -9,7 +9,7 @@ import GoogleMap from '../Components/GoogleMap'
 
 class FreelanceJobsContainer extends React.Component {
 
-
+    //sort by date?
 	usersCompletedFreelanceJobs = () => {
 		const completedJobs = this.props.user.jobs_as_freelancer.filter((job) => job.completed === true);
 		return completedJobs.map((job) => <CompletedFreelanceCard key={job.id} job={job} />);
@@ -51,7 +51,7 @@ class FreelanceJobsContainer extends React.Component {
 							<th>Address</th>
                             <th>Get My Location</th>
 							<th>Timer</th>
-							<th>Time</th>
+							<th>Hours</th>
                             
 							<th>Complete Job</th>
 						</tr>

@@ -3,9 +3,10 @@ import {Switch, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import NewJobForm from '../Components/NewJobForm'
 import FreelanceJobsContainer from './FreelanceJobsContainer'
+import ClientJobsContainer from './ClientJobsContainer'
 
 class JobsContainer extends React.Component{
-    
+
 
     //this component will be responsible for rendering 
         // a users freelance jobs component
@@ -18,20 +19,13 @@ class JobsContainer extends React.Component{
                 <Switch>
                     <Route path="/jobs/new" render={() => <NewJobForm />}/>
                     <Route path='/jobs/freelance' render={() => <FreelanceJobsContainer />} />
-
-                    inside my freelance jobs we want to render all the jobs where the freelancer id match the current user id. will render them differently based on whether or not they are completed
-
-
-                    {/* <Route path='/jobs/clientside'/> */}
-
-
-
+                    <Route path='/jobs/clientside' render={() => <ClientJobsContainer />}/>
                 </Switch>
             </div>
         )
     }
 }
-
+//doe we need curent user?
 const mapStateToProps = state => {
     return {
         user: state.user,
