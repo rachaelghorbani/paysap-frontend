@@ -11,8 +11,8 @@ const GooglePlaces = (props) => {
 					>
 						{({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
 							return (
-								<div>
-									<input {...getInputProps({ placeholder: 'Type address' })} />
+								<div >
+									<input style={{width: 200, height: 32}} {...getInputProps({ placeholder: 'Type address' })} />
 									<div>
 										{loading ? <div>...loading</div> : null}
 										{suggestions.map((suggestion, index) => {

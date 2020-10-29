@@ -4,7 +4,8 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import GooglePlaces from '../Components/GooglePlaces'
 import DateTimePicker from 'react-datetime-picker';
 import {connect} from 'react-redux'
-import {updateJob} from '../Redux/actions/JobActions'
+import {updateJob, deleteJob} from '../Redux/actions/JobActions'
+
 
 
 
@@ -94,7 +95,12 @@ class OpenClientJobCard extends React.Component {
 		 this.props.updateJob(jobObj)
 
 		
-	};
+    };
+    
+    deleteHandler = e => {
+        //want to pass back the id of the job
+        this.props.deleteJob(this.props.job.id)
+    }
     
 
 	componentToRender = () => {
@@ -160,11 +166,12 @@ class OpenClientJobCard extends React.Component {
 							<GooglePlaces handleAddressSelect={this.handleAddressSelect} addressChangeHandler={this.addressChangeHandler} value={this.state.address} />
 						</InputGroup>
 					</td>
-					<td>
+					<td colSpan='2'>
 						<Button onClick={this.updateJob} style={{ fontSize: 12 }}>
 							Save
 						</Button>
 					</td>
+
 				</tr>
 			);
 		} else {
@@ -183,6 +190,8 @@ class OpenClientJobCard extends React.Component {
 							Edit
 						</Button>
 					</td>
+                    <td><Button onClick={this.deleteHandler}style={{ fontSize: 12 }} >Delete</Button></td>
+
 				</tr>
 			);
 		}
@@ -193,7 +202,6 @@ class OpenClientJobCard extends React.Component {
 	};
 
 	render() {
-        console.log(this.state.dayrate_or_hourly)
 		return (
 			<>{this.componentToRender()}</>
 
@@ -223,7 +231,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        updateJob: (jobObj) => dispatch(updateJob(jobObj))
+        updateJob: (jobObj) => dispatch(updateJob(jobObj)),
+        deleteJob: (jobId) => dispatch(deleteJob(jobId))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(OpenClientJobCard)

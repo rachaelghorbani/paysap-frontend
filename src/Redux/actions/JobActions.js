@@ -148,3 +148,32 @@ export const updateJob = (jobObj) => {
 		});
 	};
 };
+
+export const deleteJob = jobId => {
+    return function(dispatch, getState){
+        const token = localStorage.getItem('token');
+
+        const options = {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        fetch(`http://localhost:3000/jobs/${jobId}`, options)
+        .then(resp => resp.json())
+        .then(() => {
+            const clientJobs = getState().user.jobs_as_client
+            console.log(clientJobs)
+            const filtered = clientJobs.filter(job => job.id !== jobId)
+            console.log(filtered)
+            const newArr = {
+                ...getState().user,
+                jobs_as_client: filtered
+            };
+            return dispatch({type: "DELETE_JOB",payload: newArr})
+        })
+        //send delete request to jobs/id
+        //filter through a users client jobs and only return jobs where the id doesnt match this id and reset
+    }
+}

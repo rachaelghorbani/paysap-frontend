@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import DateTimePicker from 'react-datetime-picker';
-import { fetchAllUsers } from '../Redux/actions/UsersActions';
+// import { fetchAllUsers } from '../Redux/actions/UsersActions';
 import {createJob} from '../Redux/actions/JobActions'
 import { withRouter } from 'react-router-dom';
 import GooglePlaces from '../Components/GooglePlaces'
