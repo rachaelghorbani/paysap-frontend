@@ -7,6 +7,7 @@ import DateTimePicker from 'react-datetime-picker';
 import { fetchAllUsers } from '../Redux/actions/UsersActions';
 import {createJob} from '../Redux/actions/JobActions'
 import { withRouter } from 'react-router-dom';
+import GooglePlaces from '../Components/GooglePlaces'
 
 class NewJobForm extends React.Component {
 	state = {
@@ -153,7 +154,8 @@ class NewJobForm extends React.Component {
 
 				<Form.Group controlId="formBasicHours">
 					<Form.Label>Location:</Form.Label>
-					<PlacesAutocomplete
+                    <GooglePlaces handleAddressSelect={this.handleAddressSelect} addressChangeHandler={this.addressChangeHandler} value={this.state.address} />
+					{/* <PlacesAutocomplete
 						onChange={this.addressChangeHandler}
 						value={this.state.address}
 						onSelect={this.handleAddressSelect}
@@ -177,7 +179,7 @@ class NewJobForm extends React.Component {
 								</div>
 							);
 						}}
-					</PlacesAutocomplete>{' '}
+					</PlacesAutocomplete>{' '} */}
 				</Form.Group>
 
 				<Button variant="primary" type="submit">
@@ -201,10 +203,10 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps)(withRouter(NewJobForm));
-export default GoogleApiWrapper({
-	apiKey: process.env.REACT_APP_GOOGLE_API_KEY
-})(connector);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NewJobForm));
+// export default GoogleApiWrapper({
+// 	apiKey: process.env.REACT_APP_GOOGLE_API_KEY
+// })(connector);
 
 // const FormContainer = GoogleApiWrapper({
 //     apiKey: (process.env.REACT_APP_GOOGLE_API_KEY)

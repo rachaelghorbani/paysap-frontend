@@ -1,5 +1,8 @@
 import React from 'react';
 import { Button, InputGroup, FormControl, Form } from 'react-bootstrap';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import GooglePlaces from '../Components/GooglePlaces'
+
 
 class OpenClientJobCard extends React.Component {
 	state = {
@@ -8,7 +11,7 @@ class OpenClientJobCard extends React.Component {
 		freelancer_email: this.props.job.freelancer_email,
 		start_time: '',
 		rate: this.props.job.rate,
-		address: '',
+		address: this.props.job.location,
 		dayrate_or_hourly: this.props.dayrate_or_hourly
 	};
 	restructuredDate = () => {
@@ -32,7 +35,21 @@ class OpenClientJobCard extends React.Component {
 	updateJob = () => {
 		this.setState({ showEditForm: false });
 		//for now just switch show edit form but will need to send a patch request to the job and make sure that this component is listening for changes in user
+    };
+    
+    //google places
+
+    handleAddressSelect = async (value) => {
+		const results = await geocodeByAddress(value);
+		//formatted address would bbe results[0].formatted_address
+		const latLong = await getLatLng(results[0]);
+		this.setState({ lat: latLong.lat, long: latLong.lng, address: value });
 	};
+
+	addressChangeHandler = (e) => {
+		this.setState({ address: e });
+    };
+    
 
 	componentToRender = () => {
 		if (this.state.showEditForm) {
@@ -53,7 +70,8 @@ class OpenClientJobCard extends React.Component {
 					<td>
 						<InputGroup className="mb-3">
 							<FormControl
-								style={{ height: 32, fontSize: 12 }}
+
+								style={{ height: 32, fontSize: 12}}
 								value={this.state.freelancer_email}
 								onChange={this.basicChangeHandler}
 								name="freelancer_email"
@@ -98,12 +116,7 @@ class OpenClientJobCard extends React.Component {
 					<td>
 						{/* ///// google places goes here*/}
 						<InputGroup className="mb-3">
-							<FormControl
-								//   value="hi"
-								//   onChange={this.handleChange}
-								aria-label="Username"
-								aria-describedby="basic-addon1"
-							/>
+							<GooglePlaces handleAddressSelect={this.handleAddressSelect} addressChangeHandler={this.addressChangeHandler} value={this.state.address} />
 						</InputGroup>
 					</td>
 					<td>
@@ -139,7 +152,7 @@ class OpenClientJobCard extends React.Component {
 	};
 
 	render() {
-		console.log(this.state);
+		console.log(this.state.address);
 		return (
 			<>{this.componentToRender()}</>
 
@@ -161,4 +174,4 @@ class OpenClientJobCard extends React.Component {
 	}
 }
 
-export default OpenClientJobCard;
+export default OpenClientJobCard
