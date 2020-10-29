@@ -61,13 +61,14 @@ class Chart extends React.Component {
 	render() {
 		return (
             
-			<BarChart
+			<BarChart 
 				width={800}
 				height={300}
 				data={this.data}
-				margin={{
-					top: 20, right: 30, left: 20, bottom: 5,
-				}}
+				// margin={{
+				// 	top: 20, right: 20, left: 20, bottom: 5,
+                // }}
+                
 			>
 				<CartesianGrid strokeDasharray="3 3" />
 				<XAxis dataKey="name" />

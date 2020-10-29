@@ -76,17 +76,17 @@ class ComboChart extends React.Component {
 				width={800}
 				height={300}
 				data={this.data}
-				margin={{
-					top: 20, right: 30, left: 20, bottom: 5,
-				}}
+				// margin={{
+				// 	top: 20, right: 30, left: 20, bottom: 5,
+				// }}
 			>
 				<CartesianGrid strokeDasharray="3 3" />
 				<XAxis dataKey="name" />
 				<YAxis />
 				<Tooltip  />
 				<Legend />
-				<Bar dataKey='Freelance Income' stackId="a" fill="#B26CA1" />
-                <Bar dataKey="Client Spending" stackId="a" fill="#D7CDCC" />
+				<Bar dataKey='Freelance Income' stackId="a" fill="#05449D" />
+                <Bar dataKey="Client Spending" stackId="a" fill="#B26CA1" />
 			</BarChart>
 		);
 	}
