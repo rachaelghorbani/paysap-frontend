@@ -5,13 +5,17 @@ class GoogleMap extends React.Component {
 	state = {
 		showingInfoWindow: false,
 		activeMarker: {},
-		selectedPlace: {}
+        selectedPlace: {},
+        lat: null,
+        long: null
 	};
 	//want to bring in the find location on component did mount and reset initial center to those dots
 	// mapStyles = {
 	//     width: "88%",
 	//     height: "50%",
-	// }
+    // }
+    
+    //may need to listen for user
 
 	containerStyle = {
 		marginTop: '10px',
@@ -21,10 +25,15 @@ class GoogleMap extends React.Component {
 	};
 
 	onMarkerClick = (props, marker, e) => {
+        
+        console.log(props)
 		this.setState({
 			selectedPlace: props,
 			activeMarker: marker,
-			showingInfoWindow: true
+            showingInfoWindow: true,
+            lat: props.position.lat,
+            long: props.position.lng
+            
 		});
 	};
 
@@ -38,13 +47,17 @@ class GoogleMap extends React.Component {
 	};
 
 	renderMarker = () => {
-		return this.props.jobs.map((job) => (
-			<Marker onClick={this.onMarkerClick} name={job.location} position={{ lat: job.lat, lng: job.long }} />
-		));
+        
+		return this.props.jobs.map((job) => {
+            const refactoredDate = job.start_time.slice(0, 21)
+            const refactoredAddress = job.location.slice(0, job.location.length - 5)
+            return(
+			<Marker onClick={this.onMarkerClick} description={job.description} date={refactoredDate}location={refactoredAddress} position={{ lat: job.lat, lng: job.long }} />
+            )
+    });
 	};
 
 	render() {
-		console.log(this.props.jobs);
 		return (
             <div style={{display: "flex", justifyContent: "center"}}> 
 			<Map
@@ -55,10 +68,11 @@ class GoogleMap extends React.Component {
 				initialCenter={{
 					lat: 42.4538356,
 					lng: -71.2337416
-				}}
+                }}
+                //maybe set these in state and then onclick reset them for the individual marker
 				center={{
-					lat: 42.4538356,
-					lng: -71.2337416
+					lat: this.state.lat,
+					lng: this.state.long
 				}}
 			>
 				{this.renderMarker()}
@@ -67,8 +81,15 @@ class GoogleMap extends React.Component {
 					visible={this.state.showingInfoWindow}
 					onClose={this.onClose}
 				>
-					<div>
-						<h6 style={{ width: 200 }}>{this.state.selectedPlace.name}</h6>
+					<div style={{textAlign: "center"}}>
+						<h6 style={{ width: 200 }}>{this.state.selectedPlace.description}
+                        </h6>
+                        <h6>
+                        {this.state.selectedPlace.date}
+                        </h6>
+                        <h6>
+                        {this.state.selectedPlace.location}
+                        </h6>
 					</div>
 				</InfoWindow>
 			</Map>

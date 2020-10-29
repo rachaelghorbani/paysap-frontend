@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 
 let defaultState = {
 	user: null,
-	users: []
+	users: [],
+	successfulLogin: true
 };
 
 const userReducer = (state = defaultState.user, action) => {
@@ -32,9 +33,21 @@ const usersReducer = (state = defaultState.users, action) => {
 	}
 };
 
+const successfulLoginReducer = (state = defaultState.successfulLogin, action) => {
+	switch (action.type) {
+		case 'UNSUCCESSFUL_LOGIN':
+			return action.payload;
+		case 'RESET_SUCCESSFUL_LOGIN':
+			return action.payload;
+		default:
+			return state;
+	}
+};
+
 let rootReducer = combineReducers({
 	user: userReducer,
-	users: usersReducer
+	users: usersReducer,
+	successfulLogin: successfulLoginReducer
 });
 
 export default rootReducer;

@@ -16,6 +16,10 @@ export const onLoginSubmit = user => {
             if(currentUser.user){
                 localStorage.setItem("token", currentUser.jwt)
                 return dispatch({type: 'LOGIN_USER', payload: currentUser.user})
+            } 
+            else if(currentUser.message){
+                return dispatch({type:"UNSUCCESSFUL_LOGIN", payload: false})
+                // maybe send back a dispatch that changes some state key (successfulLogin) to false and then unhides something on the login page that says sorry wrong username and password
             }
         })
     }
@@ -63,6 +67,13 @@ export const signupUser = user => {
 
 
         })
+    }
+}
+
+export const resetSuccessfulLogin = () => {
+    return {
+        type: "RESET_SUCCESSFUL_LOGIN", 
+        payload: true
     }
 }
 

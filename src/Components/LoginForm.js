@@ -20,11 +20,14 @@ class LoginForm extends React.Component {
         localSubmitHandler = (e) => {
             e.preventDefault()
             this.props.submitUser(this.state)
+            this.setState({username: "", password: ""})
         }
     
     render(){
     return (
         <Container>
+            {this.props.successfulLogin ? null : <p>Username and/or Password Incorrect</p>}
+            
         <Form onSubmit={ e => this.localSubmitHandler(e)}>
             <Form.Group controlId="formBasicUsername">
                 <Form.Label>Username:</Form.Label>
@@ -54,4 +57,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(LoginForm)
+const mapStateToProps = state => {
+    return {
+        successfulLogin: state.successfulLogin
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

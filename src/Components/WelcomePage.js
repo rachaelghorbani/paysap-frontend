@@ -2,6 +2,8 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import LoginForm from './LoginForm';
 import SignUp from './SignUp';
+import {connect} from 'react-redux'
+import {resetSuccessfulLogin} from '../Redux/actions/UserActions'
 
 class WelcomePage extends React.Component {
 	state = {
@@ -19,6 +21,7 @@ class WelcomePage extends React.Component {
     }
 
     backToLoginOrSignupOptions = () => {
+        this.props.resetSuccessfulLogin()
         this.setState({show_login: false, show_signup: false, show_buttons: true})
     }
 
@@ -41,4 +44,10 @@ class WelcomePage extends React.Component {
 	}
 }
 
-export default WelcomePage;
+const mapDispatchToProps = dispatch => {
+    return {
+        resetSuccessfulLogin: () => dispatch(resetSuccessfulLogin())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(WelcomePage)
