@@ -1,6 +1,6 @@
 import React from 'react'
 import { GoogleApiWrapper } from 'google-maps-react';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 const GooglePlaces = (props) => {
     return (
@@ -16,7 +16,7 @@ const GooglePlaces = (props) => {
 									<div>
 										{loading ? <div>...loading</div> : null}
 										{suggestions.map((suggestion, index) => {
-                                            // const style = { backgroundColor: suggestion.active ? '#41b6e6' : '#fff' };
+                                            // const style = { backgroundColor: suggestion.active ? '#41b6e6' : '#fff', width: 300 };
                                             //to put style back in after suggestion below , {style}
 											return (
 												<div {...getSuggestionItemProps(suggestion)} key={index}>

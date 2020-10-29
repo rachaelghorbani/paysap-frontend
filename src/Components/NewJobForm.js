@@ -1,8 +1,7 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { GoogleApiWrapper } from 'google-maps-react';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import DateTimePicker from 'react-datetime-picker';
 import { fetchAllUsers } from '../Redux/actions/UsersActions';
 import {createJob} from '../Redux/actions/JobActions'
