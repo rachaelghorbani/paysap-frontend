@@ -7,6 +7,7 @@ import Header from './Components/Header';
 import { findUserByToken } from './Redux/actions/UserActions';
 import WelcomePage from './Components/WelcomePage';
 import JobsContainer from './Containers/JobsContainer';
+import MySummaryContainer from './Containers/MySummaryContainer';
 
 class App extends React.Component {
 
@@ -28,6 +29,7 @@ class App extends React.Component {
                         <Switch>
                             <Route path="/jobs" render={() => <JobsContainer/>}/>
                             <Route path="/profile"/> 
+                            <Route path="/mysummary" render={()=> <MySummaryContainer/>}/>
                             {/* above will render a profile component eventually */}
                         </Switch>
 					</div>

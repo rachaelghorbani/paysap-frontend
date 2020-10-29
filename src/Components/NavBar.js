@@ -17,6 +17,9 @@ const NavBar = (props) => {
 				Welcome to PAY.S.A.P. {props.user.first_name}! ACCT: xxxxxx{props.user.account.account_number}, BAL:  ${props.user.account.amount}
 			</Navbar.Brand>
 			<Nav className="ml-auto align-items-center">
+            <Link to="/mysummary" className="mx-2">
+					My Summary
+				</Link>
 				<NavDropdown title="Jobs" id="basic-nav-dropdown">
 					<NavDropdown.Item>
 						<Link to="/jobs/new" className="mx-2">

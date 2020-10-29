@@ -1,6 +1,6 @@
 
 
-export const onLoginSubmit = user => {
+export const onLoginSubmit = (user, history) => {
     return function(dispatch){
         const options = {
             method: "POST",
@@ -15,6 +15,8 @@ export const onLoginSubmit = user => {
         .then(currentUser => {
             if(currentUser.user){
                 localStorage.setItem("token", currentUser.jwt)
+                history.push('/mysummary')
+
                 return dispatch({type: 'LOGIN_USER', payload: currentUser.user})
             } 
             else if(currentUser.message){
@@ -35,7 +37,10 @@ export const findUserByToken = (history) => {
                    Authorization: `Bearer ${token}`
                }
            }).then(resp => resp.json())
-           .then(user => dispatch({type:"LOGIN_FROM_TOKEN", payload: user.user}))
+           .then(user => {
+               history.push('/mysummary')
+              return dispatch({type:"LOGIN_FROM_TOKEN", payload: user.user})
+            })
        }else {
            history.push('/')
        }

@@ -2,6 +2,7 @@ import React from 'react'
 import {Container, Form, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {onLoginSubmit} from '../Redux/actions/UserActions'
+import {withRouter} from 'react-router-dom'
 
 class LoginForm extends React.Component {
 
@@ -19,7 +20,7 @@ class LoginForm extends React.Component {
 
         localSubmitHandler = (e) => {
             e.preventDefault()
-            this.props.submitUser(this.state)
+            this.props.submitUser(this.state, this.props.history)
             this.setState({username: "", password: ""})
         }
     
@@ -53,7 +54,7 @@ class LoginForm extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        submitUser: (user) => dispatch(onLoginSubmit(user))
+        submitUser: (user, history) => dispatch(onLoginSubmit(user, history))
     }
 }
 
@@ -63,4 +64,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginForm))
