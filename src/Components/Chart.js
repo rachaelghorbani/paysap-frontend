@@ -75,7 +75,7 @@ class Chart extends React.Component {
 				<Tooltip  />
 				<Legend />
 				{/* <Bar dataKey="pv" stackId="a" fill="#8884d8" /> */}
-				<Bar dataKey={this.props.text} stackId="a" fill="#B26CA1" />
+				<Bar dataKey={this.props.text} stackId="a" fill={this.props.fill} />
 			</BarChart>
 		);
 	}
