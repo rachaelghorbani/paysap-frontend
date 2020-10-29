@@ -158,7 +158,7 @@ hourFormatToShow = () => {
         return slicedDate
     }
 
-    
+
     rowToRender = () => {
         const job = this.props.job
 

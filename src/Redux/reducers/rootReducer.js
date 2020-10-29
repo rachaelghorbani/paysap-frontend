@@ -20,6 +20,8 @@ const userReducer = (state = defaultState.user, action) => {
 			return action.payload;
 		case 'COMPLETE_JOB':
 			return action.payload;
+		case 'UPDATE_JOB':
+			return action.payload;
 		default:
 			return state;
 	}

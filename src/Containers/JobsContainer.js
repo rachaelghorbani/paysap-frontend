@@ -4,9 +4,12 @@ import {connect} from 'react-redux'
 import NewJobForm from '../Components/NewJobForm'
 import FreelanceJobsContainer from './FreelanceJobsContainer'
 import ClientJobsContainer from './ClientJobsContainer'
+import {fetchAllUsers} from '../Redux/actions/UsersActions'
 
 class JobsContainer extends React.Component{
-
+    componentDidMount = () => {
+		this.props.fetchAllUsers();
+	}
 
     //this component will be responsible for rendering 
         // a users freelance jobs component
@@ -32,4 +35,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(JobsContainer)
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchAllUsers: () => dispatch(fetchAllUsers()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobsContainer)

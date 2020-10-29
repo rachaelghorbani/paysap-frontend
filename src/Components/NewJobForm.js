@@ -19,9 +19,9 @@ class NewJobForm extends React.Component {
 		freelancer_email: '',
 		dayrate_or_hourly: 'Day Rate'
 	};
-	componentDidMount = () => {
-		this.props.fetchAllUsers();
-	};
+	// componentDidMount = () => {
+	// 	this.props.fetchAllUsers();
+	// };
 
 	//google places
 	handleAddressSelect = async (value) => {
@@ -79,7 +79,7 @@ class NewJobForm extends React.Component {
 		const jobObj = {
             hours: null,
             completed: false,
-            freelancer_bank_account: freelancer.account.id,
+            freelancer_bank_account_id: freelancer.account.id,
             freelancer_email: freelancer.email,
 			description: this.state.description,
 			start_time: stringDate,
@@ -89,7 +89,8 @@ class NewJobForm extends React.Component {
 			lat: this.state.lat,
 			long: this.state.long,
 			location: this.state.address,
-			rate: rate
+            rate: rate,
+            freelancer_balance: freelancer.account.amount
         };
 		this.props.createJob(jobObj, this.props.history)
 
@@ -108,6 +109,7 @@ class NewJobForm extends React.Component {
 	// 5. get both lat and long from google places as well as address
 	// 6. parse int rate
 	render() {
+        console.log(this.props.user)
 		return (
 			<Form onSubmit={this.localSubmitHandler}>
 				<Form.Group controlId="formBasicJobDescription">
@@ -197,7 +199,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-        fetchAllUsers: () => dispatch(fetchAllUsers()),
+        // fetchAllUsers: () => dispatch(fetchAllUsers()),
         createJob: (jobObj, history) => dispatch(createJob(jobObj, history))
 	};
 };

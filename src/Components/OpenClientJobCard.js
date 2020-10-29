@@ -3,6 +3,8 @@ import { Button, InputGroup, FormControl, Form } from 'react-bootstrap';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import GooglePlaces from '../Components/GooglePlaces'
 import DateTimePicker from 'react-datetime-picker';
+import {connect} from 'react-redux'
+import {updateJob} from '../Redux/actions/JobActions'
 
 
 
@@ -15,7 +17,7 @@ class OpenClientJobCard extends React.Component {
 		date: new Date(this.props.job.start_time),
 		rate: this.props.job.rate,
 		address: this.props.job.location,
-        dayrate_or_hourly: this.props.dayrate_or_hourly,
+        dayrate_or_hourly: this.props.job.dayrate_or_hourly,
         lat: this.props.job.lat,
 		long: this.props.job.long,
 	};
@@ -41,10 +43,7 @@ class OpenClientJobCard extends React.Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
-	updateJob = () => {
-		this.setState({ showEditForm: false });
-		//for now just switch show edit form but will need to send a patch request to the job and make sure that this component is listening for changes in user
-    };
+
     
     //google places
 
@@ -60,40 +59,42 @@ class OpenClientJobCard extends React.Component {
     };
 
 
-	// localSubmitHandler = (e) => {
-    //     e.preventDefault();
-    //     //need if statement for if you can't find freelancer
-    //     const freelancer = this.props.users.find((user) => user.email === this.state.freelancer_email);
+	updateJob = (e) => {
+        e.preventDefault();
+        this.setState({ showEditForm: false });
 
+        const freelancer = this.props.users.find((user) => user.email === this.state.freelancer_email);
 
-    //     // if(freelancer !== undefined && freelancer.email !== this.props.user.email && this.state.address !== '' && this.state.date !=='' && this.state.rate !== null && this.state.description !== ''){
-    //     //     // will put everything below in here when time to actually demo
-    //     // } 
+        // if(freelancer !== undefined && freelancer.email !== this.props.user.email && this.state.address !== '' && this.state.date !=='' && this.state.rate !== null && this.state.description !== ''){
+        //     // will put everything below in here when time to actually demo
+        // } 
 
+        // going to make a patch request for this job
+		const freelancer_id = freelancer.id;
+		const stringDate = this.state.date.toString();
+        const rate = parseInt(this.state.rate);
 
-	// 	const freelancer_id = freelancer.id;
-	// 	const stringDate = this.state.date.toString();
-	// 	const rate = parseInt(this.state.rate);
-
-	// 	const jobObj = { 
-    //         hours: null,
-    //         completed: false,
-    //         freelancer_bank_account: freelancer.account.id,
-    //         freelancer_email: freelancer.email,
-	// 		description: this.state.description,
-	// 		start_time: stringDate,
-	// 		client_id: this.props.user.id,
-	// 		freelancer_id: freelancer_id,
-	// 		dayrate_or_hourly: this.state.dayrate_or_hourly,
-	// 		lat: this.state.lat,
-	// 		long: this.state.long,
-	// 		location: this.state.address,
-	// 		rate: rate
-    //     };
-	// 	this.props.createJob(jobObj, this.props.history)
+		const jobObj = { 
+            hours: null,
+            completed: false,
+            id: this.props.job.id,
+            freelancer_bank_account_id: freelancer.account.id,
+            freelancer_email: freelancer.email,
+			description: this.state.description,
+            start_time: stringDate,
+            freelancer_balance: freelancer.account.amount,
+			freelancer_id: freelancer_id,
+			dayrate_or_hourly: this.state.dayrate_or_hourly,
+			lat: this.state.lat,
+			long: this.state.long,
+			location: this.state.address,
+            rate: rate,
+            total_amount: null
+        };
+		 this.props.updateJob(jobObj)
 
 		
-	// };
+	};
     
 
 	componentToRender = () => {
@@ -192,7 +193,7 @@ class OpenClientJobCard extends React.Component {
 	};
 
 	render() {
-		console.log(this.state);
+        console.log(this.state.dayrate_or_hourly)
 		return (
 			<>{this.componentToRender()}</>
 
@@ -214,4 +215,15 @@ class OpenClientJobCard extends React.Component {
 	}
 }
 
-export default OpenClientJobCard
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+        users: state.users
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        updateJob: (jobObj) => dispatch(updateJob(jobObj))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(OpenClientJobCard)

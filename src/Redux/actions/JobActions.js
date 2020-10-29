@@ -51,13 +51,11 @@ export const completeJob = (jobObj) => {
 				Authorization: `Bearer ${token}`
 			},
 			body: JSON.stringify(patchJobObj)
-        };
-        
-            //update job to put in hours, total amount, and to complete it
+		};
 
-        fetch(`http://localhost:3000/jobs/${jobObj.id}`, options)
-        .then((resp) => resp.json())
-        .then((updatedJob) => {
+		//update job to put in hours, total amount, and to complete it
+
+		fetch(`http://localhost:3000/jobs/${jobObj.id}`, options).then((resp) => resp.json()).then((updatedJob) => {
 			const options = {
 				method: 'PATCH',
 				headers: {
@@ -65,9 +63,9 @@ export const completeJob = (jobObj) => {
 					Accept: 'application/json'
 				},
 				body: JSON.stringify({ amount: jobObj.client_balance - jobObj.total_amount })
-            };
-            
-            //update clients bank account. since we're not using it after this it we don't need to do anything with the data
+			};
+
+			//update clients bank account. since we're not using it after this it we don't need to do anything with the data
 
 			fetch(`http://localhost:3000/accounts/${jobObj.client_bank_account_id}`, options)
 				.then((resp) => resp.json())
@@ -84,7 +82,7 @@ export const completeJob = (jobObj) => {
 				body: JSON.stringify({ amount: user.account.amount + jobObj.total_amount })
 			};
 
-            //update the current user's bank account asd well as swap out the old job from their state with the new one and send it back to update state with the updated user object
+			//update the current user's bank account asd well as swap out the old job from their state with the new one and send it back to update state with the updated user object
 
 			fetch(`http://localhost:3000/accounts/${user.account.id}`, userOptions)
 				.then((resp) => resp.json())
@@ -106,6 +104,47 @@ export const completeJob = (jobObj) => {
 					};
 					return dispatch({ type: 'COMPLETE_JOB', payload: newArr });
 				});
+		});
+	};
+};
+
+export const updateJob = (jobObj) => {
+	return function(dispatch, getState) {
+		const jobToUpdate = {
+			description: jobObj.description,
+			start_time: jobObj.start_time,
+			freelancer_id: jobObj.freelancer_id,
+			dayrate_or_hourly: jobObj.dayrate_or_hourly,
+			lat: jobObj.lat,
+			long: jobObj.long,
+			location: jobObj.location,
+			rate: jobObj.rate
+		};
+
+		const token = localStorage.getItem('token');
+		const options = {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify(jobToUpdate)
+		};
+        fetch(`http://localhost:3000/jobs/${jobObj.id}`, options)
+        .then((resp) => resp.json())
+        .then((job) => {
+			const userClientJobs = getState().user.jobs_as_client;
+			const oldJob = userClientJobs.find((job) => job.id === jobObj.id);
+
+			const index = userClientJobs.indexOf(oldJob);
+			userClientJobs[index] = jobObj;
+			const newArr = {
+				...getState().user,
+				jobs_as_client: userClientJobs
+			};
+			//find old job and then reaplace
+			return dispatch({ type: 'UPDATE_JOB', payload: newArr });
 		});
 	};
 };
