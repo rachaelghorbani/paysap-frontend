@@ -65,6 +65,13 @@ class NewJobForm extends React.Component {
         e.preventDefault();
         //need if statement for if you can't find freelancer
         const freelancer = this.props.users.find((user) => user.email === this.state.freelancer_email);
+
+
+        // if(freelancer !== undefined && freelancer.email !== this.props.user.email && this.state.address !== '' && this.state.date !=='' && this.state.rate !== null && this.state.description !== ''){
+        //     // will put everything below in here when time to actually demo
+        // } 
+
+
 		const freelancer_id = freelancer.id;
 		const stringDate = this.state.date.toString();
 		const rate = parseInt(this.state.rate);
@@ -158,9 +165,10 @@ class NewJobForm extends React.Component {
 									<div>
 										{loading ? <div>...loading</div> : null}
 										{suggestions.map((suggestion, index) => {
-											const style = { backgroundColor: suggestion.active ? '#41b6e6' : '#fff' };
+                                            // const style = { backgroundColor: suggestion.active ? '#41b6e6' : '#fff' };
+                                            //to put style back in after suggestion below , {style}
 											return (
-												<div {...getSuggestionItemProps(suggestion, { style })} key={index}>
+												<div {...getSuggestionItemProps(suggestion)} key={index}>
 													{suggestion.description}
 												</div>
 											);
