@@ -26,8 +26,13 @@ class DocumentUploadComponent extends React.Component {
         form.append('preview', this.state.preview);
 		form.append('user_id', this.props.user.id);
         form.append('description', this.state.description);
-        console.log(this.state)
         this.props.addDocument(form)
+        
+        this.setState({
+            image: {},
+            preview: {},
+            description: ""
+        })
 	};
 	render() {
 		return (

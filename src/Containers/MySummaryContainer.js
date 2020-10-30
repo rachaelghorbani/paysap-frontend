@@ -1,8 +1,8 @@
 import React from 'react';
-import Chart from '../Components/Chart';
+import Chart from '../ChartComponents/Chart';
 import { connect } from 'react-redux';
 import { Container, Form, Row, Col } from 'react-bootstrap';
-import ComboChart from '../Components/ComboChart'
+import ComboChart from '../ChartComponents/ComboChart'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -24,7 +24,6 @@ class MySummaryContainer extends React.Component {
         }
 	};
 	render() {
-        console.log(this.props.user)
 		//will have a select here for freelance income or client spending. will change state here for value. depending on the value will hide/show one of two charts
 		return (
 			<Container >
