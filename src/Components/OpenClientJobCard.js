@@ -41,6 +41,7 @@ class OpenClientJobCard extends React.Component {
 	};
     
 	basicChangeHandler = (e) => {
+        console.log(e.target.value)
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
@@ -140,8 +141,8 @@ class OpenClientJobCard extends React.Component {
 						</InputGroup>
 					</td>
 					<td>
-						<InputGroup style={{ width: 100 }} onChange={this.basicChangeHandler} className="mb-3">
-							<Form.Control style={{ fontSize: 12 }} name="dayrate_or_hourly" as="select">
+						<InputGroup style={{ width: 100 }}  className="mb-3">
+							<Form.Control style={{ fontSize: 12 }} onChange={this.basicChangeHandler} value={this.state.dayrate_or_hourly} name="dayrate_or_hourly" as="select">
 								<option>Day Rate</option>
 								<option>Hourly</option>
 							</Form.Control>
@@ -198,11 +199,12 @@ class OpenClientJobCard extends React.Component {
 	};
 
 	showEditForm = () => {
+        console.log(this.state.dayrate_or_hourly)
 		this.setState({ showEditForm: true });
 	};
 
 	render() {
-        console.log(this.state.date)
+        console.log(this.state.dayrate_or_hourly)
 		return (
 			<>{this.componentToRender()}</>
 
