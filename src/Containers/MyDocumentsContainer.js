@@ -33,11 +33,14 @@ class MyDocumentsContainer extends React.Component {
 			return (
 				<div>
 					<Button onClick={this.showThumbnailsClickHandler}>Hide Pdf</Button>
-					<Container>
-						<PDFViewer
+					<Container d-flex>
+                        <div className="justify-contents-center"
+>
+						<PDFViewer style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}
 							src={this.props.pdfUrl}
 							backend={PDFJs}
 						/>
+                        </div>
 					</Container>
 				</div>
 			);
