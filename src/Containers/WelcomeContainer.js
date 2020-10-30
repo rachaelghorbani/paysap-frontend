@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import LoginForm from './LoginForm';
-import SignUp from './SignUp';
+import LoginForm from '../Components/LoginForm';
+import SignUp from '../Components/SignUp';
 import {connect} from 'react-redux'
 import {resetSuccessfulLogin} from '../Redux/actions/UserActions'
 
-class WelcomePage extends React.Component {
+class WelcomeContainer extends React.Component {
 	state = {
 		show_login: false,
 		show_signup: false,
@@ -50,4 +50,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(WelcomePage)
+export default connect(null, mapDispatchToProps)(WelcomeContainer)

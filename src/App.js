@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import NavBar from './Components/NavBar';
 import Header from './Components/Header';
 import { findUserByToken } from './Redux/actions/UserActions';
-import WelcomePage from './Components/WelcomePage';
+import WelcomeContainer from './Containers/WelcomeContainer';
 import JobsContainer from './Containers/JobsContainer';
 import MySummaryContainer from './Containers/MySummaryContainer';
 import MyDocumentsContainer from './Containers/MyDocumentsContainer';
@@ -38,7 +38,7 @@ class App extends React.Component {
 				) : (
 					<div>
 						<Header />
-						<WelcomePage />
+						<WelcomeContainer />
 					</div>
 				)}
 

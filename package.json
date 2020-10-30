@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "^4.5.3",
     "google-maps-react": "^2.0.6",
+    "pdfjs-dist": "^2.5.207",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-datetime-picker": "^3.0.4",

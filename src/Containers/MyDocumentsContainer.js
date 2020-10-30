@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {Container, CardGroup} from 'react-bootstrap'
 import DocumentUploadComponent from '../DocumentComponents/DocumentUploadComponent'
 import DocumentCard from '../DocumentComponents/DocumentCard'
+import PDFViewer from '../DocumentComponents/PDFViewer';
+import PDFJs from '../DocumentComponents/PDFJs'
 
 class MyDocumentsContainer extends React.Component {
 	//this container will contain preview images of all of a users uploaded documents. Each will be in a Document card. The document card will have the preview image as well as a link to email the file url.
@@ -26,6 +28,10 @@ class MyDocumentsContainer extends React.Component {
             {this.renderDocs()}
             </CardGroup>
             </div>
+            <PDFViewer
+                src='http://res.cloudinary.com/dyos8owie/image/upload/v1604074678/vab7dyke5obooqrmomzj.pdf'
+                backend={PDFJs}
+                />
             </div>
 
 				
