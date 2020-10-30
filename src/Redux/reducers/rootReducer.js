@@ -3,9 +3,29 @@ import { combineReducers } from 'redux';
 let defaultState = {
 	user: null,
 	users: [],
-	successfulLogin: true
+	successfulLogin: true,
+	showOrHideThumbnails: false,
+	pdfUrl: ''
 };
 
+const thumbnailReducer = (state = defaultState.showOrHideThumbnails, action) => {
+	switch (action.type) {
+		case 'HIDE_THUMBNAILS':
+			return action.payload;
+		case 'SHOW_THUMBNAILS':
+			return action.payload;
+		default:
+			return state;
+	}
+};
+const pdfReducer = (state = defaultState.pdfUrl, action) => {
+	switch (action.type) {
+		case 'PDF_URL':
+			return action.payload;
+		default:
+			return state;
+	}
+};
 const userReducer = (state = defaultState.user, action) => {
 	switch (action.type) {
 		case 'LOGIN_USER':
@@ -53,7 +73,9 @@ const successfulLoginReducer = (state = defaultState.successfulLogin, action) =>
 let rootReducer = combineReducers({
 	user: userReducer,
 	users: usersReducer,
-	successfulLogin: successfulLoginReducer
+	successfulLogin: successfulLoginReducer,
+	showOrHideThumbnails: thumbnailReducer,
+	pdfUrl: pdfReducer
 });
 
 export default rootReducer;

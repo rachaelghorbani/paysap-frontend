@@ -26,3 +26,23 @@ export const addDocument = formData => {
 		});
     }
 }
+
+export const updatePdfUrl = pdf => {
+    return {
+        type: 'PDF_URL',
+        payload: pdf
+    }
+}
+
+export const hideThumbnails = () => {
+    return {
+        type: 'HIDE_THUMBNAILS',
+        payload: true
+    }
+}
+export const showThumbnails = () => {
+    return {
+        type: 'SHOW_THUMBNAILS',
+        payload: false
+    }
+}
