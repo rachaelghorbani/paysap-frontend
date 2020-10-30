@@ -8,7 +8,7 @@ import { findUserByToken } from './Redux/actions/UserActions';
 import WelcomePage from './Components/WelcomePage';
 import JobsContainer from './Containers/JobsContainer';
 import MySummaryContainer from './Containers/MySummaryContainer';
-import MyDocuments from './Containers/MyDocuments';
+import MyDocumentsContainer from './Containers/MyDocumentsContainer';
 
 class App extends React.Component {
 
@@ -19,7 +19,7 @@ class App extends React.Component {
 
 
 	render() {
-        // console.log(this.props.user)
+        console.log(this.props.user)
 		//if this.props.user isnt' null show them the good stuff, otherwise just show the welcome page
 		return (
 			<div className="App">
@@ -31,7 +31,7 @@ class App extends React.Component {
                             <Route path="/jobs" render={() => <JobsContainer/>}/>
                             <Route path="/profile"/> 
                             <Route path="/mysummary" render={()=> <MySummaryContainer/>}/>
-                            <Route path='/mydocuments' render={() => <MyDocuments />}/>
+                            <Route path='/mydocuments' render={() => <MyDocumentsContainer />}/>
                             {/* above will render a profile component eventually */}
                         </Switch>
 					</div>

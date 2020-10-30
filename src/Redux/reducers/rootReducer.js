@@ -24,6 +24,8 @@ const userReducer = (state = defaultState.user, action) => {
 			return action.payload;
 		case 'DELETE_JOB':
 			return action.payload;
+		case 'ADD_DOCUMENT':
+			return action.payload;
 		default:
 			return state;
 	}
