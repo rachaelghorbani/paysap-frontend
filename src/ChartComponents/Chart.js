@@ -62,7 +62,7 @@ class Chart extends React.Component {
 		return (
             
 			<BarChart 
-				width={800}
+				width={1000}
 				height={300}
                 data={this.data}
 				margin={{

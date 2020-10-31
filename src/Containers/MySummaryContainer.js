@@ -27,12 +27,12 @@ class MySummaryContainer extends React.Component {
 		//will have a select here for freelance income or client spending. will change state here for value. depending on the value will hide/show one of two charts
 		return (
 			<Container >
-                <Row style={{fontSize: 40, marginTop: 15}}>
-                    <Col>Welcome {this.props.user.first_name}!</Col>
+                <Row className='justify-content-start'>
+                    <Col style={{fontSize: 36}} >Summary for {this.props.user.first_name}</Col>
                 </Row>
                 <Row className="justify-content-center" >
                     <Col >
-                    <Form.Group  style={{width: 250}}>
+                    <Form.Group  style={{width: 250, marginLeft: 100, marginTop: 25}}>
 						<Form.Control  onChange={this.changeHandler} as="select" size="med">
 							<option>Freelance Income</option>
 							<option>Client Payments</option>
@@ -55,10 +55,10 @@ class MySummaryContainer extends React.Component {
 					</Form.Group>
 				</div> */}
               
-				{this.state.showFL ? <Chart jobs={this.props.user.jobs_as_freelancer} fill='#05449D'text={'Total Freelance Income'} />
+				{this.state.showFL ? <Row className='justify-content-center'><Col className="col-11"><Chart jobs={this.props.user.jobs_as_freelancer} fill='#05449D'text={'Total Freelance Income'} /></Col></Row>
 				 : null}
-                {this.state.showCL? <Chart jobs={this.props.user.jobs_as_client} fill='#B26CA1' text="Total Client Payments" /> : null}
-                {this.state.showCC? <ComboChart fl_jobs={this.props.user.jobs_as_freelancer} cl_jobs={this.props.user.jobs_as_client}/> : null}
+                {this.state.showCL? <Row className='justify-content-center'><Col className="col-11"><Chart jobs={this.props.user.jobs_as_client} fill='#B26CA1' text="Total Client Payments" /></Col></Row> : null}
+                {this.state.showCC? <Row className='justify-content-center'><Col className="col-11"><ComboChart fl_jobs={this.props.user.jobs_as_freelancer} cl_jobs={this.props.user.jobs_as_client}/></Col></Row> : null}
 				
 			</Container>
 		);
