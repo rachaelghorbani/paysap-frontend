@@ -1,9 +1,11 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import LoginForm from '../Components/LoginForm';
 import SignUp from '../Components/SignUp';
 import {connect} from 'react-redux'
 import {resetSuccessfulLogin} from '../Redux/actions/UserActions'
+import bluewelcome from '../assets/bluewelcome.jpg';
+
 
 class WelcomeContainer extends React.Component {
 	state = {
@@ -30,16 +32,29 @@ class WelcomeContainer extends React.Component {
 		//onclick we want to hide the buttons and show the form instead
 		//welcome page should show the buttons to log in or sign up. depending on the button, should render the proper component
 		return (
-			<div>
-				{this.state.show_buttons ? (
+			// <div>
+                <Row className='rowbkg'>
+                    <Col className='bkg' ></Col>
+                    <Col>
+                    {this.state.show_buttons ? (
 					<div>
 						<Button onClick={this.loginHandler}>Login</Button>
 						<Button onClick={this.signupHandler}>Signup</Button>
 					</div>
 				) : null}
 				{this.state.show_login ? <div><Button onClick={this.backToLoginOrSignupOptions}>Back</Button><LoginForm /></div> : null}
-				{this.state.show_signup ? <div><Button onClick={this.backToLoginOrSignupOptions}>Back</Button><SignUp /> </div>: null}
-			</div>
+				{this.state.show_signup ? <div><Button onClick={this.backToLoginOrSignupOptions}>Back</Button><SignUp /> </div>: null}</Col>
+                </Row>
+				// {/* {this.state.show_buttons ? (
+				// 	<div>
+				// 		<Button onClick={this.loginHandler}>Login</Button>
+				// 		<Button onClick={this.signupHandler}>Signup</Button>
+				// 	</div>
+				// ) : null}
+				// {this.state.show_login ? <div><Button onClick={this.backToLoginOrSignupOptions}>Back</Button><LoginForm /></div> : null}
+				// {this.state.show_signup ? <div><Button onClick={this.backToLoginOrSignupOptions}>Back</Button><SignUp /> </div>: null} */}
+
+			// {/* </div> */}
 		);
 	}
 }
