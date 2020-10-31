@@ -6,7 +6,7 @@ import DateTimePicker from 'react-datetime-picker';
 // import { fetchAllUsers } from '../Redux/actions/UsersActions';
 import {createJob} from '../Redux/actions/JobActions'
 import { withRouter } from 'react-router-dom';
-import GooglePlaces from '../Components/GooglePlaces'
+import GooglePlaces from '../GoogleComponents/GooglePlaces'
 
 class NewJobForm extends React.Component {
 	state = {

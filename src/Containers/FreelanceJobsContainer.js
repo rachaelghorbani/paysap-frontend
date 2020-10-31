@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Table, Container } from 'react-bootstrap';
 import CompletedFreelanceCard from '../Components/CompletedFreelanceJobCard';
 import OpenFreelanceCard from '../Components/OpenFreelanceCard'
-import GoogleMap from '../Components/GoogleMap'
+import GoogleMap from '../GoogleComponents/GoogleMap'
 
 
 

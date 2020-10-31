@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, InputGroup, FormControl, Form } from 'react-bootstrap';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import GooglePlaces from '../Components/GooglePlaces'
+import GooglePlaces from '../GoogleComponents/GooglePlaces'
 import DateTimePicker from 'react-datetime-picker';
 import {connect} from 'react-redux'
 import {updateJob, deleteJob} from '../Redux/actions/JobActions'
