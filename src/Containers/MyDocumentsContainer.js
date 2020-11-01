@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container, CardGroup, Button } from 'react-bootstrap';
+import { Container, CardGroup, Button, Row, Col } from 'react-bootstrap';
 import DocumentUploadComponent from '../DocumentComponents/DocumentUploadComponent';
 import DocumentCard from '../DocumentComponents/DocumentCard';
 import PDFViewer from '../DocumentComponents/PDFViewer';
 import PDFJs from '../DocumentComponents/PDFJs';
-import { showThumbnails } from '../Redux/actions/DocumentActions';
 
 class MyDocumentsContainer extends React.Component {
 	//this container will contain preview images of all of a users uploaded documents. Each will be in a Document card. The document card will have the preview image as well as a link to email the file url.
@@ -32,15 +31,14 @@ class MyDocumentsContainer extends React.Component {
 		} else {
 			return (
 				<div>
-					<Button onClick={this.showThumbnailsClickHandler}>Hide Pdf</Button>
-					<Container d-flex>
-                        <div className="justify-contents-center"
->
-						<PDFViewer style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}
-							src={this.props.pdfUrl}
-							backend={PDFJs}
-						/>
-                        </div>
+					<Container className='d-flex justify-content-center'>
+						
+							<PDFViewer
+								style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
+								src={this.props.pdfUrl}
+								backend={PDFJs}
+							/>
+                            
 					</Container>
 				</div>
 			);
@@ -61,10 +59,6 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		showThumbnails: () => dispatch(showThumbnails())
-	};
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyDocumentsContainer);
+
+export default connect(mapStateToProps)(MyDocumentsContainer);
