@@ -54,7 +54,7 @@ export const logoutUser = () => {
     }
 }
 
-export const signupUser = user => {
+export const signupUser = (user, history) => {
     return function(dispatch){
         const options = {
             method: "POST",
@@ -68,6 +68,8 @@ export const signupUser = user => {
         .then(resp => resp.json())
         .then(newUser => {
             localStorage.setItem("token", newUser.jwt)
+            history.push('/mysummary')
+
             return dispatch({type: 'SIGNUP_USER', payload: newUser.user})
 
 
@@ -82,5 +84,46 @@ export const resetSuccessfulLogin = () => {
     }
 }
 
+export const hideSignup = () => {
+    return {
+        type: 'HIDE_SIGNUP',
+        payload: false
+    }
+}
+
+export const showSignup = () => {
+    return {
+        type: 'SHOW_SIGNUP',
+        payload: true
+    }
+}
+
+export const hideLogin = () => {
+    return {
+        type: 'HIDE_LOGIN',
+        payload: false
+    }
+}
+
+export const showLogin = () => {
+    return {
+        type: 'SHOW_LOGIN',
+        payload: true
+    }
+}
+
+export const showSignupAndLoginButtons = () => {
+    return {
+        type: 'SHOW_LOGIN_AND_SIGNUP_BUTTONS',
+        payload: true
+    }
+}
+
+export const hideSignupAndLoginButtons = () => {
+    return {
+        type: 'HIDE_LOGIN_AND_SIGNUP_BUTTONS',
+        payload: false
+    }
+}
 
 

@@ -9,14 +9,14 @@ class PDFViewer extends React.Component{
       componentDidMount() {
         const { src } = this.props;
         const element = this.viewerRef.current;
-    
         this.backend.init(src, element);
       }
-      
+     
+  
     
       render() {
         return (
-          <div ref={this.viewerRef} id='viewer' style={{ width: '60vw', height: '100vh' }}>
+          <div  onClick={this.handleClick}ref={this.viewerRef } id='viewer' style={{ width: '60vw', height: '100vh' }}>
     
           </div>
         )

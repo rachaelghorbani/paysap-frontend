@@ -3,6 +3,7 @@ import {Container, Form, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {onLoginSubmit} from '../Redux/actions/UserActions'
 import {withRouter} from 'react-router-dom'
+import {hideLogin, showSignupAndLoginButtons, resetSuccessfulLogin} from '../Redux/actions/UserActions'
 
 class LoginForm extends React.Component {
 
@@ -22,6 +23,16 @@ class LoginForm extends React.Component {
             e.preventDefault()
             this.props.submitUser(this.state, this.props.history)
             this.setState({username: "", password: ""})
+            this.props.hideLogin()
+            this.props.showSignupAndLoginButtons()
+
+
+        }
+
+        backClickHandler = (e) => {
+            this.props.resetSuccessfulLogin()
+            this.props.hideLogin()
+            this.props.showSignupAndLoginButtons()
         }
     
     render(){
@@ -39,12 +50,10 @@ class LoginForm extends React.Component {
                 <Form.Label><strong>Password: </strong></Form.Label>
                 <Form.Control type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler}/>
             </Form.Group>
-            
-            
-            <Button style={{ backgroundColor: '#FD3D0D', border: 'none' }} type="submit">
+            <Button className='mx-2'style={{ backgroundColor: '#FD3D0D', border: 'none'}} type="submit">
                 Submit
             </Button>
-            
+            <Button className='mx-2'onClick={this.backClickHandler}style={{ backgroundColor: '#FD3D0D', border: 'none' }}>Back</Button>
             
         </Form>
         </Container>
@@ -54,7 +63,12 @@ class LoginForm extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        submitUser: (user, history) => dispatch(onLoginSubmit(user, history))
+        submitUser: (user, history) => dispatch(onLoginSubmit(user, history)),
+        hideLogin: () => dispatch(hideLogin()),
+        showSignupAndLoginButtons: () => dispatch(showSignupAndLoginButtons()),
+        resetSuccessfulLogin: () => dispatch(resetSuccessfulLogin())
+
+        
     }
 }
 

@@ -5,7 +5,43 @@ let defaultState = {
 	users: [],
 	successfulLogin: true,
 	showOrHideThumbnails: false,
-	pdfUrl: ''
+	pdfUrl: '',
+	showLoginForm: false,
+	showSignupForm: false,
+	showOrHideLoginAndSignupButtons: true
+};
+
+const showLoginFormReducer = (state = defaultState.showLoginForm, action) => {
+	switch (action.type) {
+		case 'SHOW_LOGIN':
+			return action.payload;
+		case 'HIDE_LOGIN':
+			return action.payload;
+		default:
+			return state;
+	}
+};
+
+const showSignupFormReducer = (state = defaultState.showSignupForm, action) => {
+	switch (action.type) {
+		case 'SHOW_SIGNUP':
+			return action.payload;
+		case 'HIDE_SIGNUP':
+			return action.payload;
+		default:
+			return state;
+	}
+};
+
+const showOrHideLoginAndSignupButtonsReducer = (state = defaultState.showOrHideLoginAndSignupButtons, action) => {
+	switch (action.type) {
+		case 'HIDE_LOGIN_AND_SIGNUP_BUTTONS':
+			return action.payload;
+		case 'SHOW_LOGIN_AND_SIGNUP_BUTTONS':
+			return action.payload;
+		default:
+			return state;
+	}
 };
 
 const thumbnailReducer = (state = defaultState.showOrHideThumbnails, action) => {
@@ -75,7 +111,10 @@ let rootReducer = combineReducers({
 	users: usersReducer,
 	successfulLogin: successfulLoginReducer,
 	showOrHideThumbnails: thumbnailReducer,
-	pdfUrl: pdfReducer
+    pdfUrl: pdfReducer,
+    showLoginForm: showLoginFormReducer,
+    showSignupForm: showSignupFormReducer,
+    showOrHideLoginAndSignupButtons: showOrHideLoginAndSignupButtonsReducer
 });
 
 export default rootReducer;

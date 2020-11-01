@@ -2,6 +2,8 @@ import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import {connect} from 'react-redux'
 import {signupUser} from '../Redux/actions/UserActions'
+import {hideSignup, showSignupAndLoginButtons} from '../Redux/actions/UserActions'
+import {withRouter} from 'react-router-dom'
 
 class SignUp extends React.Component {
 	state = {
@@ -18,8 +20,18 @@ class SignUp extends React.Component {
 
     localSubmitHandler = (e) => {
         e.preventDefault()
-        this.props.signupUser(this.state)
+        this.props.signupUser(this.state, this.props.history)
+        this.props.hideSignup()
+        this.props.showSignupAndLoginButtons()
+
     }
+
+    backClickHandler = (e) => {
+        // this.props.hideLogin()
+        this.props.hideSignup()
+        this.props.showSignupAndLoginButtons()
+    }
+
 	render() {
         console.log(this.state)
 		return (
@@ -47,16 +59,19 @@ class SignUp extends React.Component {
 					<Form.Control value={this.state.password} onChange={this.changeHandler} name="password" type="password" placeholder="Password" />
 				</Form.Group>
 
-				<Button style={{ backgroundColor: '#FD3D0D', border: 'none' }} type="submit">
-					Sign Up!
+				<Button className='mx-2'style={{ backgroundColor: '#FD3D0D', border: 'none' }} type="submit">
+					Create Account!
 				</Button>
+                <Button className='mx-2'onClick={this.backClickHandler}style={{ backgroundColor: '#FD3D0D', border: 'none' }}>Back</Button>
 			</Form>
 		);
 	}
 }
 const mapDispatchToProps = dispatch => {
     return {
-        signupUser: (user) => dispatch(signupUser(user))
+        signupUser: (user, history) => dispatch(signupUser(user, history)),
+        hideSignup: () => dispatch(hideSignup()),
+        showSignupAndLoginButtons: () => dispatch(showSignupAndLoginButtons())
     }
 }
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(null, mapDispatchToProps)(withRouter(SignUp));
