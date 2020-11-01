@@ -47,7 +47,7 @@ td, th {
 }
 
 .bkg{
-background: url(assets/bluewelcome.jpg);
+background: url(assets/opt2.jpg);
 position: relative; 
 background-size: cover;
 height: 100vh;
@@ -62,6 +62,20 @@ opacity: 0.6
     justify-content: center;
    
 }
+
+.jumbo{
+
+        background: url(assets/smallpiggy.jpg);
+        background-repeat: no-repeat;
+        background-size: 500px;
+        background-color: #fcfcfe;
+        height: 200px;
+        position: relative;
+    
+        /* z-index: 12 */
+    
+}
+
 
 
 

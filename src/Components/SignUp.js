@@ -25,29 +25,29 @@ class SignUp extends React.Component {
 		return (
 			<Form onSubmit={this.localSubmitHandler}>
 				<Form.Group controlId="formBasicUserName">
-					<Form.Label>Username</Form.Label>
+					<Form.Label><strong>Username: </strong></Form.Label>
 					<Form.Control value={this.state.username} onChange={this.changeHandler} name="username" type="text" placeholder="Username" />
 				</Form.Group>
 				<Form.Group controlId="formBasicFirstName">
-					<Form.Label>First Name</Form.Label>
+					<Form.Label><strong>First Name: </strong></Form.Label>
 					<Form.Control value={this.state.first_name}  onChange={this.changeHandler} name="first_name" type="text" placeholder="First Name" />
 				</Form.Group>
 				<Form.Group controlId="formBasicLastName">
-					<Form.Label>Last Name</Form.Label>
+					<Form.Label><strong>Last Name: </strong></Form.Label>
 					<Form.Control value={this.state.last_name} onChange={this.changeHandler} name="last_name" type="text" placeholder="Last Name" />
 				</Form.Group>
 
 				<Form.Group controlId="formBasicEmail">
-					<Form.Label>Email address</Form.Label>
+					<Form.Label><strong>Email Address: </strong></Form.Label>
 					<Form.Control value={this.state.email} onChange={this.changeHandler} name="email" type="email" placeholder="Enter email" />
 				</Form.Group>
 
 				<Form.Group controlId="formBasicPassword">
-					<Form.Label>Password</Form.Label>
+					<Form.Label><strong>Password: </strong></Form.Label>
 					<Form.Control value={this.state.password} onChange={this.changeHandler} name="password" type="password" placeholder="Password" />
 				</Form.Group>
 
-				<Button variant="primary" type="submit">
+				<Button style={{ backgroundColor: '#FD3D0D', border: 'none' }} type="submit">
 					Sign Up!
 				</Button>
 			</Form>

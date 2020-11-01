@@ -57,7 +57,7 @@ class MySummaryContainer extends React.Component {
               
 				{this.state.showFL ? <Row className='justify-content-center'><Col className="col-11"><Chart jobs={this.props.user.jobs_as_freelancer} fill='#05449D'text={'Total Freelance Income'} /></Col></Row>
 				 : null}
-                {this.state.showCL? <Row className='justify-content-center'><Col className="col-11"><Chart jobs={this.props.user.jobs_as_client} fill='#B26CA1' text="Total Client Payments" /></Col></Row> : null}
+                {this.state.showCL? <Row className='justify-content-center'><Col className="col-11"><Chart jobs={this.props.user.jobs_as_client} fill='#FD3D0D' text="Total Client Payments" /></Col></Row> : null}
                 {this.state.showCC? <Row className='justify-content-center'><Col className="col-11"><ComboChart fl_jobs={this.props.user.jobs_as_freelancer} cl_jobs={this.props.user.jobs_as_client}/></Col></Row> : null}
 				
 			</Container>

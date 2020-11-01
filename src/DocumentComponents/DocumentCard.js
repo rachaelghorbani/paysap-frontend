@@ -19,7 +19,7 @@ const DocumentCard = (props) => {
         props.hideThumbnails()
     }
 	return (
-		<Card style={{ width: '12rem' }} className='mx-4'>
+		<Card style={{ width: '12rem' }} className='mx-4 border-danger border-left'>
 			<Card.Img  onClick={handleClick}style={{height: 200}}className="card-image" variant="top" src={props.doc.preview_url} />
 			<Card.Body>
 				<Card.Title style={{fontSize: 14}}>{props.doc.description}</Card.Title>

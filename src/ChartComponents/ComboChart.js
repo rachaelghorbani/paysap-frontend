@@ -86,7 +86,7 @@ class ComboChart extends React.Component {
 				<Tooltip  />
 				<Legend />
 				<Bar dataKey='Freelance Income' stackId="a" fill="#05449D" />
-                <Bar dataKey="Client Spending" stackId="a" fill="#B26CA1" />
+                <Bar dataKey="Client Spending" stackId="a" fill="#FD3D0D" />
 			</BarChart>
 		);
 	}

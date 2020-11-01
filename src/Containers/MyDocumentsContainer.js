@@ -25,7 +25,7 @@ class MyDocumentsContainer extends React.Component {
 				<div>
 					<DocumentUploadComponent />
 					<div className="d-flex justify-content-center">
-						<CardGroup className="justify-content-center">{this.renderDocs()}</CardGroup>
+						<CardGroup className="justify-content-center mb-4">{this.renderDocs()}</CardGroup>
 					</div>
 				</div>
 			);

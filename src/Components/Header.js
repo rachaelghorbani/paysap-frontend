@@ -3,9 +3,10 @@ import { Jumbotron } from 'react-bootstrap';
 
 const header = () => {
 	return (
-		<Jumbotron fluid style={{ height: 200, marginBottom: 0 }}>
-			header here
+        <div style={{backgroundColor: '#fcfcfe'}}>
+		<Jumbotron fluid className='jumbo'style={{ height: 200, marginBottom: 0, backgroundColor: '#fcfcfe' }}>
 		</Jumbotron>
+        </div>
 	);
 };
 

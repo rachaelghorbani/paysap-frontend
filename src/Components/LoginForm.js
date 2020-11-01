@@ -31,17 +31,17 @@ class LoginForm extends React.Component {
             
         <Form onSubmit={ e => this.localSubmitHandler(e)}>
             <Form.Group controlId="formBasicUsername">
-                <Form.Label>Username:</Form.Label>
+                <Form.Label><strong>Username: </strong></Form.Label>
                 <Form.Control type="text" name="username" placeholder="Enter username" value={this.state.username} onChange={this.changeHandler}/>
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password: </Form.Label>
+                <Form.Label><strong>Password: </strong></Form.Label>
                 <Form.Control type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler}/>
             </Form.Group>
             
             
-            <Button variant="primary" type="submit">
+            <Button style={{ backgroundColor: '#FD3D0D', border: 'none' }} type="submit">
                 Submit
             </Button>
             
