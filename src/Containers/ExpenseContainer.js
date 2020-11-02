@@ -1,10 +1,11 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Form, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import ExpenseCard from '../Components/ExpenseCard';
-import { Button } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import NewExpenseForm from '../Components/NewExpenseForm';
 import {showNewExpenseForm} from '../Redux/actions/ExpenseActions'
+import {setExpenseCategory} from '../Redux/actions/SortActions'
 
 class ExpenseContainer extends React.Component {
 	
@@ -20,14 +21,26 @@ class ExpenseContainer extends React.Component {
 		this.props.showNewExpenseForm()
 	};
 
+    sortByCat = cat => {
+        if(cat === 'All'){
+            return this.props.user.expenses
+        } else {
+            return this.props.user.expenses.filter(exp => exp.category === cat)
+        }
+    }
 	renderExpenses = () => {
+       
         const sorted = () => {
-            return this.props.user.expenses.sort((a, b) => {
+            return this.sortByCat(this.props.expenseCategory).sort((a, b) => {
                 return Date.parse(b.date) - Date.parse(a.date)
             })
         }
 		return sorted().map((e) => <ExpenseCard key={e.id} expense={e} />);
-	};
+    };
+    
+    setFilterCategory = (e) => {
+        this.props.setExpenseCategory(e.target.value)
+    }
 
 	showOrHideForm = () => {
 		if (this.props.showOrHideNewExpenseForm) {
@@ -65,13 +78,36 @@ class ExpenseContainer extends React.Component {
 						<tr>
 							<th>My Expenses</th>
 						</tr>
-						<tr>
-							<th>
-								<Button onClick={this.showNewExpense} style={{ marginLeft: -250, fontSize: 12 }}>
+						<tr >
+							<th >
+                            <Row>
+                                <Col className="d-flex align-items-center">
+								<Button style={{margin: 500}} onClick={this.showNewExpense} style={{ fontSize: 12 }}>
 									Add Expense
-								</Button>date range selector will go here on left. sorting by category/search on the
-								right
-							</th>
+								</Button>date range selector will go here on left
+                                </Col>
+                                <Col className="d-flex align-items-center">
+                                    Filter by Category:
+                            <InputGroup style={{ width: 100, marginLeft: 6}} >
+							<Form.Control
+								style={{ fontSize: 12 }}
+								onChange={this.setFilterCategory}
+								value={this.props.expenseCategory}
+								name="category"
+								as="select"
+							>
+                                <option>All</option>
+								<option>Materials and Supplies</option>
+								<option>Meals</option>
+								<option>Office Expenses</option>
+								<option>Health and Medical</option>
+								<option>Travel</option>
+								<option>Misc.</option>
+							</Form.Control>
+						</InputGroup>
+                        </Col>
+                        </Row>
+                        </th>
 						</tr>
 					</thead>
 				</Table>
@@ -80,6 +116,8 @@ class ExpenseContainer extends React.Component {
 	};
 
 	render() {
+
+        console.log(this.props.expenseCategory)
 		return (
 			<div>
                 {this.showOrHideForm()}
@@ -116,12 +154,14 @@ class ExpenseContainer extends React.Component {
 const mapStateToProps = (state) => {
 	return {
         user: state.user,
-        showOrHideNewExpenseForm: state.showOrHideNewExpenseForm
+        showOrHideNewExpenseForm: state.showOrHideNewExpenseForm,
+        expenseCategory: state.expenseCategory
 	};
 };
 const mapDispatchToProps = dispatch => {
     return {
-        showNewExpenseForm: ()=> dispatch(showNewExpenseForm())
+        showNewExpenseForm: ()=> dispatch(showNewExpenseForm()),
+        setExpenseCategory: category => dispatch(setExpenseCategory(category))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseContainer);
