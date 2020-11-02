@@ -21,7 +21,12 @@ class ExpenseContainer extends React.Component {
 	};
 
 	renderExpenses = () => {
-		return this.props.user.expenses.map((e) => <ExpenseCard key={e.id} expense={e} />);
+        const sorted = () => {
+            return this.props.user.expenses.sort((a, b) => {
+                return Date.parse(b.date) - Date.parse(a.date)
+            })
+        }
+		return sorted().map((e) => <ExpenseCard key={e.id} expense={e} />);
 	};
 
 	showOrHideForm = () => {

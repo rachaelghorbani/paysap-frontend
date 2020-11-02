@@ -8,12 +8,22 @@ const ClientJobsContainer = (props) => {
 
     const openClientJobs = () => {
         const openJobs = props.user.jobs_as_client.filter(job => job.completed === false)
-        return openJobs.map(job => <OpenClientJobCard key={job.id} job={job} />)
+        const sorted = () => {
+            return openJobs.sort((a, b) => {
+                return Date.parse(b.start_time) - Date.parse(a.start_time)
+            })
+        }
+        return sorted().map(job => <OpenClientJobCard key={job.id} job={job} />)
     }
 
     const closedClientJobs = () => {
         const closedJobs = props.user.jobs_as_client.filter(job => job.completed === true)
-        return closedJobs.map(job=> <CompletedClientJobCard key={job.id} job={job}/>)
+        const sorted = () => {
+            return closedJobs.sort((a, b) => {
+                return Date.parse(b.start_time) - Date.parse(a.start_time)
+            })
+        }
+        return sorted().map(job=> <CompletedClientJobCard key={job.id} job={job}/>)
     }
     return (
 

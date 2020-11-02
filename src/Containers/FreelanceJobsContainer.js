@@ -11,13 +11,23 @@ class FreelanceJobsContainer extends React.Component {
 
     //sort by date?
 	usersCompletedFreelanceJobs = () => {
-		const completedJobs = this.props.user.jobs_as_freelancer.filter((job) => job.completed === true);
-		return completedJobs.map((job) => <CompletedFreelanceCard key={job.id} job={job} />);
+        const completedJobs = this.props.user.jobs_as_freelancer.filter((job) => job.completed === true);
+        const sorted = () => {
+            return completedJobs.sort((a, b) => {
+                return Date.parse(b.start_time) - Date.parse(a.start_time)
+            })
+        }
+		return sorted().map((job) => <CompletedFreelanceCard key={job.id} job={job} />);
 	};
 
 	usersOpenFreelanceJobs = () => {
-		const openJobs = this.props.user.jobs_as_freelancer.filter((job) => job.completed === false);
-		return openJobs.map((job) => {
+        const openJobs = this.props.user.jobs_as_freelancer.filter((job) => job.completed === false);
+        const sorted = () => {
+            return openJobs.sort((a, b) => {
+                return Date.parse(b.start_time) - Date.parse(a.start_time)
+            })
+        }
+		return sorted().map((job) => {
         return <OpenFreelanceCard key={job.id} job={job} />});
     };
     
