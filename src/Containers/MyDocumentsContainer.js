@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container, CardGroup, Button, Row, Col } from 'react-bootstrap';
+import { Container, CardGroup} from 'react-bootstrap';
 import DocumentUploadComponent from '../DocumentComponents/DocumentUploadComponent';
 import DocumentCard from '../DocumentComponents/DocumentCard';
 import PDFViewer from '../DocumentComponents/PDFViewer';

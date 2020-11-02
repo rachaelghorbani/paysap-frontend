@@ -8,9 +8,20 @@ let defaultState = {
 	pdfUrl: '',
 	showLoginForm: false,
 	showSignupForm: false,
-	showOrHideLoginAndSignupButtons: true
+	showOrHideLoginAndSignupButtons: true,
+	showOrHideNewExpenseForm: false
 };
 
+const showOrHideNewExpenseFormReducer = (state = defaultState.showOrHideNewExpenseForm, action) => {
+	switch (action.type) {
+		case 'SHOW_NEW_EXPENSE_FORM':
+			return action.payload;
+		case 'HIDE_NEW_EXPENSE_FORM':
+			return action.payload;
+		default:
+			return state;
+	}
+};
 const showLoginFormReducer = (state = defaultState.showLoginForm, action) => {
 	switch (action.type) {
 		case 'SHOW_LOGIN':
@@ -82,6 +93,8 @@ const userReducer = (state = defaultState.user, action) => {
 			return action.payload;
 		case 'ADD_DOCUMENT':
 			return action.payload;
+		case 'ADD_EXPENSE':
+			return action.payload;
 		default:
 			return state;
 	}
@@ -111,10 +124,11 @@ let rootReducer = combineReducers({
 	users: usersReducer,
 	successfulLogin: successfulLoginReducer,
 	showOrHideThumbnails: thumbnailReducer,
-    pdfUrl: pdfReducer,
-    showLoginForm: showLoginFormReducer,
-    showSignupForm: showSignupFormReducer,
-    showOrHideLoginAndSignupButtons: showOrHideLoginAndSignupButtonsReducer
+	pdfUrl: pdfReducer,
+	showLoginForm: showLoginFormReducer,
+	showSignupForm: showSignupFormReducer,
+	showOrHideLoginAndSignupButtons: showOrHideLoginAndSignupButtonsReducer,
+	showOrHideNewExpenseForm: showOrHideNewExpenseFormReducer
 });
 
 export default rootReducer;
