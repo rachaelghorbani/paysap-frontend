@@ -72,7 +72,6 @@ export const updateExpense = (expenseObj, id) => {
 
 export const deleteExpense = id => {
     return function(dispatch, getState){
-        console.log(id)
         const token = localStorage.getItem('token');
 
         const options = {

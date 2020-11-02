@@ -6,6 +6,7 @@ import {BarChart, Bar, XAxis, YAxis, CartesianGrid,Tooltip, Legend} from 'rechar
 
 class ExpenseChart extends React.Component {
    
+   
 
 
     findMonthlyExpenses = (month) => {
@@ -21,9 +22,9 @@ class ExpenseChart extends React.Component {
 
     }
 
-   
+   fetchData = () => {
 
-    data = [
+    const data = [
         {
             name: 'Jan', 'Total Expenses': this.findMonthlyExpenses('Jan')
         },
@@ -62,14 +63,19 @@ class ExpenseChart extends React.Component {
         }
     
     ];
+    return data
+}
+
+  
 
 	render() {
+        console.log(this.fetchData())
 		return (
             
             <BarChart 
 				width={1000}
 				height={300}
-                data={this.data}
+                data={this.fetchData()}
 				margin={{
 					top: 20, right: 20, left: 20, bottom: 5,
                 }}

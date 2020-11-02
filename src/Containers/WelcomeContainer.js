@@ -34,7 +34,6 @@ class WelcomeContainer extends React.Component {
 
 	//on click of either of the buttons, we want to hide the buttons and show the particular form
 	render() {
-        console.log(this.props)
 		//onclick we want to hide the buttons and show the form instead
 		//welcome page should show the buttons to log in or sign up. depending on the button, should render the proper component
 		return (
