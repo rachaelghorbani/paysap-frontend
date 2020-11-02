@@ -46,7 +46,7 @@ class FreelanceJobsContainer extends React.Component {
 				<Table bordered className="mt-2">
 					<thead>
 						<tr>
-							<th>Open Freelance Jobs</th>
+							<th style={{fontSize: 14}}>Open Freelance Jobs</th>
 						</tr>
 					</thead>
 				</Table>
@@ -75,7 +75,7 @@ class FreelanceJobsContainer extends React.Component {
 				<Table bordered>
 					<thead>
 						<tr>
-							<th>Completed Freelance Jobs</th>
+							<th style={{fontSize: 14}}>Completed Freelance Jobs</th>
 						</tr>
 					</thead>
 				</Table>

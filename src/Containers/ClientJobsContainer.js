@@ -32,7 +32,7 @@ const ClientJobsContainer = (props) => {
 				<Table bordered className="mt-2">
 					<thead>
 						<tr>
-							<th>Open Client Jobs</th>
+							<th style={{fontSize: 14}}>Open Client Jobs</th>
 						</tr>
 					</thead>
 				</Table>
@@ -59,7 +59,7 @@ const ClientJobsContainer = (props) => {
 				<Table bordered>
 					<thead>
 						<tr>
-							<th>Completed Client Jobs</th>
+							<th style={{fontSize: 14}}>Completed Client Jobs</th>
 						</tr>
 					</thead>
 				</Table>

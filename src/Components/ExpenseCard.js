@@ -131,7 +131,6 @@ class ExpenseCard extends React.Component {
 		}
 	};
 	render() {
-		console.log(this.state);
 		return (
 			<>{this.contentToShow()}</>
 
