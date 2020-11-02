@@ -8,6 +8,7 @@ import {showNewExpenseForm} from '../Redux/actions/ExpenseActions'
 import {setExpenseCategory} from '../Redux/actions/SortActions'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import ReactToExcel from 'react-html-table-to-excel'
 
 
 class ExpenseContainer extends React.Component {
@@ -127,9 +128,17 @@ class ExpenseContainer extends React.Component {
 							<th >
                             <Row className='mb-2'>
                                 <Col className="d-flex align-items-center">
-								<Button onClick={this.showNewExpense} style={{ fontSize: 12 }}>
+								<Button onClick={this.showNewExpense} style={{ fontSize: 12 }} >
 									Add Expense
 								</Button>
+                                <ReactToExcel 
+                                    table='table-to-xls'
+                                    filename='expenses'
+                                    sheet='sheet 1'
+                                    className='btn ml-2'
+                                    id='exlButton'
+                                    buttonText='Export To XLS'
+                                />
                                 </Col>
                                 </Row>
                                 <Row>
@@ -169,8 +178,6 @@ class ExpenseContainer extends React.Component {
 	};
 
 	render() {
-        console.log(this.state.startDate)
-        console.log(this.filterByDate())
 		return (
 			<div>
                 {this.showOrHideForm()}
@@ -186,7 +193,7 @@ class ExpenseContainer extends React.Component {
 					{/* </thead> */}
 					{/* {this.showOrHideForm()}
 				</Table> */}
-				<Table bordered hover>
+				<Table bordered hover id='table-to-xls'>
 					<thead>
 						<tr>
 							<th>Date</th>

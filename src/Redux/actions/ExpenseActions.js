@@ -14,7 +14,6 @@ export const addExpense = (expenseObj) => {
     return function(dispatch, getState){
         const token = localStorage.getItem('token');
         const newArr = {...getState().user, expenses: [...getState().user.expenses, expenseObj]}
-        console.log(newArr)
 
         const options = {
             method: 'POST',
