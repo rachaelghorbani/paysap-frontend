@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Container, Form, Row, Col } from 'react-bootstrap';
 import ComboChart from '../ChartComponents/ComboChart'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ExpenseContainer from './ExpenseContainer';
 
 
 
@@ -26,6 +27,7 @@ class MySummaryContainer extends React.Component {
 	render() {
 		//will have a select here for freelance income or client spending. will change state here for value. depending on the value will hide/show one of two charts
 		return (
+            <div>
 			<Container >
                 <Row className='justify-content-start'>
                     <Col style={{fontSize: 36}} >Summary for {this.props.user.first_name}</Col>
@@ -61,6 +63,10 @@ class MySummaryContainer extends React.Component {
                 {this.state.showCC? <Row className='justify-content-center'><Col className="col-11"><ComboChart fl_jobs={this.props.user.jobs_as_freelancer} cl_jobs={this.props.user.jobs_as_client}/></Col></Row> : null}
 				
 			</Container>
+            <Container>
+                <ExpenseContainer />
+            </Container>
+            </div>
 		);
 	}
 }
