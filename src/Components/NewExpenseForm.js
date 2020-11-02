@@ -73,7 +73,13 @@ class NewExpenseForm extends React.Component{
             <InputGroup className="mb-3">
                 <Form.Control style={{ fontSize: 12 }} onChange={this.basicChangeHandler} value={this.state.category} name="category" as="select">
                     <option>Materials and Supplies</option>
-                    <option>Hourly</option>
+                    <option>Meals</option>
+                    <option>Office Expenses</option>
+                    <option>Health and Medical</option>
+                    <option>Travel</option>
+                    <option>Misc.</option>
+
+
                 </Form.Control>
             </InputGroup>
         </td>
@@ -93,7 +99,7 @@ class NewExpenseForm extends React.Component{
      
         <td >
             <Button onClick={this.addExpense}style={{ fontSize: 12 }}>
-                Save
+                Add
             </Button>
         </td>
         <td >

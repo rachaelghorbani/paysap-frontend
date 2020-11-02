@@ -38,7 +38,7 @@ export const addExpense = (expenseObj) => {
     }
 }
 
-export const updateExpense = expenseObj => {
+export const updateExpense = (expenseObj, id) => {
     return function(dispatch, getState){
         const token = localStorage.getItem('token');
 
@@ -54,20 +54,49 @@ export const updateExpense = expenseObj => {
             },
             body: JSON.stringify(expenseObj)
         }
-        fetch(`http://localhost:3000/expenses/${expenseObj.id}`, options)
+        fetch(`http://localhost:3000/expenses/${id}`, options)
         .then(resp => resp.json())
-        .then(retJob => {
+        .then(updatedExpense => {
             const expenses = getState().user.expenses;
-			const oldExpense = expenses.find((ex) => ex.id === expenseObj.id);
+			const oldExpense = expenses.find((ex) => ex.id === id);
 
 			const index = expenses.indexOf(oldExpense);
-			expenses[index] = retJob;
+			expenses[index] = updatedExpense;
 			const newArr = {
 				...getState().user,
 				expenses: expenses
             }
-            return dispatch({type: 'UPDATE_JOB', payload: newArr })
+            return dispatch({type: 'UPDATE_EXPENSE', payload: newArr })
         })
 
+    }
+}
+
+export const deleteExpense = id => {
+    return function(dispatch, getState){
+        console.log(id)
+        const token = localStorage.getItem('token');
+
+        const options = {
+            method: "DELETE",
+            headers: {
+				Authorization: `Bearer ${token}`
+            }
+        }
+
+        fetch(`http://localhost:3000/expenses/${id}`, options)
+        .then(resp => resp.json())
+        .then(() => {
+            const expenses = getState().user.expenses
+            const filtered = expenses.filter(ex => ex.id !== id)
+            const newArr = {
+                ...getState().user,
+                expenses: filtered
+            };
+            return dispatch({type: 'DELETE_EXPENSE', payload: newArr})
+            //filter
+        })
+
+        // DELETE_EXPENSE
     }
 }
