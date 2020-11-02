@@ -95,6 +95,8 @@ const userReducer = (state = defaultState.user, action) => {
 			return action.payload;
 		case 'ADD_EXPENSE':
 			return action.payload;
+		case 'UPDATE_JOB':
+			return action.payload;
 		default:
 			return state;
 	}
