@@ -36,7 +36,7 @@ class MySummaryContainer extends React.Component {
             <div>
 			<Container >
                 <Row className='justify-content-start'>
-                    <Col style={{fontSize: 36}} >Summary for {this.props.user.first_name}</Col>
+                    <Col style={{fontSize: 36}} >{this.props.user.first_name}'s Dashboard</Col>
                 </Row>
                 <Row className="justify-content-center" >
                     <Col >

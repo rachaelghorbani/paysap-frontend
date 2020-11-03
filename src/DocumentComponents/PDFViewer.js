@@ -30,8 +30,8 @@ class PDFViewer extends React.Component {
 
 	render() {
 		return (
-			<div ref={node => this.node = node}>
-				<div ref={this.viewerRef} id="viewer" style={{ width: '60vw', height: '100vh' }} />
+			<div className='mt-2'ref={node => this.node = node}>
+				<div ref={this.viewerRef} id="viewer" style={{ width: '60vw', height: '60vh' }} />
 			</div>
 		);
 	}

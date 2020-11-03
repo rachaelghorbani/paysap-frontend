@@ -40,14 +40,14 @@ class DocumentUploadComponent extends React.Component {
 	};
 	render() {
 		return (
-			<Form onSubmit={this.onSubmit}>
+			<Form className='formBorder'  onSubmit={this.onSubmit}>
 				<Form.Group controlId="formFileUpload">
-					<Form.Label>Upload Document</Form.Label>
+					{/* <Form.Label>Upload Document</Form.Label> */}
 					<Form.Control type="file" name="document" onChange={this.onChange} />
 				</Form.Group>
 
 				<Form.Group controlId="formDocumentDescription">
-					<Form.Label>Document Description</Form.Label>
+					<Form.Label>Document Description:</Form.Label>
 					<Form.Control
 						type="text"
 						value={this.state.description}

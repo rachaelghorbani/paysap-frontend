@@ -91,7 +91,15 @@ color: white
 .navLinks:hover{
 color: #0275d8
 }
+.formBorder{
+    border: 1px solid #000;
+    width: 25vw;
+    padding: 10px;
+    border-radius: 3px;
+    border-color: #d3d3d3;
+    margin: 10px 0px 10px 0px
 
+}
 
 
 

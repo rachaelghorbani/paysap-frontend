@@ -22,7 +22,9 @@ class MyDocumentsContainer extends React.Component {
 		if (this.props.showOrHideThumbnails === false) {
 			return (
 				<div>
+                    <Container className="d-flex justify-content-center" >
 					<DocumentUploadComponent />
+                    </Container>
 					<div className="d-flex justify-content-center">
 						<CardGroup className="justify-content-center mb-4">{this.renderDocs()}</CardGroup>
 					</div>
