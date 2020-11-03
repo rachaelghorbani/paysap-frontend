@@ -49,7 +49,6 @@ class MyDocumentsContainer extends React.Component {
 
 	render() {
 		//if showOrHideThumbnails is false, show the thumbnails, if its true show the big doc with the url from state and a button to exit
-		console.log(this.props);
 		return <div>{this.componentsToRender()}</div>;
 	}
 }

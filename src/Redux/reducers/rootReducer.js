@@ -103,12 +103,15 @@ const userReducer = (state = defaultState.user, action) => {
 			return action.payload;
 		case 'ADD_DOCUMENT':
 			return action.payload;
+		case 'DELETE_DOCUMENT':
+			return action.payload;
 		case 'ADD_EXPENSE':
 			return action.payload;
 		case 'UPDATE_EXPENSE':
 			return action.payload;
 		case 'DELETE_EXPENSE':
 			return action.payload;
+
 		default:
 			return state;
 	}
@@ -142,8 +145,8 @@ let rootReducer = combineReducers({
 	showLoginForm: showLoginFormReducer,
 	showSignupForm: showSignupFormReducer,
 	showOrHideLoginAndSignupButtons: showOrHideLoginAndSignupButtonsReducer,
-    showOrHideNewExpenseForm: showOrHideNewExpenseFormReducer,
-    expenseCategory: expenseCategoryReducer
+	showOrHideNewExpenseForm: showOrHideNewExpenseFormReducer,
+	expenseCategory: expenseCategoryReducer
 });
 
 export default rootReducer;

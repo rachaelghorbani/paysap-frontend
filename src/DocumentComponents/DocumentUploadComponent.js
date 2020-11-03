@@ -56,7 +56,7 @@ class DocumentUploadComponent extends React.Component {
 						placeholder="Description"
 					/>
 				</Form.Group>
-				<Button variant="primary" type="submit">
+				<Button style={{fontSize: 14}} variant="primary" type="submit">
 					Upload Document
 				</Button>
 			</Form>

@@ -15,6 +15,7 @@ export const addDocument = formData => {
         fetch('http://localhost:3000/documents', options)
         .then((resp) => resp.json())
         .then((document) => {
+            console.log(document)
             const formattedJob = {
                 id: document.id,
                 description: document.description,
@@ -44,5 +45,31 @@ export const showThumbnails = () => {
     return {
         type: 'SHOW_THUMBNAILS',
         payload: false
+    }
+}
+
+export const deleteDocument = (docObj, id) => {
+    return function(dispatch, getState){
+        const token = localStorage.getItem('token');
+        console.log(docObj)
+        const options = {
+            method: 'DELETE',
+            headers: {
+            	Authorization: `Bearer ${token}`
+            },
+            body: docObj
+        }
+        fetch(`http://localhost:3000/documents/${id}`, options)
+        .then(resp => resp.json())
+        .then((retdoc) => {
+            const documents = getState().user.documents
+            const filtered = documents.filter(doc => doc.id !== id)
+            const newArr = {
+                ...getState().user,
+                documents: filtered
+            };
+            console.log(retdoc)
+            return dispatch({type: 'DELETE_DOCUMENT', payload: newArr})
+        })
     }
 }
