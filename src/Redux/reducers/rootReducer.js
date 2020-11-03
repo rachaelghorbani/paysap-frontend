@@ -10,7 +10,19 @@ let defaultState = {
 	showSignupForm: false,
 	showOrHideLoginAndSignupButtons: true,
 	showOrHideNewExpenseForm: false,
-	expenseCategory: 'All'
+	expenseCategory: 'All',
+	showDocumentUploadForm: false
+};
+
+const showDocumentUploadFormReducer = (state = defaultState.showDocumentUploadForm, action) => {
+	switch (action.type) {
+		case 'SHOW_UPLOAD_FORM':
+			return action.payload;
+		case 'HIDE_UPLOAD_FORM':
+			return action.payload;
+		default:
+			return state;
+	}
 };
 
 const expenseCategoryReducer = (state = defaultState.expenseCategory, action) => {
@@ -146,7 +158,8 @@ let rootReducer = combineReducers({
 	showSignupForm: showSignupFormReducer,
 	showOrHideLoginAndSignupButtons: showOrHideLoginAndSignupButtonsReducer,
 	showOrHideNewExpenseForm: showOrHideNewExpenseFormReducer,
-	expenseCategory: expenseCategoryReducer
+    expenseCategory: expenseCategoryReducer,
+    showDocumentUploadForm: showDocumentUploadFormReducer
 });
 
 export default rootReducer;

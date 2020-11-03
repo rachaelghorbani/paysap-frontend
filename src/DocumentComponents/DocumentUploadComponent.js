@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {Button, Form} from 'react-bootstrap'
-import {addDocument} from '../Redux/actions/DocumentActions'
+import {addDocument, hideUploadForm} from '../Redux/actions/DocumentActions'
 
 class DocumentUploadComponent extends React.Component {
 
@@ -36,8 +36,13 @@ class DocumentUploadComponent extends React.Component {
             preview: {},
             description: ""
         })
+        this.props.hideDocumentUploadForm()
     }
-	};
+    };
+    
+    hideForm = () => {
+        this.props.hideDocumentUploadForm()
+    }
 	render() {
 		return (
 			<Form className='formBorder'  onSubmit={this.onSubmit}>
@@ -56,8 +61,11 @@ class DocumentUploadComponent extends React.Component {
 						placeholder="Description"
 					/>
 				</Form.Group>
-				<Button style={{fontSize: 14}} variant="primary" type="submit">
-					Upload Document
+				<Button style={{fontSize: 14, marginRight: 8}} variant="primary" type="submit">
+					Upload
+				</Button>
+                <Button onClick={this.hideForm} style={{fontSize: 14, marginLeft: 8}} variant="primary" type="submit">
+					Back
 				</Button>
 			</Form>
 		);
@@ -71,7 +79,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addDocument: (formData) => dispatch(addDocument(formData))
+        addDocument: (formData) => dispatch(addDocument(formData)),
+        hideDocumentUploadForm: () => dispatch(hideUploadForm())
     }
 }
 

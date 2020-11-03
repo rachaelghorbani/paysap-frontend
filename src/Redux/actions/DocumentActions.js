@@ -1,3 +1,4 @@
+
 export const addDocument = formData => {
     return function(dispatch, getState){
 
@@ -71,5 +72,19 @@ export const deleteDocument = (docObj, id) => {
             console.log(retdoc)
             return dispatch({type: 'DELETE_DOCUMENT', payload: newArr})
         })
+    }
+}
+
+export const showUploadForm = () => {
+    return {
+        type: 'SHOW_UPLOAD_FORM',
+        payload: true
+    }
+}
+
+export const hideUploadForm = () => {
+    return {
+        type: 'HIDE_UPLOAD_FORM',
+        payload: false 
     }
 }
