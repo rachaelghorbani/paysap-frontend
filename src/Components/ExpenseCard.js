@@ -115,7 +115,7 @@ class ExpenseCard extends React.Component {
 					<td>{this.restructuredDate()}</td>
 					<td>{this.props.expense.description}</td>
 					<td>{this.props.expense.category}</td>
-					<td>{this.props.expense.amount}</td>
+					<td>${this.props.expense.amount}</td>
 					<td>
 						<Button onClick={this.showEditForm} style={{ fontSize: 12 }}>
 							Edit
