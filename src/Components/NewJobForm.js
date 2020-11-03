@@ -109,7 +109,7 @@ class NewJobForm extends React.Component {
 		return (
             <div>
 			{/* // <Container > */}
-                <div>New Job</div>
+                <div style={{fontSize: 36}}>Create Job</div>
 				{/* <div style={{ width: '40vw', margin: 15 }}> */}
                 <Container className='d-flex justify-content-center'>
 					<Form className='newJobForm'  onSubmit={this.localSubmitHandler}>
