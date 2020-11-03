@@ -33,7 +33,7 @@ const DocumentCard = (props) => {
 	return (
         <div>
 		<Card style={{ width: '12rem', borderColor: '#FD3D0D' }}className='mx-4 my-4 '>
-			<Card.Img  onClick={handleClick}style={{height: 200}}className="card-image" variant="top" src={props.doc.preview_url} />
+			<Card.Img  onClick={handleClick} style={{height: 150}}className="card-image" variant="top" src={props.doc.preview_url} />
 			<Card.Body>
 				<Card.Title style={{fontSize: 14}}>{props.doc.description}</Card.Title>
 				{/* <ListGroup as="ul" variant="flush" className="overflow-auto" style={{ height: 50 }}>

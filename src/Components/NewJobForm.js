@@ -46,14 +46,14 @@ class NewJobForm extends React.Component {
 	rateFormComponent = () => {
 		if (this.state.dayrate_or_hourly === 'Day Rate') {
 			return (
-				<Form.Group onChange={this.basicChangeHandler} value={this.state.rate} controlId="formBasicRate">
+				<Form.Group  onChange={this.basicChangeHandler} value={this.state.rate} controlId="formBasicRate">
 					<Form.Label>Day Rate:</Form.Label>
 					<Form.Control name="rate" type="number" placeholder="Enter day rate" />
 				</Form.Group>
 			);
 		} else {
 			return (
-				<Form.Group onChange={this.basicChangeHandler} value={this.state.rate} controlId="formBasicRate">
+				<Form.Group  onChange={this.basicChangeHandler} value={this.state.rate} controlId="formBasicRate">
 					<Form.Label>Hourly Rate:</Form.Label>
 					<Form.Control name="rate" type="number" placeholder="Enter hourly rate" />
 				</Form.Group>
@@ -107,15 +107,18 @@ class NewJobForm extends React.Component {
 	render() {
 		console.log(this.props.user);
 		return (
-            <div>
+            // <div style={{height: '62.8vh'}} className='backgroundImage'>
+            <div  className='d-flex justify-content-center'>
+                {/* .login-overlay would go in above div if using background image */}
 			{/* // <Container > */}
-                <div style={{fontSize: 36}}>Create Job</div>
+                {/* <div style={{fontSize: 36}}>Create Job</div> */}
 				{/* <div style={{ width: '40vw', margin: 15 }}> */}
                 <Container className='d-flex justify-content-center'>
-					<Form className='newJobForm'  onSubmit={this.localSubmitHandler}>
+					<Form className='newJobForm '  onSubmit={this.localSubmitHandler}>
+                        <div style={{fontSize: 36, marginBottom: 20}}>Create Job</div>
 						<Form.Row>
 							<Col>
-								<Form.Group controlId="formBasicJobDescription">
+								<Form.Group  controlId="formBasicJobDescription">
 									<Form.Label>Job Description:</Form.Label>
 									<Form.Control
 										onChange={this.basicChangeHandler}
@@ -127,7 +130,7 @@ class NewJobForm extends React.Component {
 								</Form.Group>
 							</Col>
 							<Col>
-								<Form.Group controlId="formBasicFreelancerEmail">
+								<Form.Group  controlId="formBasicFreelancerEmail">
 									<Form.Label>Freelancer's Email:</Form.Label>
 									<Form.Control
 										onChange={this.basicChangeHandler}
@@ -143,13 +146,14 @@ class NewJobForm extends React.Component {
 
 						<Form.Row>
 							<Col>
-								<Form.Group
+                                <Form.Group 
+                                
 									onChange={this.basicChangeHandler}
 									value={this.state.dayrate_or_hourly}
 									controlId="dayRateOrHourly"
 								>
 									<Form.Label>Job Type: </Form.Label>
-									<Form.Control name="dayrate_or_hourly" as="select">
+									<Form.Control name="dayrate_or_hourly" as="select" type='select'>
 										<option>Day Rate</option>
 										<option>Hourly</option>
 									</Form.Control>
@@ -213,6 +217,7 @@ class NewJobForm extends React.Component {
 				{/* </div> */}
 			{/* </Container> */}
             </div>
+            // </div>
 		);
 	}
 }
