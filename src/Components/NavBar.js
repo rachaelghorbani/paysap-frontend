@@ -17,13 +17,13 @@ const NavBar = (props) => {
 				PAY.S.A.P. {props.user.first_name} ACCT: xxxxxx{props.user.account.account_number}, BAL:  ${props.user.account.amount}
 			</Navbar.Brand>
 			<Nav className="ml-auto align-items-center">
-            <Link to="/mysummary" className="mx-2">
+            <Link to="/mysummary" className="mx-2 navLinks">
 					My Summary
 				</Link>
-                <Link to="/mydocuments" className="mx-2">
+                <Link to="/mydocuments" className="mx-2 navLinks">
 					My Documents
 				</Link>
-				<NavDropdown title="Jobs" id="basic-nav-dropdown">
+				<NavDropdown  title="Jobs" id="basic-nav-dropdown">
 					<NavDropdown.Item>
 						<Link to="/jobs/new" className="mx-2">
 							Create Job
@@ -40,10 +40,8 @@ const NavBar = (props) => {
 						</Link>
 					</NavDropdown.Item>
 				</NavDropdown>
-				<Link to="/profile" className="mx-2">
-					Profile
-				</Link>
-				<Link to="/" onClick={localLogout} className="mx-2">
+				
+				<Link to="/" onClick={localLogout} className="mx-2 navLinks">
 					Logout
 				</Link>
 			</Nav>
