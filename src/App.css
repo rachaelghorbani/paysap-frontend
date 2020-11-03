@@ -100,6 +100,21 @@ color: #0275d8
     margin: 10px 0px 10px 0px
 
 }
+.react-datetime-picker__wrapper{
+    border-radius: 3px;
+    height: 32px;
+} 
 
+.newJobForm{
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 3px;
+    border-color: #d3d3d3;
+    margin: 10px 0px 10px 0px;
+    width: 42vw;
+
+
+
+}
 
 

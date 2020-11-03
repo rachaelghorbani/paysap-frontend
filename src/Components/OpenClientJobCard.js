@@ -164,7 +164,7 @@ class OpenClientJobCard extends React.Component {
 					<td>
 						{/* ///// google places goes here*/}
 						<InputGroup className="mb-3">
-							<GooglePlaces handleAddressSelect={this.handleAddressSelect} addressChangeHandler={this.addressChangeHandler} value={this.state.address} />
+							<GooglePlaces height="32" width="200" handleAddressSelect={this.handleAddressSelect} addressChangeHandler={this.addressChangeHandler} value={this.state.address} />
 						</InputGroup>
 					</td>
 					<td colSpan='2'>

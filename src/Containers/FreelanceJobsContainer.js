@@ -42,7 +42,7 @@ class FreelanceJobsContainer extends React.Component {
 
 		return (
 			<Container>
-                <GoogleMap jobs={this.openJobsForMap()}/>
+                {/* <GoogleMap jobs={this.openJobsForMap()}/> */}
 				<Table bordered className="mt-2">
 					<thead>
 						<tr>

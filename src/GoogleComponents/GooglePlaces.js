@@ -3,6 +3,7 @@ import { GoogleApiWrapper } from 'google-maps-react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 
 const GooglePlaces = (props) => {
+    console.log(props)
     return (
         <PlacesAutocomplete
 						onChange={props.addressChangeHandler}
@@ -12,7 +13,7 @@ const GooglePlaces = (props) => {
 						{({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
 							return (
 								<div >
-									<input style={{width: 200, height: 32}} {...getInputProps({ placeholder: 'Type address' })} />
+									<input style={{width: parseInt(props.width), height: parseInt(props.height), borderColor: '#d3d3d3', borderWidth: 1, borderRadius: 3}} {...getInputProps({ placeholder: 'Type address' })} />
 									<div>
 										{loading ? <div>...loading</div> : null}
 										{suggestions.map((suggestion, index) => {

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import DateTimePicker from 'react-datetime-picker';
 // import { fetchAllUsers } from '../Redux/actions/UsersActions';
-import {createJob} from '../Redux/actions/JobActions'
+import { createJob } from '../Redux/actions/JobActions';
 import { withRouter } from 'react-router-dom';
-import GooglePlaces from '../GoogleComponents/GooglePlaces'
+import GooglePlaces from '../GoogleComponents/GooglePlaces';
 
 class NewJobForm extends React.Component {
 	state = {
@@ -62,25 +62,23 @@ class NewJobForm extends React.Component {
 	};
 
 	localSubmitHandler = (e) => {
-        e.preventDefault();
-        //need if statement for if you can't find freelancer
-        const freelancer = this.props.users.find((user) => user.email === this.state.freelancer_email);
+		e.preventDefault();
+		//need if statement for if you can't find freelancer
+		const freelancer = this.props.users.find((user) => user.email === this.state.freelancer_email);
 
-
-        // if(freelancer !== undefined && freelancer.email !== this.props.user.email && this.state.address !== '' && this.state.date !=='' && this.state.rate !== null && this.state.description !== ''){
-        //     // will put everything below in here when time to actually demo
-        // } 
-
+		// if(freelancer !== undefined && freelancer.email !== this.props.user.email && this.state.address !== '' && this.state.date !=='' && this.state.rate !== null && this.state.description !== ''){
+		//     // will put everything below in here when time to actually demo
+		// }
 
 		const freelancer_id = freelancer.id;
 		const stringDate = this.state.date.toString();
 		const rate = parseInt(this.state.rate);
 
 		const jobObj = {
-            hours: null,
-            completed: false,
-            freelancer_bank_account_id: freelancer.account.id,
-            freelancer_email: freelancer.email,
+			hours: null,
+			completed: false,
+			freelancer_bank_account_id: freelancer.account.id,
+			freelancer_email: freelancer.email,
 			description: this.state.description,
 			start_time: stringDate,
 			client_id: this.props.user.id,
@@ -89,12 +87,10 @@ class NewJobForm extends React.Component {
 			lat: this.state.lat,
 			long: this.state.long,
 			location: this.state.address,
-            rate: rate,
-            freelancer_balance: freelancer.account.amount
-        };
-		this.props.createJob(jobObj, this.props.history)
-
-		
+			rate: rate,
+			freelancer_balance: freelancer.account.amount
+		};
+		this.props.createJob(jobObj, this.props.history);
 	};
 	//this form will need state, the date time picker, the google places api
 	//will have to reset state for both  hours(if it's a day rate it gets 10 hours diretly from here otherwise run the timer when the job starts) and  on change of
@@ -109,54 +105,78 @@ class NewJobForm extends React.Component {
 	// 5. get both lat and long from google places as well as address
 	// 6. parse int rate
 	render() {
-        console.log(this.props.user)
+		console.log(this.props.user);
 		return (
-			<Form onSubmit={this.localSubmitHandler}>
-				<Form.Group controlId="formBasicJobDescription">
-					<Form.Label>Job Description:</Form.Label>
-					<Form.Control
-						onChange={this.basicChangeHandler}
-						value={this.state.description}
-						name="description"
-						type="text"
-						placeholder="Enter description"
-					/>
-				</Form.Group>
-				<Form.Group controlId="formBasicFreelancerEmail">
-					<Form.Label>Freelancer's Email:</Form.Label>
-					<Form.Control
-						onChange={this.basicChangeHandler}
-						value={this.state.email}
-						name="freelancer_email"
-						type="email"
-						placeholder="Enter email"
-					/>
-				</Form.Group>
+            <div>
+			{/* // <Container > */}
+                <div>New Job</div>
+				{/* <div style={{ width: '40vw', margin: 15 }}> */}
+                <Container className='d-flex justify-content-center'>
+					<Form className='newJobForm'  onSubmit={this.localSubmitHandler}>
+						<Form.Row>
+							<Col>
+								<Form.Group controlId="formBasicJobDescription">
+									<Form.Label>Job Description:</Form.Label>
+									<Form.Control
+										onChange={this.basicChangeHandler}
+										value={this.state.description}
+										name="description"
+										type="text"
+										placeholder="Enter description"
+									/>
+								</Form.Group>
+							</Col>
+							<Col>
+								<Form.Group controlId="formBasicFreelancerEmail">
+									<Form.Label>Freelancer's Email:</Form.Label>
+									<Form.Control
+										onChange={this.basicChangeHandler}
+										value={this.state.email}
+										name="freelancer_email"
+										type="email"
+										placeholder="Enter email"
+									/>
+								</Form.Group>
+							</Col>
+						</Form.Row>
 
-				<Form.Group
-					onChange={this.basicChangeHandler}
-					value={this.state.dayrate_or_hourly}
-					controlId="dayRateOrHourly"
-				>
-					<Form.Label>Job Type: </Form.Label>
-					<Form.Control name="dayrate_or_hourly" as="select">
-						<option>Day Rate</option>
-						<option>Hourly</option>
-					</Form.Control>
-				</Form.Group>
 
-				{this.rateFormComponent()}
+						<Form.Row>
+							<Col>
+								<Form.Group
+									onChange={this.basicChangeHandler}
+									value={this.state.dayrate_or_hourly}
+									controlId="dayRateOrHourly"
+								>
+									<Form.Label>Job Type: </Form.Label>
+									<Form.Control name="dayrate_or_hourly" as="select">
+										<option>Day Rate</option>
+										<option>Hourly</option>
+									</Form.Control>
+								</Form.Group>
+							</Col>
+							<Col>{this.rateFormComponent()}</Col>
+						</Form.Row>
 
-				<Form.Group controlId="formBasicRate">
-					<Form.Label>Time and Date:</Form.Label>
-					<br />
-					<DateTimePicker onChange={this.dateChangeHandler} value={this.state.date} />
-				</Form.Group>
-
-				<Form.Group controlId="formBasicHours">
-					<Form.Label>Location:</Form.Label>
-                    <GooglePlaces handleAddressSelect={this.handleAddressSelect} addressChangeHandler={this.addressChangeHandler} value={this.state.address} />
-					{/* <PlacesAutocomplete
+                        <Form.Row className='d-flex align-items-top'>
+                            <Col>
+						<Form.Group controlId="formBasicRate">
+							<Form.Label>Time and Date:</Form.Label>
+							<br />
+							<DateTimePicker onChange={this.dateChangeHandler} value={this.state.date} />
+						</Form.Group>
+                        </Col>
+                        <Col>
+						<Form.Group className="w-4" controlId="formBasicHours">
+							<Form.Label>Location:</Form.Label>
+							<GooglePlaces
+                                width='250'
+                                height='36'
+								handleAddressSelect={this.handleAddressSelect}
+								addressChangeHandler={this.addressChangeHandler}
+								value={this.state.address}
+							/>
+							{/* <PlacesAutocomplete
 						onChange={this.addressChangeHandler}
 						value={this.state.address}
 						onSelect={this.handleAddressSelect}
@@ -181,12 +201,18 @@ class NewJobForm extends React.Component {
 							);
 						}}
 					</PlacesAutocomplete>{' '} */}
-				</Form.Group>
-
-				<Button variant="primary" type="submit">
-					Submit
-				</Button>
-			</Form>
+						</Form.Group>
+                        </Col>
+                        </Form.Row>
+                        
+						<Button style={{fontSize: 14}} variant="primary" type="submit">
+							Submit
+						</Button>
+					</Form>
+                    </Container>
+				{/* </div> */}
+			{/* </Container> */}
+            </div>
 		);
 	}
 }
@@ -199,8 +225,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-        // fetchAllUsers: () => dispatch(fetchAllUsers()),
-        createJob: (jobObj, history) => dispatch(createJob(jobObj, history))
+		// fetchAllUsers: () => dispatch(fetchAllUsers()),
+		createJob: (jobObj, history) => dispatch(createJob(jobObj, history))
 	};
 };
 

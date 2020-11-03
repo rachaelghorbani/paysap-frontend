@@ -23,7 +23,7 @@ const NavBar = (props) => {
                 <Link to="/mydocuments" className="mx-2 navLinks">
 					My Documents
 				</Link>
-				<NavDropdown  title="Jobs" id="basic-nav-dropdown">
+				<NavDropdown alignRight title="Jobs" id="basic-nav-dropdown">
 					<NavDropdown.Item>
 						<Link to="/jobs/new" className="mx-2">
 							Create Job
