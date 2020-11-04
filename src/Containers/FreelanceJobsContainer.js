@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Table, Container, Row, Col, Button } from 'react-bootstrap';
+import { Table, Container} from 'react-bootstrap';
 import CompletedFreelanceCard from '../Components/CompletedFreelanceJobCard';
 import OpenFreelanceCard from '../Components/OpenFreelanceCard'
 import GoogleMap from '../GoogleComponents/GoogleMap'
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import ReactToExcel from 'react-html-table-to-excel'
-import {DateFilterAndExcelRow} from '../Components/DateFilterAndExcelRow'
+// import DatePicker from "react-datepicker"
+// import "react-datepicker/dist/react-datepicker.css"
+// import ReactToExcel from 'react-html-table-to-excel'
+import {DateFilterAndExcelRow, filterByDate} from '../Components/DateFilterAndExcelRow'
 import {setEndDateForFilter, setStartDateForFilter} from '../Redux/actions/SortActions'
 
 
@@ -15,11 +15,11 @@ import {setEndDateForFilter, setStartDateForFilter} from '../Redux/actions/SortA
 
 
 class FreelanceJobsContainer extends React.Component {
-    state = {
-        startDate: '',
-        endDate: '',
+    // state = {
+    //     startDate: '',
+    //     endDate: '',
 
-    }
+    // }
 
     //sort by date?
 	usersCompletedFreelanceJobs = () => {
@@ -29,7 +29,7 @@ class FreelanceJobsContainer extends React.Component {
         //         return Date.parse(b.start_time) - Date.parse(a.start_time)
         //     })
         // }
-		return this.filterByDate().map((job) => <CompletedFreelanceCard key={job.id} job={job} />);
+		return filterByDate(this.props.user.jobs_as_freelancer, this.props.filterStartDate, this.props.filterEndDate).map((job) => <CompletedFreelanceCard key={job.id} job={job} />);
 	};
 
 	usersOpenFreelanceJobs = () => {
@@ -49,33 +49,33 @@ class FreelanceJobsContainer extends React.Component {
     }
 
 
-    filterByDate = () => {
+    // filterByDate = () => {
       
-        const parsedStartDate = Date.parse(this.props.filterStartDate)
-        const parsedEndDate = Date.parse(this.props.filterEndDate)
+    //     const parsedStartDate = Date.parse(this.props.filterStartDate)
+    //     const parsedEndDate = Date.parse(this.props.filterEndDate)
 
-        if(this.props.filterStartDate !== '' && this.props.filterEndDate !=='' && this.props.filterStartDate !== null && this.props.filterEndDate !== null && parsedStartDate <= parsedEndDate ){
-            const closedJobs = this.props.user.jobs_as_freelancer.filter(job => job.completed === true)
-            const sorted = () => {
-                return closedJobs.sort((a, b) => {
-                    return Date.parse(b.start_time) - Date.parse(a.start_time)
-                })
-            }
+    //     if(this.props.filterStartDate !== '' && this.props.filterEndDate !=='' && this.props.filterStartDate !== null && this.props.filterEndDate !== null && parsedStartDate <= parsedEndDate ){
+    //         const closedJobs = this.props.user.jobs_as_freelancer.filter(job => job.completed === true)
+    //         const sorted = () => {
+    //             return closedJobs.sort((a, b) => {
+    //                 return Date.parse(b.start_time) - Date.parse(a.start_time)
+    //             })
+    //         }
         
-                return sorted().filter(fl => {
-                    const parsedExpenseDate = Date.parse(fl.start_time)
-                    return parsedExpenseDate >= parsedStartDate && parsedExpenseDate <= parsedEndDate
-                })
-            // }
-        } else{
-            const closedJobs = this.props.user.jobs_as_freelancer.filter(job => job.completed === true)
+    //             return sorted().filter(fl => {
+    //                 const parsedExpenseDate = Date.parse(fl.start_time)
+    //                 return parsedExpenseDate >= parsedStartDate && parsedExpenseDate <= parsedEndDate
+    //             })
+    //         // }
+    //     } else{
+    //         const closedJobs = this.props.user.jobs_as_freelancer.filter(job => job.completed === true)
             
-                return closedJobs.sort((a, b) => {
-                    return Date.parse(b.start_time) - Date.parse(a.start_time)
-                })
+    //             return closedJobs.sort((a, b) => {
+    //                 return Date.parse(b.start_time) - Date.parse(a.start_time)
+    //             })
             
-        }
-    }
+    //     }
+    // }
 
     componentWillUnmount = () => {
         this.props.setStartDateForFilter('')

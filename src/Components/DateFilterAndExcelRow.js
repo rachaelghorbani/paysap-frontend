@@ -66,6 +66,35 @@ const DateFilterAndExcelRow = props => {
 				</Table>
     )
 }
+
+export const filterByDate = (openCLOrFLJobs, startDate, endDate) => {
+      
+    const parsedStartDate = Date.parse(startDate)
+    const parsedEndDate = Date.parse(endDate)
+
+    if(startDate !== '' && endDate !=='' && startDate !== null && endDate !== null && parsedStartDate <= parsedEndDate ){
+        const closedJobs = openCLOrFLJobs.filter(job => job.completed === true)
+        const sorted = () => {
+            return closedJobs.sort((a, b) => {
+                return Date.parse(b.start_time) - Date.parse(a.start_time)
+            })
+        }
+            return sorted().filter(cl => {
+                const parsedExpenseDate = Date.parse(cl.start_time)
+                return parsedExpenseDate >= parsedStartDate && parsedExpenseDate <= parsedEndDate
+            })
+        // }
+    } else{
+        const closedJobs = openCLOrFLJobs.filter(job => job.completed === true)
+        
+            return closedJobs.sort((a, b) => {
+                return Date.parse(b.start_time) - Date.parse(a.start_time)
+            })
+        
+    }
+}
+
+
 const mapStateToProps = state => {
     return {
         filterStartDate: state.filterStartDate,

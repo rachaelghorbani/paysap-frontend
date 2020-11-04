@@ -1,21 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Table, Container, Col, Button, Row} from 'react-bootstrap'
+import {Table, Container} from 'react-bootstrap'
 import OpenClientJobCard from '../Components/OpenClientJobCard'
 import CompletedClientJobCard from '../Components/CompletedClientJobCard'
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import ReactToExcel from 'react-html-table-to-excel'
-import {DateFilterAndExcelRow} from '../Components/DateFilterAndExcelRow'
+// import DatePicker from "react-datepicker"
+// import "react-datepicker/dist/react-datepicker.css"
+// import ReactToExcel from 'react-html-table-to-excel'
+import {DateFilterAndExcelRow, filterByDate} from '../Components/DateFilterAndExcelRow'
 import {setEndDateForFilter, setStartDateForFilter} from '../Redux/actions/SortActions'
 
 
 class ClientJobsContainer extends React.Component {
-    state = {
-        startDate: '',
-        endDate: '',
+    // state = {
+    //     startDate: '',
+    //     endDate: '',
 
-    }
+    // }
 
     openClientJobs = () => {
         const openJobs = this.props.user.jobs_as_client.filter(job => job.completed === false)
@@ -34,52 +34,53 @@ class ClientJobsContainer extends React.Component {
         //         return Date.parse(b.start_time) - Date.parse(a.start_time)
         //     })
         // }
-        return this.filterByDate().map(job=> <CompletedClientJobCard key={job.id} job={job}/>)
+        return filterByDate(this.props.user.jobs_as_client, this.props.filterStartDate, this.props.filterEndDate).map(job=> <CompletedClientJobCard key={job.id} job={job}/>)
     }
 
-    filterByDate = () => {
+    // filterByDate = () => {
       
-        const parsedStartDate = Date.parse(this.props.filterStartDate)
-        const parsedEndDate = Date.parse(this.props.filterEndDate)
+    //     const parsedStartDate = Date.parse(this.props.filterStartDate)
+    //     const parsedEndDate = Date.parse(this.props.filterEndDate)
 
-        if(this.props.filterStartDate !== '' && this.props.filterEndDate !=='' && this.props.filterStartDate !== null && this.props.filterEndDate !== null && parsedStartDate <= parsedEndDate ){
-            const closedJobs = this.props.user.jobs_as_client.filter(job => job.completed === true)
-            const sorted = () => {
-                return closedJobs.sort((a, b) => {
-                    return Date.parse(b.start_time) - Date.parse(a.start_time)
-                })
-            }
+    //     if(this.props.filterStartDate !== '' && this.props.filterEndDate !=='' && this.props.filterStartDate !== null && this.props.filterEndDate !== null && parsedStartDate <= parsedEndDate ){
+    //         const closedJobs = this.props.user.jobs_as_client.filter(job => job.completed === true)
+    //         const sorted = () => {
+    //             return closedJobs.sort((a, b) => {
+    //                 return Date.parse(b.start_time) - Date.parse(a.start_time)
+    //             })
+    //         }
         
-                return sorted().filter(cl => {
-                    const parsedExpenseDate = Date.parse(cl.start_time)
-                    return parsedExpenseDate >= parsedStartDate && parsedExpenseDate <= parsedEndDate
-                })
-            // }
-        } else{
-            const closedJobs = this.props.user.jobs_as_client.filter(job => job.completed === true)
+    //             return sorted().filter(cl => {
+    //                 const parsedExpenseDate = Date.parse(cl.start_time)
+    //                 return parsedExpenseDate >= parsedStartDate && parsedExpenseDate <= parsedEndDate
+    //             })
+    //         // }
+    //     } else{
+    //         const closedJobs = this.props.user.jobs_as_client.filter(job => job.completed === true)
             
-                return closedJobs.sort((a, b) => {
-                    return Date.parse(b.start_time) - Date.parse(a.start_time)
-                })
+    //             return closedJobs.sort((a, b) => {
+    //                 return Date.parse(b.start_time) - Date.parse(a.start_time)
+    //             })
             
-        }
-    }
+    //     }
+    // }
 
-    startDateChangeHandler = (date) => {
-        this.setState({startDate: date})
-    }
-    endDateChangeHandler = date => {
-        this.setState({endDate: date})
-    }
+    // startDateChangeHandler = (date) => {
+    //     this.setState({startDate: date})
+    // }
+    // endDateChangeHandler = date => {
+    //     this.setState({endDate: date})
+    // }
 
-    resetDate = () => {
-        this.setState({startDate: '', endDate: ''})
-    }
+    // resetDate = () => {
+    //     this.setState({startDate: '', endDate: ''})
+    // }
     componentWillUnmount = () => {
         this.props.setStartDateForFilter('')
         this.props.setEndDateForFilter('')
     }
     render(){
+        // console.log(filterByDate)
     return (
 
         <Container>
