@@ -70,8 +70,8 @@ class ExpenseCard extends React.Component {
 						</InputGroup>
 					</td>
 
-					<td>
-						<InputGroup style={{ width: 100 }} className="mb-3">
+					<td className='d-flex justify-content-center'>
+						<InputGroup style={{ width: 200 }} className="mb-3 ">
 							<Form.Control
 								style={{ fontSize: 12 }}
 								onChange={this.basicChangeHandler}

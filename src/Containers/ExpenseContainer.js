@@ -95,7 +95,7 @@ class ExpenseContainer extends React.Component {
 					<Table bordered className="mt-2">
 						<thead>
 							<tr>
-								<th>My Expenses</th>
+								<th style={{fontSize: 14}}>My Expenses</th>
 							</tr>
 						</thead>
 					</Table>

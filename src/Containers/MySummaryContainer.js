@@ -20,7 +20,7 @@ class MySummaryContainer extends React.Component {
 		//update state to show/hide chart
 		if(e.target.value === "Freelance Income"){
 	        this.setState({showFL: true, showCL: false, showCC: false, showEX: false})
-	    } else if(e.target.value === "Client Payments"){
+	    } else if(e.target.value === "Client Made Payments"){
 	        this.setState({showFL: false, showCL: true, showCC:false, showEX: false})
 	    } else if(e.target.value === "Income vs Invoices Paid"){
 	        this.setState({showFL: false, showCL: false, showCC:true, showEX: false})
@@ -43,7 +43,7 @@ class MySummaryContainer extends React.Component {
                     <Form.Group  style={{width: 250, marginLeft: 100, marginTop: 25}}>
 						<Form.Control  onChange={this.changeHandler} as="select" size="med">
 							<option>Freelance Income</option>
-							<option>Client Payments</option>
+							<option>Client Made Payments</option>
                             <option>Income vs Invoices Paid</option>
                             <option>Expenses</option>
 						</Form.Control>
@@ -66,7 +66,7 @@ class MySummaryContainer extends React.Component {
               
 				{this.state.showFL ? <Row className='justify-content-center'><Col className="col-11"><Chart jobs={this.props.user.jobs_as_freelancer} fill='#05449D'text={'Total Freelance Income'} /></Col></Row>
 				 : null}
-                {this.state.showCL? <Row className='justify-content-center'><Col className="col-11"><Chart jobs={this.props.user.jobs_as_client} fill='#FD3D0D' text="Total Client Payments" /></Col></Row> : null}
+                {this.state.showCL? <Row className='justify-content-center'><Col className="col-11"><Chart jobs={this.props.user.jobs_as_client} fill='#FD3D0D' text="Total Client-Made Payments" /></Col></Row> : null}
                 {this.state.showCC? <Row className='justify-content-center'><Col className="col-11"><ComboChart fl_jobs={this.props.user.jobs_as_freelancer} cl_jobs={this.props.user.jobs_as_client}/></Col></Row> : null}
                 {this.state.showEX? <Row className='justify-content-center'><Col className="col-11"><ExpenseChart expenses={this.props.user.expenses} dataKey='Total Expenses'/></Col></Row> : null}
 				
