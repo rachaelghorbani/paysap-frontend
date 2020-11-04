@@ -11,8 +11,28 @@ let defaultState = {
 	showOrHideLoginAndSignupButtons: true,
 	showOrHideNewExpenseForm: false,
 	expenseCategory: 'All',
-	showDocumentUploadForm: false
+    showDocumentUploadForm: false,
+    filterStartDate: '',
+    filterEndDate: ''
 };
+
+const filterStartDateReducer = (state = defaultState.filterStartDate, action) => {
+    switch (action.type){
+        case 'SET_START_DATE':
+            return action.payload;
+		default:
+			return state;
+    }
+}
+
+const filterEndDateReducer = (state = defaultState.filterEndDate, action) => {
+    switch (action.type){
+        case 'SET_END_DATE':
+            return action.payload;
+		default:
+			return state;
+    }
+}
 
 const showDocumentUploadFormReducer = (state = defaultState.showDocumentUploadForm, action) => {
 	switch (action.type) {
@@ -159,7 +179,9 @@ let rootReducer = combineReducers({
 	showOrHideLoginAndSignupButtons: showOrHideLoginAndSignupButtonsReducer,
 	showOrHideNewExpenseForm: showOrHideNewExpenseFormReducer,
     expenseCategory: expenseCategoryReducer,
-    showDocumentUploadForm: showDocumentUploadFormReducer
+    showDocumentUploadForm: showDocumentUploadFormReducer,
+    filterStartDate: filterStartDateReducer,
+    filterEndDate: filterEndDateReducer
 });
 
 export default rootReducer;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Table, Container, Row, Col, Button } from 'react-bootstrap';
 import CompletedFreelanceCard from '../Components/CompletedFreelanceJobCard';
@@ -7,6 +7,9 @@ import GoogleMap from '../GoogleComponents/GoogleMap'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import ReactToExcel from 'react-html-table-to-excel'
+import {DateFilterAndExcelRow} from '../Components/DateFilterAndExcelRow'
+import {setEndDateForFilter, setStartDateForFilter} from '../Redux/actions/SortActions'
+
 
 
 
@@ -48,10 +51,10 @@ class FreelanceJobsContainer extends React.Component {
 
     filterByDate = () => {
       
-        const parsedStartDate = Date.parse(this.state.startDate)
-        const parsedEndDate = Date.parse(this.state.endDate)
+        const parsedStartDate = Date.parse(this.props.filterStartDate)
+        const parsedEndDate = Date.parse(this.props.filterEndDate)
 
-        if(this.state.startDate !== '' && this.state.endDate !=='' && this.state.startDate !== null && this.state.endDate !== null && parsedStartDate <= parsedEndDate ){
+        if(this.props.filterStartDate !== '' && this.props.filterEndDate !=='' && this.props.filterStartDate !== null && this.props.filterEndDate !== null && parsedStartDate <= parsedEndDate ){
             const closedJobs = this.props.user.jobs_as_freelancer.filter(job => job.completed === true)
             const sorted = () => {
                 return closedJobs.sort((a, b) => {
@@ -74,16 +77,23 @@ class FreelanceJobsContainer extends React.Component {
         }
     }
 
-    startDateChangeHandler = (date) => {
-        this.setState({startDate: date})
+    componentWillUnmount = () => {
+        this.props.setStartDateForFilter('')
+        this.props.setEndDateForFilter('')
     }
-    endDateChangeHandler = date => {
-        this.setState({endDate: date})
-    }
+  
+    
 
-    resetDate = () => {
-        this.setState({startDate: '', endDate: ''})
-    }
+    // startDateChangeHandler = (date) => {
+    //     this.setState({startDate: date})
+    // }
+    // endDateChangeHandler = date => {
+    //     this.setState({endDate: date})
+    // }
+
+    // resetDate = () => {
+    //     this.setState({startDate: '', endDate: ''})
+    // }
 
 	//will create the taable here. will then create a freelance job card that will be a table row with the appropriate buttons
 	//will iterate through all jobs to get jobs where the jobs freelancer id is equal to our users id. will then filter through those to separate completed from open
@@ -129,9 +139,9 @@ class FreelanceJobsContainer extends React.Component {
 					</thead>
 				</Table> */}
 
+<DateFilterAndExcelRow tableHeader='Completed Freelance Jobs' tableTitle='closed-freelance-jobs' filename='freelanceJobs' />
 
-
-<Table bordered className="mt-2">
+{/* <Table bordered className="mt-2">
 					<thead>
 						<tr>
 							<th style={{fontSize: 14}}>Completed Freelance Jobs</th>
@@ -143,7 +153,7 @@ class FreelanceJobsContainer extends React.Component {
 								
                                 <ReactToExcel 
                                     table='closed-freelance-jobs'
-                                    filename='clientJobs'
+                                    filename='freelanceJobs'
                                     sheet='sheet 1'
                                     className='btn ml-2'
                                     id='exlButton'
@@ -161,16 +171,14 @@ class FreelanceJobsContainer extends React.Component {
                                 /><Button 
                                 onClick={this.resetDate}
                                 style={{ fontSize: 12 , marginLeft: 6}}>Reset</Button>
-                                {/* will need two date selectors, a button to filter and a button to reset */}
                                 
-                                {/* date range selector will go here on left */}
                                 </Col>
                                 
                         </Row>
                         </th>
 						</tr>
 					</thead>
-				</Table>
+				</Table> */}
 				
 
 				<Table id='closed-freelance-jobs' bordered hover>
@@ -197,8 +205,18 @@ class FreelanceJobsContainer extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.user,
+        user: state.user,
+        filterStartDate: state.filterStartDate,
+        filterEndDate: state.filterEndDate
 	};
 };
 
-export default connect(mapStateToProps)(FreelanceJobsContainer);
+const mapDispatchToProps = dispatch => {
+    return {
+        setEndDateForFilter: date => dispatch(setEndDateForFilter(date)),
+        setStartDateForFilter: date => dispatch(setStartDateForFilter(date)),
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FreelanceJobsContainer);

@@ -6,6 +6,8 @@ import CompletedClientJobCard from '../Components/CompletedClientJobCard'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import ReactToExcel from 'react-html-table-to-excel'
+import {DateFilterAndExcelRow} from '../Components/DateFilterAndExcelRow'
+import {setEndDateForFilter, setStartDateForFilter} from '../Redux/actions/SortActions'
 
 
 class ClientJobsContainer extends React.Component {
@@ -37,10 +39,10 @@ class ClientJobsContainer extends React.Component {
 
     filterByDate = () => {
       
-        const parsedStartDate = Date.parse(this.state.startDate)
-        const parsedEndDate = Date.parse(this.state.endDate)
+        const parsedStartDate = Date.parse(this.props.filterStartDate)
+        const parsedEndDate = Date.parse(this.props.filterEndDate)
 
-        if(this.state.startDate !== '' && this.state.endDate !=='' && this.state.startDate !== null && this.state.endDate !== null && parsedStartDate <= parsedEndDate ){
+        if(this.props.filterStartDate !== '' && this.props.filterEndDate !=='' && this.props.filterStartDate !== null && this.props.filterEndDate !== null && parsedStartDate <= parsedEndDate ){
             const closedJobs = this.props.user.jobs_as_client.filter(job => job.completed === true)
             const sorted = () => {
                 return closedJobs.sort((a, b) => {
@@ -72,6 +74,10 @@ class ClientJobsContainer extends React.Component {
 
     resetDate = () => {
         this.setState({startDate: '', endDate: ''})
+    }
+    componentWillUnmount = () => {
+        this.props.setStartDateForFilter('')
+        this.props.setEndDateForFilter('')
     }
     render(){
     return (
@@ -112,7 +118,10 @@ class ClientJobsContainer extends React.Component {
 						</tr>
 					</thead>
 				</Table> */}
-                <Table bordered className="mt-2">
+
+<DateFilterAndExcelRow tableHeader='Completed Client Jobs' tableTitle='closed-client-jobs' filename='clientJobs' />
+
+                {/* <Table bordered className="mt-2">
 					<thead>
 						<tr>
 							<th style={{fontSize: 14}}>Completed Client Jobs</th>
@@ -142,16 +151,14 @@ class ClientJobsContainer extends React.Component {
                                 /><Button 
                                 onClick={this.resetDate}
                                 style={{ fontSize: 12 , marginLeft: 6}}>Reset</Button>
-                                {/* will need two date selectors, a button to filter and a button to reset */}
-                                
-                                {/* date range selector will go here on left */}
+                               
                                 </Col>
                                 
                         </Row>
                         </th>
 						</tr>
 					</thead>
-				</Table>
+				</Table> */}
 				<Table  id='closed-client-jobs'bordered hover>
 					<thead>
 						<tr>
@@ -210,8 +217,17 @@ class ClientJobsContainer extends React.Component {
 
 const mapStateToProps = state =>{
     return {
-        user: state.user
+        user: state.user,
+        filterStartDate: state.filterStartDate,
+        filterEndDate: state.filterEndDate
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        setEndDateForFilter: date => dispatch(setEndDateForFilter(date)),
+        setStartDateForFilter: date => dispatch(setStartDateForFilter(date)),
+
     }
 }
 
-export default connect(mapStateToProps)(ClientJobsContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ClientJobsContainer)
