@@ -89,7 +89,6 @@ class FreelanceJobsContainer extends React.Component {
 	//will iterate through all jobs to get jobs where the jobs freelancer id is equal to our users id. will then filter through those to separate completed from open
 	//will create a card for each and send back the job data so that we can use it to compare with our location and set the appropriate buttons
 	render() {
-
 		return (
 			<Container>
                 <GoogleMap jobs={this.openJobsForMap()}/>

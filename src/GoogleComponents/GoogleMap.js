@@ -56,8 +56,11 @@ class GoogleMap extends React.Component {
             )
     });
 	};
+ 
 
 	render() {
+        
+        console.log(this.props.google)
 		return (
             <div style={{display: "flex", justifyContent: "center"}}> 
 			<Map
@@ -70,10 +73,10 @@ class GoogleMap extends React.Component {
 					lng: -71.2337416
                 }}
                 //maybe set these in state and then onclick reset them for the individual marker
-				center={{
-					lat: this.state.lat,
-					lng: this.state.long
-				}}
+				// center={{
+				// 	lat: this.state.lat,
+				// 	lng: this.state.long
+				// }}
 			>
 				{this.renderMarker()}
 				<InfoWindow
