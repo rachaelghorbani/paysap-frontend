@@ -5,7 +5,7 @@ import { signupUser } from '../Redux/actions/UserActions';
 import { hideSignup, showSignupAndLoginButtons, resetSuccessfulLogin } from '../Redux/actions/UserActions';
 import { withRouter } from 'react-router-dom';
 
-class SignUp extends React.Component {
+class SignUpForm extends React.Component {
 	state = {
 		username: '',
 		first_name: '',
@@ -135,4 +135,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignUp));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignUpForm));
