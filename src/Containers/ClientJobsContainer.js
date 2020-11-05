@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {Table, Container} from 'react-bootstrap'
 import OpenClientJobCard from '../Components/OpenClientJobCard'
 import CompletedClientJobCard from '../Components/CompletedClientJobCard'
+import CompletedJobCard from '../Components/CompletedJobCard'
+
 // import DatePicker from "react-datepicker"
 // import "react-datepicker/dist/react-datepicker.css"
 // import ReactToExcel from 'react-html-table-to-excel'
@@ -34,7 +36,7 @@ class ClientJobsContainer extends React.Component {
         //         return Date.parse(b.start_time) - Date.parse(a.start_time)
         //     })
         // }
-        return filterByDate(this.props.user.jobs_as_client, this.props.filterStartDate, this.props.filterEndDate).map(job=> <CompletedClientJobCard key={job.id} job={job}/>)
+        return filterByDate(this.props.user.jobs_as_client, this.props.filterStartDate, this.props.filterEndDate).map(job=> <CompletedJobCard key={job.id} job={job} email={job.freelancer_email}/>)
     }
 
     // filterByDate = () => {

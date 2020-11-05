@@ -4,6 +4,7 @@ import { Table, Container} from 'react-bootstrap';
 import CompletedFreelanceCard from '../Components/CompletedFreelanceJobCard';
 import OpenFreelanceCard from '../Components/OpenFreelanceCard'
 import GoogleMap from '../GoogleComponents/GoogleMap'
+import CompletedJobCard from '../Components/CompletedJobCard'
 // import DatePicker from "react-datepicker"
 // import "react-datepicker/dist/react-datepicker.css"
 // import ReactToExcel from 'react-html-table-to-excel'
@@ -29,7 +30,7 @@ class FreelanceJobsContainer extends React.Component {
         //         return Date.parse(b.start_time) - Date.parse(a.start_time)
         //     })
         // }
-		return filterByDate(this.props.user.jobs_as_freelancer, this.props.filterStartDate, this.props.filterEndDate).map((job) => <CompletedFreelanceCard key={job.id} job={job} />);
+		return filterByDate(this.props.user.jobs_as_freelancer, this.props.filterStartDate, this.props.filterEndDate).map((job) => <CompletedJobCard key={job.id} job={job} email={job.client_email}/>);
 	};
 
 	usersOpenFreelanceJobs = () => {

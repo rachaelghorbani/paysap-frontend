@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CompletedClientJobCard = (props) => {
+const CompletedJobCard = (props) => {
 	const restructuredDate = () => {
 		const date = props.job.start_time;
 		const slicedDate = date.slice(0, 21);
@@ -13,13 +13,12 @@ const CompletedClientJobCard = (props) => {
 		} else {
 			return <td>${props.job.rate}/hr</td>;
 		}
-    };
-    console.log(props.job)
+	};
 	return (
 		<tr>
 			<td>{props.job.description}</td>
 			<td>
-				<a href={`mailto: ${props.job.freelancer_email}`}>{props.job.freelancer_email}</a>
+				<a href={`mailto: ${props.email}`}>{props.email}</a>
 			</td>
 			<td>{restructuredDate()}</td>
 			<td>{props.job.dayrate_or_hourly}</td>
@@ -31,4 +30,4 @@ const CompletedClientJobCard = (props) => {
 	);
 };
 
-export default CompletedClientJobCard;
+export default CompletedJobCard;
