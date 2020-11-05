@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Container} from 'react-bootstrap';
-import CompletedFreelanceCard from '../Components/CompletedFreelanceJobCard';
+// import CompletedFreelanceCard from '../Components/CompletedFreelanceJobCard';
 import OpenFreelanceCard from '../Components/OpenFreelanceCard'
 import GoogleMap from '../GoogleComponents/GoogleMap'
 import CompletedJobCard from '../Components/CompletedJobCard'

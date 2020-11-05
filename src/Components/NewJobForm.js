@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Container, Col, Row } from 'react-bootstrap';
+import { Form, Button, Container, Col} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import DateTimePicker from 'react-datetime-picker';
@@ -63,34 +63,31 @@ class NewJobForm extends React.Component {
 
 	localSubmitHandler = (e) => {
 		e.preventDefault();
-		//need if statement for if you can't find freelancer
 		const freelancer = this.props.users.find((user) => user.email === this.state.freelancer_email);
 
-		// if(freelancer !== undefined && freelancer.email !== this.props.user.email && this.state.address !== '' && this.state.date !=='' && this.state.rate !== null && this.state.description !== ''){
-		//     // will put everything below in here when time to actually demo
-		// }
-
-		const freelancer_id = freelancer.id;
-		const stringDate = this.state.date.toString();
-		const rate = parseInt(this.state.rate);
-
-		const jobObj = {
-			hours: null,
-			completed: false,
-			freelancer_bank_account_id: freelancer.account.id,
-			freelancer_email: freelancer.email,
-			description: this.state.description,
-			start_time: stringDate,
-			client_id: this.props.user.id,
-			freelancer_id: freelancer_id,
-			dayrate_or_hourly: this.state.dayrate_or_hourly,
-			lat: this.state.lat,
-			long: this.state.long,
-			location: this.state.address,
-			rate: rate,
-			freelancer_balance: freelancer.account.amount
-		};
-		this.props.createJob(jobObj, this.props.history);
+		if(freelancer !== undefined && freelancer.email !== this.props.user.email && this.state.address !== '' && this.state.date !=='' && this.state.rate !== null && this.state.description !== ''){
+            const freelancer_id = freelancer.id;
+            const stringDate = this.state.date.toString();
+            const rate = parseInt(this.state.rate);
+    
+            const jobObj = {
+                hours: null,
+                completed: false,
+                freelancer_bank_account_id: freelancer.account.id,
+                freelancer_email: freelancer.email,
+                description: this.state.description,
+                start_time: stringDate,
+                client_id: this.props.user.id,
+                freelancer_id: freelancer_id,
+                dayrate_or_hourly: this.state.dayrate_or_hourly,
+                lat: this.state.lat,
+                long: this.state.long,
+                location: this.state.address,
+                rate: rate,
+                freelancer_balance: freelancer.account.amount
+            };
+            this.props.createJob(jobObj, this.props.history);
+		}
 	};
 	//this form will need state, the date time picker, the google places api
 	//will have to reset state for both  hours(if it's a day rate it gets 10 hours diretly from here otherwise run the timer when the job starts) and  on change of

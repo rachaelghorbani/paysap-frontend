@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Table, Container} from 'react-bootstrap'
 import OpenClientJobCard from '../Components/OpenClientJobCard'
-import CompletedClientJobCard from '../Components/CompletedClientJobCard'
+// import CompletedClientJobCard from '../Components/CompletedClientJobCard'
 import CompletedJobCard from '../Components/CompletedJobCard'
 
 // import DatePicker from "react-datepicker"
