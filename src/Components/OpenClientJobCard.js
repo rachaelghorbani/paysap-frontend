@@ -12,7 +12,6 @@ import {updateJob, deleteJob} from '../Redux/actions/JobActions'
 class OpenClientJobCard extends React.Component {
 	state = {
         showEditForm: false,
-        
 		description: this.props.job.description,
 		freelancer_email: this.props.job.freelancer_email,
 		date: new Date(this.props.job.start_time),
@@ -63,43 +62,45 @@ class OpenClientJobCard extends React.Component {
 
 	updateJob = (e) => {
         e.preventDefault();
-        this.setState({ showEditForm: false });
 
         const freelancer = this.props.users.find((user) => user.email === this.state.freelancer_email);
 
-        // if(freelancer !== undefined && freelancer.email !== this.props.user.email && this.state.address !== '' && this.state.date !=='' && this.state.rate !== null && this.state.description !== ''){
-        //     // will put everything below in here when time to actually demo
-        // } 
+        if(freelancer !== undefined && freelancer.email !== this.props.user.email && this.state.address !== '' && this.state.date !=='' && this.state.rate !== null && this.state.description !== ''){
+            this.setState({ showEditForm: false });
+
+            const freelancer_id = freelancer.id;
+            const stringDate = this.state.date.toString();
+            const rate = parseInt(this.state.rate);
+    
+            const jobObj = { 
+                hours: null,
+                completed: false,
+                id: this.props.job.id,
+                freelancer_bank_account_id: freelancer.account.id,
+                freelancer_email: freelancer.email,
+                description: this.state.description,
+                start_time: stringDate,
+                freelancer_balance: freelancer.account.amount,
+                freelancer_id: freelancer_id,
+                dayrate_or_hourly: this.state.dayrate_or_hourly,
+                lat: this.state.lat,
+                long: this.state.long,
+                location: this.state.address,
+                rate: rate,
+                total_amount: null
+            };
+             this.props.updateJob(jobObj)
+
+            // will put everything below in here when time to actually demo
+        } 
 
         // going to make a patch request for this job
-		const freelancer_id = freelancer.id;
-		const stringDate = this.state.date.toString();
-        const rate = parseInt(this.state.rate);
-
-		const jobObj = { 
-            hours: null,
-            completed: false,
-            id: this.props.job.id,
-            freelancer_bank_account_id: freelancer.account.id,
-            freelancer_email: freelancer.email,
-			description: this.state.description,
-            start_time: stringDate,
-            freelancer_balance: freelancer.account.amount,
-			freelancer_id: freelancer_id,
-			dayrate_or_hourly: this.state.dayrate_or_hourly,
-			lat: this.state.lat,
-			long: this.state.long,
-			location: this.state.address,
-            rate: rate,
-            total_amount: null
-        };
-		 this.props.updateJob(jobObj)
+	
 
 		
     };
     
     deleteHandler = e => {
-        //want to pass back the id of the job
         this.props.deleteJob(this.props.job.id)
     }
     
@@ -162,7 +163,6 @@ class OpenClientJobCard extends React.Component {
 						</InputGroup>
 					</td>
 					<td>
-						{/* ///// google places goes here*/}
 						<InputGroup className="mb-3">
 							<GooglePlaces height="32" width="200" handleAddressSelect={this.handleAddressSelect} addressChangeHandler={this.addressChangeHandler} value={this.state.address} />
 						</InputGroup>
