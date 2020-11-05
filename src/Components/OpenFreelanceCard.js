@@ -176,7 +176,7 @@ hourFormatToShow = () => {
                 <td><Button onClick={this.localCompleteJobSubmitHandler} disabled={this.state.disableButtons} style={{fontSize: 12}}>Complete</Button></td>
                 <Modal show={this.state.showModal} onHide={this.hideModal}>
                     <Modal.Header>
-                        <Modal.Title>Sorry, you're either out of range or too early! Check your start time and/or try moving closer to the location.</Modal.Title></Modal.Header>
+                        <Modal.Title style={{textAlign: 'center'}}>Sorry, you're either out of range or too early! Check your start time and/or try moving closer to the location.</Modal.Title></Modal.Header>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.hideModal}>
                             Close
@@ -200,7 +200,7 @@ hourFormatToShow = () => {
                 <td><Button onClick={this.localCompleteJobSubmitHandler} disabled={this.state.disableButtons} style={{fontSize: 12}}>Complete</Button></td>
                 <Modal show={this.state.showModal} onHide={this.hideModal}>
                     <Modal.Header>
-                        <Modal.Title>Sorry, you're either out of range or too early! Check your start time and/or try moving closer to the location.</Modal.Title></Modal.Header>
+                        <Modal.Title style={{textAlign: 'center'}}>Sorry, you're either out of range or too early! Check your start time and/or try moving closer to the location.</Modal.Title></Modal.Header>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.hideModal}>
                             Close
@@ -214,6 +214,7 @@ hourFormatToShow = () => {
     //if the job is hourly, render a certain row with certain buttons
     //else render another way without those buttons
     render(){
+        console.log(this.props.user)
         // console.log("min", this.state.minutes, "hour", this.state.hours, "intid", this.intervalId)
         return(
             <tr>
