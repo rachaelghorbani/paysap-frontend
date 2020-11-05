@@ -3,12 +3,17 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import navbarImg from '../assets/navbarImg.svg';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logoutUser } from '../Redux/actions/UserActions';
+import { logoutUser, hideLogin, hideSignup, showSignupAndLoginButtons, resetSuccessfulLogin } from '../Redux/actions/UserActions';
 
 const NavBar = (props) => {
 	const localLogout = () => {
 		localStorage.removeItem('token');
-		props.logoutUser();
+        props.logoutUser();
+        props.hideLogin();
+        props.showSignupAndLoginButtons();
+        props.resetSuccessfulLogin()
+        props.hideSignup()
+        
 	};
 	return (
 		<Navbar className="NavbarText" style={{ background: '#1D3557' }} variant="dark">
@@ -51,7 +56,12 @@ const NavBar = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		logoutUser: () => dispatch(logoutUser())
+        logoutUser: () => dispatch(logoutUser()),
+        hideLogin: () => dispatch(hideLogin()),
+        hideSignup: () => dispatch(hideSignup()),
+        showSignupAndLoginButtons: () => dispatch(showSignupAndLoginButtons()),
+        resetSuccessfulLogin: () => dispatch(resetSuccessfulLogin()),
+
 	};
 };
 const mapStateToProps = (state) => {

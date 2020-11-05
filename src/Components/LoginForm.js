@@ -23,8 +23,8 @@ class LoginForm extends React.Component {
             e.preventDefault()
             this.props.submitUser(this.state, this.props.history)
             this.setState({username: "", password: ""})
-            this.props.hideLogin()
-            this.props.showSignupAndLoginButtons()
+            // this.props.hideLogin()
+            // this.props.showSignupAndLoginButtons()
 
 
         }

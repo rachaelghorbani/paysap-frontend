@@ -45,7 +45,7 @@ class WelcomeContainer extends React.Component {
 						<div>
 							<Row style={{ height: '50vh', display: 'block' }} className="align-items-center ">
 								<Col className="mt-2">
-									<img src={logo3} style={{ height: 300, opacity: 0.6 }} />
+									<img src={logo3} style={{ height: 300, opacity: 0.6 }} alt='paysap logo'/>
 								</Col>
 							</Row>
 							<Row>
