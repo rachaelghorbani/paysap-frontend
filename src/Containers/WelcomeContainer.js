@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Button, Row, Col } from 'react-bootstrap';
 import LoginForm from '../Components/LoginForm';
 import SignUpForm from '../Components/SignUpForm';
@@ -7,32 +7,32 @@ import { resetSuccessfulLogin } from '../Redux/actions/UserActions';
 import logo3 from '../assets/logo3.svg';
 import {showLogin, showSignup, hideLogin, hideSignup, showSignupAndLoginButtons, hideSignupAndLoginButtons} from '../Redux/actions/UserActions'
 
-class WelcomeContainer extends React.Component {
-    //can be functional comp
+const WelcomeContainer = props => {
 
-	loginHandler = () => {
-        this.props.showLogin()
-        this.props.hideSignupAndLoginButtons()
+	const loginHandler = () => {
+        props.showLogin()
+        props.hideSignupAndLoginButtons()
 	};
 
-	signupHandler = () => {
-        this.props.showSignup()
-        this.props.hideSignupAndLoginButtons()
+	const signupHandler = () => {
+        props.showSignup()
+        props.hideSignupAndLoginButtons()
     };
-    
-    componentWillUnmount = () => {
-        this.props.hideLogin();
-        this.props.hideSignup();
-        this.props.showSignupAndLoginButtons();
-        this.props.resetSuccessfulLogin();
-    }
 
-	render() {
+    useEffect(() => {
+        return () => {
+            props.hideLogin();
+            props.hideSignup();
+            props.showSignupAndLoginButtons();
+            props.resetSuccessfulLogin();
+        }
+    }, [])
+	
 		return (
 			<Row className="rowbkg ">
 				<Col className="bkg " />
 				<Col className="h-100">
-					{this.props.showOrHideLoginAndSignupButtons ? (
+					{props.showOrHideLoginAndSignupButtons ? (
 						<div>
 							<Row style={{ height: '50vh', display: 'block' }} className="align-items-center ">
 								<Col className="mt-2">
@@ -44,14 +44,14 @@ class WelcomeContainer extends React.Component {
 									<Button
 										className="mx-2"
 										style={{ backgroundColor: '#FD3D0D', border: 'none' }}
-										onClick={this.loginHandler}
+										onClick={loginHandler}
 									>
 										Login
 									</Button>
 									<Button
 										className="mx-2"
 										style={{ backgroundColor: '#FD3D0D', border: 'none' }}
-										onClick={this.signupHandler}
+										onClick={signupHandler}
 									>
 										Signup
 									</Button>
@@ -59,7 +59,7 @@ class WelcomeContainer extends React.Component {
 							</Row>
 						</div>
 					) : null}
-					{this.props.showLoginForm? (
+					{props.showLoginForm? (
 						<div>
 							<Row style={{ height: '100vh' }} className="align-items-center justify-content-center">
 								<Col className="col-6">
@@ -68,7 +68,7 @@ class WelcomeContainer extends React.Component {
 							</Row>
 						</div>
 					) : null}
-					{this.props.showSignupForm ? (
+					{props.showSignupForm ? (
 						<div>
 							<Row style={{ height: '100vh' }} className="align-items-center justify-content-center">
 								<Col className="col-6">
@@ -80,7 +80,7 @@ class WelcomeContainer extends React.Component {
 				</Col>
 			</Row>
 		);
-	}
+	
 }
 
 const mapDispatchToProps = (dispatch) => {
