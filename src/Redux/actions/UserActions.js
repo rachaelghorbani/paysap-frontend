@@ -8,15 +8,15 @@ export const onLoginSubmit = (user, history) => {
 			},
 			body: JSON.stringify({ user })
 		};
-		fetch('http://localhost:3000/login', options).then((resp) => resp.json()).then((currentUser) => {
+        fetch('http://localhost:3000/login', options)
+        .then((resp) => resp.json())
+        .then((currentUser) => {
 			if (currentUser.user) {
 				localStorage.setItem('token', currentUser.jwt);
 				history.push('/mysummary');
-
 				return dispatch({ type: 'LOGIN_USER', payload: currentUser.user });
 			} else if (currentUser.message) {
 				return dispatch({ type: 'UNSUCCESSFUL_LOGIN', payload: false });
-				// maybe send back a dispatch that changes some state key (successfulLogin) to false and then unhides something on the login page that says sorry wrong username and password
 			}
 		});
 	};
@@ -64,7 +64,9 @@ export const signupUser = (user, history) => {
 			},
 			body: JSON.stringify({ user })
 		};
-		fetch('http://localhost:3000/users', options).then((resp) => resp.json()).then((newUser) => {
+        fetch('http://localhost:3000/users', options)
+        .then((resp) => resp.json())
+        .then((newUser) => {
 			if (newUser.user) {
 				localStorage.setItem('token', newUser.jwt);
 				history.push('/mysummary');
