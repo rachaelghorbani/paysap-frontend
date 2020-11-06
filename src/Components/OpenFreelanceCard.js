@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { completeJob } from '../Redux/actions/JobActions';
 
 class OpenFreelanceCard extends React.Component {
+    
 	state = {
 		disableButtons: true,
 		startTimer: false,

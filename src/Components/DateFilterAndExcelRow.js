@@ -69,7 +69,7 @@ export const filterByDate = (jobsOrExpenses, startDate, endDate, timeKey, comple
 	const parsedStartDate = Date.parse(startDate);
     const parsedEndDate = Date.parse(endDate);
     
-    //check to see if passed a completed key. Only pass this to jobs, not expenses. This is a workaround to see if we have a job with a completed key or an expense that doesn't have one
+    //check to see if passed a completed key. Only pass this to jobs, not expenses. This is a workaround to see if we have a job with a completed key or an expense that doesn't have one so we can filter accordingly
 
 	const jOrE = () => {
 		if (completed) {

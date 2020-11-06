@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom';
 import GooglePlaces from '../GoogleComponents/GooglePlaces';
 
 class NewJobForm extends React.Component {
+    
 	state = {
 		description: '',
 		lat: null,
