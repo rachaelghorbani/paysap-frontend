@@ -102,7 +102,6 @@ class NewJobForm extends React.Component {
 	// 5. get both lat and long from google places as well as address
 	// 6. parse int rate
 	render() {
-		console.log(this.props.user);
 		return (
             // <div style={{height: '62.8vh'}} className='backgroundImage'>
             <div  className='d-flex justify-content-center'>

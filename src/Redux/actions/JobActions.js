@@ -166,7 +166,6 @@ export const deleteJob = jobId => {
             const clientJobs = getState().user.jobs_as_client
             console.log(clientJobs)
             const filtered = clientJobs.filter(job => job.id !== jobId)
-            console.log(filtered)
             const newArr = {
                 ...getState().user,
                 jobs_as_client: filtered
