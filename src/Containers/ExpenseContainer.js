@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, Form, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import ExpenseCard from '../Components/ExpenseCard';
@@ -11,48 +11,60 @@ import 'react-datepicker/dist/react-datepicker.css';
 import ReactToExcel from 'react-html-table-to-excel';
 import { filterByDate } from '../Components/DateFilterAndExcelRow';
 
-class ExpenseContainer extends React.Component {
-	// try to use redux for the start and end date and setting them. also try and change filter date function to take a key also (start_time or date, so can sue it here too)
+const ExpenseContainer = ({
+	user,
+	showOrHideNewExpenseForm,
+	expenseCategory,
+	filterStartDate,
+	filterEndDate,
+	showNewExpenseForm,
+	setExpenseCategory,
+	setEndDateForFilter,
+	setStartDateForFilter
+}) => {
 
-	showNewExpense = () => {
-		this.props.showNewExpenseForm();
+	const showNewExpense = () => {
+		showNewExpenseForm();
 	};
 
-	sortByCat = (cat) => {
-        const expenses = filterByDate(this.props.user.expenses, this.props.filterStartDate, this.props.filterEndDate, 'date')
+	const sortByCat = (cat) => {
+		const expenses = filterByDate(user.expenses, filterStartDate, filterEndDate, 'date');
 		if (cat === 'All') {
 			return expenses;
 		} else {
 			return expenses.filter((exp) => exp.category === cat);
 		}
-    };
-    
-	renderExpenses = () => {
-		return this.sortByCat(this.props.expenseCategory).map((e) => <ExpenseCard key={e.id} expense={e} />);
 	};
 
-	setFilterCategory = (e) => {
-		this.props.setExpenseCategory(e.target.value);
+	const renderExpenses = () => {
+		return sortByCat(expenseCategory).map((e) => <ExpenseCard key={e.id} expense={e} />);
 	};
 
-	startDateChangeHandler = (date) => {
-		this.props.setStartDateForFilter(date);
-	};
-	endDateChangeHandler = (date) => {
-		this.props.setEndDateForFilter(date);
-    };
-    
-    resetDate = () => {
-        this.props.setEndDateForFilter('');
-		this.props.setStartDateForFilter('');
-    }
-
-	componentWillUnmount = () => {
-		this.resetDate()
+	const setFilterCategory = (e) => {
+		setExpenseCategory(e.target.value);
 	};
 
-	showOrHideForm = () => {
-		if (this.props.showOrHideNewExpenseForm) {
+	const startDateChangeHandler = (date) => {
+		setStartDateForFilter(date);
+	};
+
+	const endDateChangeHandler = (date) => {
+		setEndDateForFilter(date);
+	};
+
+	const resetDate = () => {
+		setEndDateForFilter('');
+		setStartDateForFilter('');
+	};
+
+	useEffect(() => {
+        return () => {
+            resetDate();
+        };
+    },[ setStartDateForFilter, setEndDateForFilter ]);
+
+	const showOrHideForm = () => {
+		if (showOrHideNewExpenseForm) {
 			return (
 				<div>
 					<Table bordered className="mt-2">
@@ -91,7 +103,7 @@ class ExpenseContainer extends React.Component {
 							<th>
 								<Row className="mb-2">
 									<Col className="d-flex align-items-center">
-										<Button onClick={this.showNewExpense} style={{ fontSize: 12 }}>
+										<Button onClick={showNewExpense} style={{ fontSize: 12 }}>
 											Add Expense
 										</Button>
 										<ReactToExcel
@@ -109,16 +121,16 @@ class ExpenseContainer extends React.Component {
 										Start Date:{' '}
 										<DatePicker
 											className="dateSort"
-											onChange={this.startDateChangeHandler}
-											selected={this.props.filterStartDate}
+											onChange={startDateChangeHandler}
+											selected={filterStartDate}
 										/>{' '}
 										End Date:{' '}
 										<DatePicker
 											className="dateSort"
-											onChange={this.endDateChangeHandler}
-											selected={this.props.filterEndDate}
+											onChange={endDateChangeHandler}
+											selected={filterEndDate}
 										/>
-										<Button onClick={this.resetDate} style={{ fontSize: 12, marginLeft: 6 }}>
+										<Button onClick={resetDate} style={{ fontSize: 12, marginLeft: 6 }}>
 											Reset
 										</Button>
 									</Col>
@@ -127,8 +139,8 @@ class ExpenseContainer extends React.Component {
 										<InputGroup style={{ width: 100, marginLeft: 6 }}>
 											<Form.Control
 												style={{ fontSize: 12 }}
-												onChange={this.setFilterCategory}
-												value={this.props.expenseCategory}
+												onChange={setFilterCategory}
+												value={expenseCategory}
 												name="category"
 												as="select"
 											>
@@ -151,27 +163,25 @@ class ExpenseContainer extends React.Component {
 		}
 	};
 
-	render() {
-		return (
-			<div>
-				{this.showOrHideForm()}
-				<Table bordered hover id="table-to-xls">
-					<thead>
-						<tr>
-							<th>Date</th>
-							<th>Description</th>
-							<th>Category</th>
-							<th>Amount</th>
-							<th>Edit</th>
-							<th>Delete</th>
-						</tr>
-					</thead>
-					<tbody>{this.renderExpenses()}</tbody>
-				</Table>
-			</div>
-		);
-	}
-}
+	return (
+		<div>
+			{showOrHideForm()}
+			<Table bordered hover id="table-to-xls">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Description</th>
+						<th>Category</th>
+						<th>Amount</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>{renderExpenses()}</tbody>
+			</Table>
+		</div>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {
