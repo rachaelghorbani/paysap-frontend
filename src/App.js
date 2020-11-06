@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch,  withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavBar from './Components/NavBar';
 import Header from './Components/Header';
@@ -11,39 +11,29 @@ import MySummaryContainer from './Containers/MySummaryContainer';
 import MyDocumentsContainer from './Containers/MyDocumentsContainer';
 
 class App extends React.Component {
-
+    
 	componentDidMount = () => {
 		this.props.checkIfLoggedIn(this.props.history);
-    };
-    
-
+	};
 
 	render() {
-        console.log(this.props.user)
-		//if this.props.user isnt' null show them the good stuff, otherwise just show the welcome page
 		return (
 			<div className="App">
 				{this.props.user ? (
 					<div>
 						<Header />
 						<NavBar />
-                        <Switch>
-                            <Route path="/jobs" render={() => <JobsContainer/>}/>
-                            <Route path="/profile"/> 
-                            <Route path="/mysummary" render={()=> <MySummaryContainer/>}/>
-                            <Route path='/mydocuments' render={() => <MyDocumentsContainer />}/>
-                            {/* above will render a profile component eventually */}
-                        </Switch>
+						<Switch>
+							<Route path="/jobs" render={() => <JobsContainer />} />
+							<Route path="/mysummary" render={() => <MySummaryContainer />} />
+							<Route path="/mydocuments" render={() => <MyDocumentsContainer />} />
+						</Switch>
 					</div>
 				) : (
 					<div>
-						{/* <Header /> */}
 						<WelcomeContainer />
 					</div>
 				)}
-
-				{/* {this.props.user ? <Redirect to="/" /> : <LoginForm />} */}
-				{/* <Switch><Route path="/" /></Switch> */}
 			</div>
 		);
 	}
