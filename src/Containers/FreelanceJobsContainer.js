@@ -35,60 +35,59 @@ const FreelanceJobsContainer = ({user, filterStartDate, filterEndDate, setStartD
             setEndDateForFilter('')
         }
     }, [setStartDateForFilter, setEndDateForFilter])
-  
 	
-		return (
-			<Container>
-                {/* <GoogleMap jobs={openJobsForMap()}/> */}
-				<Table bordered className="mt-2">
-					<thead>
-						<tr>
-							<th style={{fontSize: 14}}>Open Freelance Jobs</th>
-						</tr>
-					</thead>
-				</Table>
-				<Table bordered hover>
-					<thead> 
-						<tr>
-							<th>Description</th>
-							<th>Client Email</th>
-							<th>Start Time</th>
-							<th>Hourly/Day</th>
-							<th>Rate</th>
-							<th>Address</th>
-                            <th>Get My Location</th>
-							<th>Timer</th>
-							<th>Hours</th>
-                            
-							<th>Complete Job</th>
-						</tr>
-					</thead>
-					<tbody>
-                        {usersOpenFreelanceJobs()}
-					</tbody>
-				</Table>
+    return (
+        <Container>
+            {/* <GoogleMap jobs={openJobsForMap()}/> */}
+            <Table bordered className="mt-2">
+                <thead>
+                    <tr>
+                        <th style={{fontSize: 14}}>Open Freelance Jobs</th>
+                    </tr>
+                </thead>
+            </Table>
+            <Table bordered hover>
+                <thead> 
+                    <tr>
+                        <th>Description</th>
+                        <th>Client Email</th>
+                        <th>Start Time</th>
+                        <th>Hourly/Day</th>
+                        <th>Rate</th>
+                        <th>Address</th>
+                        <th>Get My Location</th>
+                        <th>Timer</th>
+                        <th>Hours</th>
+                        
+                        <th>Complete Job</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {usersOpenFreelanceJobs()}
+                </tbody>
+            </Table>
 
-                <DateFilterAndExcelRow tableHeader='Completed Freelance Jobs' tableTitle='closed-freelance-jobs' filename='freelanceJobs' />
+            <DateFilterAndExcelRow tableHeader='Completed Freelance Jobs' tableTitle='closed-freelance-jobs' filename='freelanceJobs' />
 
-				<Table id='closed-freelance-jobs' bordered hover>
-					<thead>
-						<tr>
-						    <th>Description</th>
-							<th>Client Email</th>
-							<th>Start Time</th>
-							<th>Hourly/Day</th>
-							<th>Rate</th>
-                            <th>Location</th>
-							<th>Hours</th>
-                            <th>Total Amount</th>
-						</tr>
-					</thead>
-					<tbody>
-                    {usersCompletedFreelanceJobs()}
-					</tbody>
-				</Table>
-			</Container>
-		);
+            <Table id='closed-freelance-jobs' bordered hover>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Client Email</th>
+                        <th>Start Time</th>
+                        <th>Hourly/Day</th>
+                        <th>Rate</th>
+                        <th>Location</th>
+                        <th>Hours</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {usersCompletedFreelanceJobs()}
+                </tbody>
+            </Table>
+        </Container>
+    );
 }
 
 const mapStateToProps = (state) => {
