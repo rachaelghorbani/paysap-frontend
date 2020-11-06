@@ -7,32 +7,32 @@ import { resetSuccessfulLogin } from '../Redux/actions/UserActions';
 import logo3 from '../assets/logo3.svg';
 import {showLogin, showSignup, hideLogin, hideSignup, showSignupAndLoginButtons, hideSignupAndLoginButtons} from '../Redux/actions/UserActions'
 
-const WelcomeContainer = props => {
+const WelcomeContainer = ({showLogin, hideSignupAndLoginButtons, showSignup, hideLogin, hideSignup,showSignupAndLoginButtons, resetSuccessfulLogin, showOrHideLoginAndSignupButtons, showLoginForm, showSignupForm}) => {
 
 	const loginHandler = () => {
-        props.showLogin()
-        props.hideSignupAndLoginButtons()
+        showLogin()
+        hideSignupAndLoginButtons()
 	};
 
 	const signupHandler = () => {
-        props.showSignup()
-        props.hideSignupAndLoginButtons()
+        showSignup()
+        hideSignupAndLoginButtons()
     };
 
     useEffect(() => {
         return () => {
-            props.hideLogin();
-            props.hideSignup();
-            props.showSignupAndLoginButtons();
-            props.resetSuccessfulLogin();
+            hideLogin();
+            hideSignup();
+            showSignupAndLoginButtons();
+            resetSuccessfulLogin();
         }
-    }, [])
+    }, [hideLogin, hideSignup, resetSuccessfulLogin, showSignupAndLoginButtons])
 	
 		return (
 			<Row className="rowbkg ">
 				<Col className="bkg " />
 				<Col className="h-100">
-					{props.showOrHideLoginAndSignupButtons ? (
+					{showOrHideLoginAndSignupButtons ? (
 						<div>
 							<Row style={{ height: '50vh', display: 'block' }} className="align-items-center ">
 								<Col className="mt-2">
@@ -59,7 +59,7 @@ const WelcomeContainer = props => {
 							</Row>
 						</div>
 					) : null}
-					{props.showLoginForm? (
+					{showLoginForm? (
 						<div>
 							<Row style={{ height: '100vh' }} className="align-items-center justify-content-center">
 								<Col className="col-6">
@@ -68,7 +68,7 @@ const WelcomeContainer = props => {
 							</Row>
 						</div>
 					) : null}
-					{props.showSignupForm ? (
+					{showSignupForm ? (
 						<div>
 							<Row style={{ height: '100vh' }} className="align-items-center justify-content-center">
 								<Col className="col-6">
