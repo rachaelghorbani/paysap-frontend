@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import { completeJob } from '../Redux/actions/JobActions';
 
 class OpenFreelanceCard extends React.Component {
-
 	state = {
 		disableButtons: true,
 		startTimer: false,
@@ -16,10 +15,10 @@ class OpenFreelanceCard extends React.Component {
 
 	hideModal = () => {
 		this.setState({ showModal: false });
-    };
+	};
 
-    //for lat and long of your own computer
-    
+	//for lat and long of your own computer
+
 	getLocation = () => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(this.getCoordinates);
@@ -27,9 +26,9 @@ class OpenFreelanceCard extends React.Component {
 			alert('geolocation not avail');
 		}
 	};
-    
-    //for lat and long of your own computer
-    
+
+	//for lat and long of your own computer
+
 	getCoordinates = (position) => {
 		const parsedJobDate = Date.parse(this.props.job.start_time);
 		const dateNow = new Date();
@@ -48,40 +47,37 @@ class OpenFreelanceCard extends React.Component {
 		}
 	};
 
-
 	localCompleteJobSubmitHandler = () => {
 		this.stopTimer();
+
+		const completedJobObj = {
+			id: this.props.job.id,
+			client_balance: this.props.job.client_balance,
+			client_bank_account_id: this.props.job.client_bank_account_id,
+			freelancer_bank_account_id: this.props.user.account.id,
+			completed: true
+		};
+
 		if (this.props.job.dayrate_or_hourly === 'Hourly') {
 			const hours = this.state.minutes / 60 + this.state.hours;
 			const roundedHours = +hours.toFixed(2);
 			const totalAmount = Math.floor(this.props.job.rate * roundedHours);
-			const completedJobObj = {
-				id: this.props.job.id,
-				client_balance: this.props.job.client_balance,
-				client_bank_account_id: this.props.job.client_bank_account_id,
-				freelancer_bank_account_id: this.props.user.account.id,
-				hours: roundedHours,
-				total_amount: totalAmount,
-				completed: true
-			};
+
+			completedJobObj.hours = roundedHours;
+			completedJobObj.total_amount = totalAmount;
+
 			this.props.completeJob(completedJobObj);
 		} else if (this.props.job.dayrate_or_hourly === 'Day Rate') {
-			const completedJobObj = {
-				id: this.props.job.id,
-				client_balance: this.props.job.client_balance,
-				client_bank_account_id: this.props.job.client_bank_account_id,
-				freelancer_bank_account_id: this.props.user.account.id,
-				hours: 10,
-				total_amount: this.props.job.rate,
-				completed: true
-			};
+			completedJobObj.hours = 10;
+			completedJobObj.total_amount = this.props.job.rate;
+
 			this.props.completeJob(completedJobObj);
 		}
 	};
 
-    intervalId = 0;
-    
-    // set to 1 second interval instead of 1 minute interval for demo purposes
+	intervalId = 0;
+
+	// set to 1 second interval instead of 1 minute interval for demo purposes
 
 	startTimer = () => {
 		this.setState({ startTimer: true });
@@ -122,11 +118,11 @@ class OpenFreelanceCard extends React.Component {
 				</Button>
 			);
 		}
-    };
-    
-    componentWillUnmount = () => {
-        this.stopTimer()
-    }
+	};
+
+	componentWillUnmount = () => {
+		this.stopTimer();
+	};
 
 	hourFormatToShow = () => {
 		if (this.state.minutes < 10) {
@@ -152,97 +148,64 @@ class OpenFreelanceCard extends React.Component {
 		return slicedDate;
 	};
 
-	rowToRender = () => {
-		const job = this.props.job;
-
-		if (job.dayrate_or_hourly === 'Day Rate') {
-			return (
-				<>
-					<td>{job.description}</td>
-					<td>
-						<a href={`mailto: ${job.client_email}`}>{job.client_email}</a>
-					</td>
-					<td>{this.restructuredDate()}</td>
-					<td>{job.dayrate_or_hourly}</td>
-					<td>${job.rate}/day</td>
-					<td>{job.location}</td>
-					<td>
-						<Button onClick={this.getLocation} style={{ fontSize: 12 }}>
-							Locate
-						</Button>
-					</td>
-					<td colSpan="2" />
-					<td>
-						<Button
-							onClick={this.localCompleteJobSubmitHandler}
-							disabled={this.state.disableButtons}
-							style={{ fontSize: 12 }}
-						>
-							Complete
-						</Button>
-					</td>
-					<Modal show={this.state.showModal} onHide={this.hideModal}>
-						<Modal.Header>
-							<Modal.Title style={{ textAlign: 'center' }}>
-								Sorry, you're either out of range or too early! Check your start time and/or try moving closer to the location.
-							</Modal.Title>
-						</Modal.Header>
-						<Modal.Footer>
-							<Button variant="secondary" onClick={this.hideModal}>
-								Close
-							</Button>
-						</Modal.Footer>
-					</Modal>
-				</>
-			);
+	rowsToRenderBasedOnHourlyOrDaily = () => {
+		if (this.props.job.dayrate_or_hourly === 'Day Rate') {
+			return <td colSpan="2" />;
 		} else {
 			return (
 				<>
-					<td>{job.description}</td>
-					<td>
-						<a href={`mailto: ${job.client_email}`}>{job.client_email}</a>
-					</td>
-					<td>{this.restructuredDate()}</td>
-					<td>{job.dayrate_or_hourly}</td>
-					<td>${job.rate}/hr</td>
-					<td>{job.location}</td>
-					<td>
-						<Button onClick={this.getLocation} style={{ fontSize: 12 }}>
-							Locate
-						</Button>
-					</td>
 					<td>{this.startOrStopTimerButton()}</td>
 					{this.hourFormatToShow()}
-					<td>
-						<Button
-							onClick={this.localCompleteJobSubmitHandler}
-							disabled={this.state.disableButtons}
-							style={{ fontSize: 12 }}
-						>
-							Complete
-						</Button>
-					</td>
-					<Modal show={this.state.showModal} onHide={this.hideModal}>
-						<Modal.Header>
-							<Modal.Title style={{ textAlign: 'center' }}>
-								Sorry, you're either out of range or too early! Check your start time and/or try moving
-								closer to the location.
-							</Modal.Title>
-						</Modal.Header>
-						<Modal.Footer>
-							<Button variant="secondary" onClick={this.hideModal}>
-								Close
-							</Button>
-						</Modal.Footer>
-					</Modal>
 				</>
 			);
 		}
 	};
+
 	render() {
-		return <tr>{this.rowToRender()}</tr>;
+		const { job } = this.props;
+		return (
+			<tr>
+				<td>{job.description}</td>
+				<td>
+					<a href={`mailto: ${job.client_email}`}>{job.client_email}</a>
+				</td>
+				<td>{this.restructuredDate()}</td>
+				<td>{job.dayrate_or_hourly}</td>
+				{job.dayrate_or_hourly === 'Day Rate' ? <td>${job.rate}/day</td> : <td>${job.rate}/hr</td>}
+				<td>{job.location}</td>
+				<td>
+					<Button onClick={this.getLocation} style={{ fontSize: 12 }}>
+						Locate
+					</Button>
+				</td>
+				{this.rowsToRenderBasedOnHourlyOrDaily()}
+				<td>
+					<Button
+						onClick={this.localCompleteJobSubmitHandler}
+						disabled={this.state.disableButtons}
+						style={{ fontSize: 12 }}
+					>
+						Complete
+					</Button>
+				</td>
+				<Modal show={this.state.showModal} onHide={this.hideModal}>
+					<Modal.Header>
+						<Modal.Title style={{ textAlign: 'center' }}>
+							Sorry, you're either out of range or too early! Check your start time and/or try moving
+							closer to the location.
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Footer>
+						<Button variant="secondary" onClick={this.hideModal}>
+							Close
+						</Button>
+					</Modal.Footer>
+				</Modal>
+			</tr>
+		);
 	}
 }
+
 const mapStateToProps = (state) => {
 	return {
 		user: state.user
