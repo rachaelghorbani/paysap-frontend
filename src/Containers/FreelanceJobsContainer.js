@@ -10,7 +10,6 @@ import {setEndDateForFilter, setStartDateForFilter} from '../Redux/actions/SortA
 
 const FreelanceJobsContainer = ({user, filterStartDate, filterEndDate, setStartDateForFilter, setEndDateForFilter}) => {
     
-  
 	const usersCompletedFreelanceJobs = () => {
 		return filterByDate(user.jobs_as_freelancer, filterStartDate, filterEndDate, 'start_time', 'completed').map((job) => <CompletedJobCard key={job.id} job={job} email={job.client_email}/>);
 	};
