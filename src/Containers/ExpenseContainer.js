@@ -12,6 +12,8 @@ import ReactToExcel from 'react-html-table-to-excel'
 
 
 class ExpenseContainer extends React.Component {
+// try to use redux for the start and end date and setting them. also try and change filter date function to take a key also (start_time or date, so can sue it here too)
+
     state = {
         startDate: '',
         endDate: ''

@@ -8,7 +8,7 @@ import PDFJs from '../DocumentComponents/PDFJs';
 import {showUploadForm} from '../Redux/actions/DocumentActions'
 
 class MyDocumentsContainer extends React.Component {
-
+//can remove state from here and make it a functional component
     state = {
         showForm: false
     }
