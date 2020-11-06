@@ -1,7 +1,7 @@
 import React from 'react'
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid,Tooltip, Legend} from 'recharts';
 
-const Chart = ({content, text, fill, dateKey, amountKey}) => {
+const BasicChart = ({content, text, fill, dateKey, amountKey}) => {
 
     const findMonthlyTransactions = (month) => {
         const jobVsExp = () => {
@@ -77,4 +77,4 @@ const Chart = ({content, text, fill, dateKey, amountKey}) => {
     );
 }
 
-export default Chart
+export default BasicChart

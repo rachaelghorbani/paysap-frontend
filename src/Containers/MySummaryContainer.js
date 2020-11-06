@@ -1,5 +1,5 @@
 import React from 'react';
-import Chart from '../ChartComponents/Chart';
+import BasicChart from '../ChartComponents/BasicChart';
 import { connect } from 'react-redux';
 import { Container, Form, Row, Col } from 'react-bootstrap';
 import ComboChart from '../ChartComponents/ComboChart';
@@ -48,7 +48,7 @@ class MySummaryContainer extends React.Component {
 					{this.state.showFL ? (
 						<Row className="justify-content-center">
 							<Col className="col-11">
-								<Chart
+								<BasicChart
 									content={this.props.user.jobs_as_freelancer}
 									fill="#05449D"
 									text="Total Freelance Income"
@@ -61,7 +61,7 @@ class MySummaryContainer extends React.Component {
 					{this.state.showCL ? (
 						<Row className="justify-content-center">
 							<Col className="col-11">
-								<Chart
+								<BasicChart
 									content={this.props.user.jobs_as_client}
 									fill="#FD3D0D"
 									text="Total Client-Made Payments"
@@ -84,7 +84,7 @@ class MySummaryContainer extends React.Component {
 					{this.state.showEX ? (
 						<Row className="justify-content-center">
 							<Col className="col-11">
-								<Chart
+								<BasicChart
 									text="Total Expenses"
 									dateKey="date"
 									content={this.props.user.expenses}
