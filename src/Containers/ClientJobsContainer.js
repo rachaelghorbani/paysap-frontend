@@ -8,7 +8,7 @@ import CompletedJobCard from '../Components/CompletedJobCard'
 // import DatePicker from "react-datepicker"
 // import "react-datepicker/dist/react-datepicker.css"
 // import ReactToExcel from 'react-html-table-to-excel'
-import {DateFilterAndExcelRow, filterByDate} from '../Components/DateFilterAndExcelRow'
+import DateFilterAndExcelRow, {filterByDate} from '../Components/DateFilterAndExcelRow'
 import {setEndDateForFilter, setStartDateForFilter} from '../Redux/actions/SortActions'
 
 

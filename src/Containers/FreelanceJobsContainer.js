@@ -5,7 +5,7 @@ import { Table, Container} from 'react-bootstrap';
 import OpenFreelanceCard from '../Components/OpenFreelanceCard'
 import GoogleMap from '../GoogleComponents/GoogleMap'
 import CompletedJobCard from '../Components/CompletedJobCard'
-import {DateFilterAndExcelRow, filterByDate} from '../Components/DateFilterAndExcelRow'
+import DateFilterAndExcelRow, { filterByDate} from '../Components/DateFilterAndExcelRow'
 import {setEndDateForFilter, setStartDateForFilter} from '../Redux/actions/SortActions'
 
 

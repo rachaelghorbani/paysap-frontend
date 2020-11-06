@@ -56,8 +56,6 @@ const DateFilterAndExcelRow = (props) => {
 								<Button onClick={resetDate} style={{ fontSize: 12, marginLeft: 6 }}>
 									Reset
 								</Button>
-								{/* will need two date selectors, a button to filter and a button to reset */}
-								{/* date range selector will go here on left */}
 							</Col>
 						</Row>
 					</th>
@@ -110,6 +108,7 @@ const mapDispatchToProps = (dispatch) => {
 		setStartDateForFilter: (date) => dispatch(setStartDateForFilter(date))
 	};
 };
-const tableRow = connect(mapStateToProps, mapDispatchToProps)(DateFilterAndExcelRow);
-export { tableRow as DateFilterAndExcelRow };
+export default connect(mapStateToProps, mapDispatchToProps)(DateFilterAndExcelRow)
+// const tableRow = connect(mapStateToProps, mapDispatchToProps)(DateFilterAndExcelRow);
+// export { tableRow as DateFilterAndExcelRow };
 // export default connect(mapStateToProps, mapDispatchToProps)(DateFilterAndExcelRow)

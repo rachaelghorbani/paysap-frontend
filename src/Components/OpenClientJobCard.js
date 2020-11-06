@@ -199,12 +199,10 @@ class OpenClientJobCard extends React.Component {
 	};
 
 	showEditForm = () => {
-        console.log(this.state.dayrate_or_hourly)
 		this.setState({ showEditForm: true });
 	};
 
 	render() {
-        console.log(this.state.dayrate_or_hourly)
 		return (
 			<>{this.componentToRender()}</>
 
