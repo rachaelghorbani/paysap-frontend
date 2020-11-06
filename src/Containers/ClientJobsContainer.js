@@ -36,7 +36,7 @@ class ClientJobsContainer extends React.Component {
         //         return Date.parse(b.start_time) - Date.parse(a.start_time)
         //     })
         // }
-        return filterByDate(this.props.user.jobs_as_client, this.props.filterStartDate, this.props.filterEndDate).map(job=> <CompletedJobCard key={job.id} job={job} email={job.freelancer_email}/>)
+        return filterByDate(this.props.user.jobs_as_client, this.props.filterStartDate, this.props.filterEndDate, 'start_time', 'completed').map(job=> <CompletedJobCard key={job.id} job={job} email={job.freelancer_email}/>)
     }
 
     // filterByDate = () => {

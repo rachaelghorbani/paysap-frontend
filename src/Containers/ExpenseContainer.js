@@ -5,10 +5,11 @@ import ExpenseCard from '../Components/ExpenseCard';
 import { Button, Row, Col } from 'react-bootstrap';
 import NewExpenseForm from '../Components/NewExpenseForm';
 import {showNewExpenseForm} from '../Redux/actions/ExpenseActions'
-import {setExpenseCategory} from '../Redux/actions/SortActions'
+import {setExpenseCategory, setStartDateForFilter, setEndDateForFilter} from '../Redux/actions/SortActions'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import ReactToExcel from 'react-html-table-to-excel'
+import {filterByDate} from '../Components/DateFilterAndExcelRow'
 
 
 class ExpenseContainer extends React.Component {
@@ -31,64 +32,67 @@ class ExpenseContainer extends React.Component {
 		this.props.showNewExpenseForm()
     };
     
-    filterByDate = () => {
-        //first check to make sure the dates are not empty adn that start date is not greater than end date
-        //must dateparse first 
-        //if all good, filter through expenses cchking that date is between the two numbers and return an array. 
-        //probably will pass this to sortByCat]
-        const parsedStartDate = Date.parse(this.state.startDate)
-        const parsedEndDate = Date.parse(this.state.endDate)
+    // filterByDate = () => {
+    //     //first check to make sure the dates are not empty adn that start date is not greater than end date
+    //     //must dateparse first 
+    //     //if all good, filter through expenses cchking that date is between the two numbers and return an array. 
+    //     //probably will pass this to sortByCat]
+    //     const parsedStartDate = Date.parse(this.props.filterStartDate)
+    //     const parsedEndDate = Date.parse(this.props.filterEndDate)
 
-        if(this.state.startDate !== '' && this.state.endDate !=='' && this.state.startDate !== null && this.state.endDate !== null && parsedStartDate <= parsedEndDate ){
-        // const parsedStartDate = Date.parse(this.state.startDate)
-        // const parsedEndDate = Date.parse(this.state.endDate)
-        //     if(parsedStartDate <= parsedEndDate){
-                return this.props.user.expenses.filter(ex => {
-                    const parsedExpenseDate = Date.parse(ex.date)
-                    return parsedExpenseDate >= parsedStartDate && parsedExpenseDate <= parsedEndDate
-                })
-            // }
-        } else{
-            return this.props.user.expenses
-        }
-    }
+    //     if(this.props.filterStartDate !== '' && this.props.filterEndDate !=='' && this.props.filterStartDate !== null && this.props.filterEndDate !== null && parsedStartDate <= parsedEndDate ){
+    //     // const parsedStartDate = Date.parse(this.state.startDate)
+    //     // const parsedEndDate = Date.parse(this.state.endDate)
+    //     //     if(parsedStartDate <= parsedEndDate){
+    //             return this.props.user.expenses.filter(ex => {
+    //                 const parsedExpenseDate = Date.parse(ex.date)
+    //                 return parsedExpenseDate >= parsedStartDate && parsedExpenseDate <= parsedEndDate
+    //             })
+    //         // }
+    //     } else{
+    //         return this.props.user.expenses
+    //     }
+    // }
 
     sortByCat = cat => {
+        console.log(filterByDate(this.props.user.expenses, this.props.filterStartDate, this.props.filterEndDate, 'date'))
         if(cat === 'All'){
-            return this.filterByDate()
+            return filterByDate(this.props.user.expenses, this.props.filterStartDate, this.props.filterEndDate, 'date')
         } else {
-            return this.filterByDate().filter(exp => exp.category === cat)
+            return filterByDate(this.props.user.expenses, this.props.filterStartDate, this.props.filterEndDate, 'date').filter(exp => exp.category === cat)
         }
     }
 	renderExpenses = () => {
        
-        const sorted = () => {
-            return this.sortByCat(this.props.expenseCategory).sort((a, b) => {
-                return Date.parse(b.date) - Date.parse(a.date)
-            })
-        }
-		return sorted().map((e) => <ExpenseCard key={e.id} expense={e} />);
+        // const sorted = () => {
+        //     return this.sortByCat(this.props.expenseCategory).sort((a, b) => {
+        //         return Date.parse(b.date) - Date.parse(a.date)
+        //     })
+        // }
+        
+		return this.sortByCat(this.props.expenseCategory).map((e) => <ExpenseCard key={e.id} expense={e} />);
     };
     
     setFilterCategory = (e) => {
         this.props.setExpenseCategory(e.target.value)
     }
 
-    startDateChangeHandler = (date) => {
-        this.setState({startDate: date})
-    }
+  
 
     startDateChangeHandler = (date) => {
-        this.setState({startDate: date})
+        this.props.setStartDateForFilter(date)
     }
     endDateChangeHandler = date => {
-        this.setState({endDate: date})
+        this.props.setEndDateForFilter(date)
     }
 
     resetDate = () => {
-        this.setState({startDate: '', endDate: ''})
+       this.props.setEndDateForFilter('')
+       this.props.setStartDateForFilter('')
     }
-   
+   componentWillUnmount = () => {
+       this.resetDate()
+   }
 
 	showOrHideForm = () => {
 		if (this.props.showOrHideNewExpenseForm) {
@@ -145,7 +149,7 @@ class ExpenseContainer extends React.Component {
                                 </Row>
                                 <Row>
                                     <Col className = 'd-flex align-items-center'>
-                                Start Date: <DatePicker className='dateSort'onChange={this.startDateChangeHandler} selected={this.state.startDate}/> End Date: <DatePicker className='dateSort' onChange={this.endDateChangeHandler} selected={this.state.endDate}/><Button onClick={this.resetDate}style={{ fontSize: 12 , marginLeft: 6}}>Reset</Button>
+                                Start Date: <DatePicker className='dateSort'onChange={this.startDateChangeHandler} selected={this.props.filterStartDate}/> End Date: <DatePicker className='dateSort' onChange={this.endDateChangeHandler} selected={this.props.filterEndDate}/><Button onClick={this.resetDate}style={{ fontSize: 12 , marginLeft: 6}}>Reset</Button>
                                 {/* will need two date selectors, a button to filter and a button to reset */}
                                 
                                 {/* date range selector will go here on left */}
@@ -217,13 +221,17 @@ const mapStateToProps = (state) => {
 	return {
         user: state.user,
         showOrHideNewExpenseForm: state.showOrHideNewExpenseForm,
-        expenseCategory: state.expenseCategory
+        expenseCategory: state.expenseCategory,
+        filterStartDate: state.filterStartDate,
+        filterEndDate: state.filterEndDate
 	};
 };
 const mapDispatchToProps = dispatch => {
     return {
         showNewExpenseForm: ()=> dispatch(showNewExpenseForm()),
-        setExpenseCategory: category => dispatch(setExpenseCategory(category))
+        setExpenseCategory: category => dispatch(setExpenseCategory(category)),
+        setEndDateForFilter: date => dispatch(setEndDateForFilter(date)),
+        setStartDateForFilter: date => dispatch(setStartDateForFilter(date))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseContainer);
