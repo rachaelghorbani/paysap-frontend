@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { completeJob } from '../Redux/actions/JobActions';
 
 class OpenFreelanceCard extends React.Component {
+
 	state = {
 		disableButtons: true,
 		startTimer: false,
@@ -76,16 +77,12 @@ class OpenFreelanceCard extends React.Component {
 			};
 			this.props.completeJob(completedJobObj);
 		}
-
-		//check to see if hourly or daily
-		//if hourly have to do some math to calculate total amount
-		//must also update hours and total amount
-		//will then call on a dispatch thingy that takes in history and the obj and then creates
-		//otherwise reacreate object with completed value to send back
 	};
 
     intervalId = 0;
     
+    // set to 1 second interval instead of 1 minute interval for demo purposes
+
 	startTimer = () => {
 		this.setState({ startTimer: true });
 		this.intervalId = setInterval(() => {
@@ -109,7 +106,6 @@ class OpenFreelanceCard extends React.Component {
 				minutes: 0
 			}));
 		}
-		//if the previous state of minutes is less than 60, increment the state.minutes. otherwise reset the minutes to 0 and increment the hours by 1
 	};
 
 	startOrStopTimerButton = () => {

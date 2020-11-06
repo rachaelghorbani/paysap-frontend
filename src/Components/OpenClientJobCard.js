@@ -8,6 +8,7 @@ import {updateJob, deleteJob} from '../Redux/actions/JobActions'
 
 
 class OpenClientJobCard extends React.Component {
+
 	state = {
         showEditForm: false,
 		description: this.props.job.description,
@@ -18,7 +19,8 @@ class OpenClientJobCard extends React.Component {
         dayrate_or_hourly: this.props.job.dayrate_or_hourly,
         lat: this.props.job.lat,
 		long: this.props.job.long,
-	};
+    };
+    
 	restructuredDate = () => {
 		const date = this.props.job.start_time;
 		const slicedDate = date.slice(0, 21);
@@ -87,7 +89,7 @@ class OpenClientJobCard extends React.Component {
         } 
     };
     
-    deleteHandler = e => {
+    deleteHandler = () => {
         this.props.deleteJob(this.props.job.id)
     }
 
@@ -125,7 +127,7 @@ class OpenClientJobCard extends React.Component {
 					</td>
 					<td>
 						<InputGroup style={{width: 210}} className="mb-3">
-                        <DateTimePicker className='w-4'onChange={this.dateChangeHandler} value={this.state.date} />
+                            <DateTimePicker className='w-4'onChange={this.dateChangeHandler} value={this.state.date} />
 						</InputGroup>
 					</td>
 					<td>
@@ -159,7 +161,6 @@ class OpenClientJobCard extends React.Component {
 							Save
 						</Button>
 					</td>
-
 				</tr>
 			);
 		} else {
@@ -178,7 +179,9 @@ class OpenClientJobCard extends React.Component {
 							Edit
 						</Button>
 					</td>
-                    <td><Button onClick={this.deleteHandler}style={{ fontSize: 12 }} >Delete</Button></td>
+                    <td>
+                        <Button onClick={this.deleteHandler}style={{ fontSize: 12 }} >Delete</Button>
+                    </td>
 				</tr>
 			);
 		}
