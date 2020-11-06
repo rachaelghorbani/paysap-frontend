@@ -77,21 +77,19 @@ export const filterByDate = (jobsOrExpenses, startDate, endDate, timeKey, comple
 		} else {
 			return jobsOrExpenses;
 		}
-	};
+    };
+    const sorted = () => {
+        return jOrE().sort((a, b) => {
+            return Date.parse(b[timeKey]) - Date.parse(a[timeKey]);
+        });
+    };
 	if (startDate !== '' && endDate !== '' && startDate !== null && endDate !== null && parsedStartDate <= parsedEndDate) {
-		const sorted = () => {
-			return jOrE().sort((a, b) => {
-				return Date.parse(b[timeKey]) - Date.parse(a[timeKey]);
-			});
-		};
 		return sorted().filter((cl) => {
 			const parsedExpenseDate = Date.parse(cl[timeKey]);
 			return parsedExpenseDate >= parsedStartDate && parsedExpenseDate <= parsedEndDate;
 		});
 	} else {
-		return jOrE().sort((a, b) => {
-			return Date.parse(b[timeKey]) - Date.parse(a[timeKey]);
-		});
+		return sorted()
 	}
 };
 
@@ -109,6 +107,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DateFilterAndExcelRow)
-// const tableRow = connect(mapStateToProps, mapDispatchToProps)(DateFilterAndExcelRow);
-// export { tableRow as DateFilterAndExcelRow };
-// export default connect(mapStateToProps, mapDispatchToProps)(DateFilterAndExcelRow)
+

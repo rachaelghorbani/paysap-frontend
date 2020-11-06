@@ -7,15 +7,11 @@ import ClientJobsContainer from './ClientJobsContainer'
 import {fetchAllUsers} from '../Redux/actions/UsersActions'
 
 class JobsContainer extends React.Component{
+    // need to fetch all users in order to ensure email belongs to an actual user when creating or editing a job
     componentDidMount = () => {
 		this.props.fetchAllUsers();
 	}
 
-    //this component will be responsible for rendering 
-        // a users freelance jobs component
-        // a users client-side jobs component
-        // form to create a new job
-        // will need access to all users upon component mounting so that we can create an instance of the job join table in the new form by finding a user through their email address
     render(){
         return(
             <div>
@@ -28,7 +24,7 @@ class JobsContainer extends React.Component{
         )
     }
 }
-//doe we need curent user?
+
 const mapStateToProps = state => {
     return {
         user: state.user,
