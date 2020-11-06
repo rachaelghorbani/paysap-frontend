@@ -11,13 +11,6 @@ class GoogleMap extends React.Component {
 		// initLat: null,
 		// initLong: null
 	};
-	//want to bring in the find location on component did mount and reset initial center to those dots
-	// mapStyles = {
-	//     width: "88%",
-	//     height: "50%",
-	// }
-
-	
 
 	containerStyle = {
 		marginTop: '10px',
@@ -63,7 +56,7 @@ class GoogleMap extends React.Component {
 		});
     };
     
-    // would use these in production but takes longer to load so will use set lat and long for demo purposes
+    // would use these in production but takes longer to load so will hardcode lat and long for demo purposes
 
 	// getCoordinates = (position) => {
 	// 	const lat = parseFloat(JSON.stringify(position.coords.latitude), 10);
@@ -82,25 +75,19 @@ class GoogleMap extends React.Component {
 	// };
 
 	render() {
-		// if (this.state.initLong !== null && this.state.initLat !== null) {
+		// if (this.state.initLong && this.state.initLat) {
 			return (
 				<div style={{ display: 'flex', justifyContent: 'center' }}>
 					<Map
 						containerStyle={this.containerStyle}
 						google={this.props.google}
 						zoom={14}
-						// style={this.mapStyles}
 						initialCenter={{
 							// lat: this.state.initLat,
 							// lng: this.state.initLong
 							lat: 42.4538356,
 							lng: -71.2337416
 						}}
-						//maybe set these in state and then onclick reset them for the individual marker
-						// center={{
-						// 	lat: this.state.lat,
-						// 	lng: this.state.long
-						// }}
 					>
 						{this.renderMarker()}
 						<InfoWindow
@@ -118,7 +105,7 @@ class GoogleMap extends React.Component {
 				</div>
 			);
 		// } else {
-		// 	return <div></div>;
+		// 	return <div>loading</div>;
 		// }
 	}
 }
