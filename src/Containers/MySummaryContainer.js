@@ -5,10 +5,8 @@ import { Container, Form, Row, Col } from 'react-bootstrap';
 import ComboChart from '../ChartComponents/ComboChart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ExpenseContainer from './ExpenseContainer';
-import ExpenseChart from '../ChartComponents/ExpenseChart';
 
 class MySummaryContainer extends React.Component {
-
 	state = {
 		showFL: true,
 		showCL: false,
@@ -51,9 +49,11 @@ class MySummaryContainer extends React.Component {
 						<Row className="justify-content-center">
 							<Col className="col-11">
 								<Chart
-									jobs={this.props.user.jobs_as_freelancer}
+									content={this.props.user.jobs_as_freelancer}
 									fill="#05449D"
-									text={'Total Freelance Income'}
+									text="Total Freelance Income"
+									dateKey="start_time"
+									amountKey="total_amount"
 								/>
 							</Col>
 						</Row>
@@ -62,9 +62,11 @@ class MySummaryContainer extends React.Component {
 						<Row className="justify-content-center">
 							<Col className="col-11">
 								<Chart
-									jobs={this.props.user.jobs_as_client}
+									content={this.props.user.jobs_as_client}
 									fill="#FD3D0D"
 									text="Total Client-Made Payments"
+									dateKey="start_time"
+									amountKey="total_amount"
 								/>
 							</Col>
 						</Row>
@@ -82,7 +84,13 @@ class MySummaryContainer extends React.Component {
 					{this.state.showEX ? (
 						<Row className="justify-content-center">
 							<Col className="col-11">
-								<ExpenseChart expenses={this.props.user.expenses} dataKey="Total Expenses" />
+								<Chart
+									text="Total Expenses"
+									dateKey="date"
+									content={this.props.user.expenses}
+									fill="#FFBA08"
+									amountKey="amount"
+								/>
 							</Col>
 						</Row>
 					) : null}

@@ -1,53 +1,59 @@
 import React from 'react'
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid,Tooltip, Legend} from 'recharts';
 
-const Chart = (props) => {
-    
+const Chart = ({content, text, fill, dateKey, amountKey}) => {
+
     const findMonthlyTransactions = (month) => {
-        const monthlyCompleted = props.jobs.filter(job => job.start_time.includes(month) && job.completed === true)
+        const jobVsExp = () => {
+            if(dateKey === 'start_time'){
+                return content.filter(content => content[dateKey].includes(month) && content.completed === true)
+            } else {
+                return content.filter(content => content[dateKey].includes(month))
+            }
+        }
         let sum = 0
-        for(let job of monthlyCompleted){
-            sum += job.total_amount
+        for(let content of jobVsExp()){
+            sum += content[amountKey]
         }
         return sum
     }
 
    const data = [
         {
-            name: 'Jan', [`${props.text}`]: findMonthlyTransactions('Jan')
+            name: 'Jan', [`${text}`]: findMonthlyTransactions('Jan')
         },
         {
-            name: 'Feb', [`${props.text}`]: findMonthlyTransactions('Feb')
+            name: 'Feb', [`${text}`]: findMonthlyTransactions('Feb')
         },
         {
-            name: 'Mar', [`${props.text}`]: findMonthlyTransactions('Mar')
+            name: 'Mar', [`${text}`]: findMonthlyTransactions('Mar')
         },
         {
-            name: 'Apr', [`${props.text}`]: findMonthlyTransactions('Apr')
+            name: 'Apr', [`${text}`]: findMonthlyTransactions('Apr')
         },
         {
-            name: 'May', [`${props.text}`]: findMonthlyTransactions('May')
+            name: 'May', [`${text}`]: findMonthlyTransactions('May')
         },
         {
-            name: 'Jun', [`${props.text}`]: findMonthlyTransactions('Jun')
+            name: 'Jun', [`${text}`]: findMonthlyTransactions('Jun')
         },
         {
-            name: 'Jul', [`${props.text}`]: findMonthlyTransactions('Jul')
+            name: 'Jul', [`${text}`]: findMonthlyTransactions('Jul')
         },
         {
-            name: 'Aug', [`${props.text}`]: findMonthlyTransactions('Aug')
+            name: 'Aug', [`${text}`]: findMonthlyTransactions('Aug')
         },
         {
-            name: 'Sep', [`${props.text}`]: findMonthlyTransactions('Sep')
+            name: 'Sep', [`${text}`]: findMonthlyTransactions('Sep')
         },
         {
-            name: 'Oct', [`${props.text}`]: findMonthlyTransactions('Oct')
+            name: 'Oct', [`${text}`]: findMonthlyTransactions('Oct')
         },
         {
-            name: 'Nov', [`${props.text}`]: findMonthlyTransactions('Nov')
+            name: 'Nov', [`${text}`]: findMonthlyTransactions('Nov')
         },
         {
-            name: 'Dec', [`${props.text}`]: findMonthlyTransactions('Dec')
+            name: 'Dec', [`${text}`]: findMonthlyTransactions('Dec')
         }
     
     ];
@@ -66,7 +72,7 @@ const Chart = (props) => {
             <YAxis />
             <Tooltip  />
             <Legend />
-            <Bar dataKey={props.text} stackId="a" fill={props.fill} />
+            <Bar dataKey={text} stackId="a" fill={fill} />
         </BarChart>
     );
 }
