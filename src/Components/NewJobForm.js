@@ -121,7 +121,6 @@ class NewJobForm extends React.Component {
 						<Form.Row>
 							<Col>
                                 <Form.Group 
-                                
 									onChange={this.basicChangeHandler}
 									value={this.state.dayrate_or_hourly}
 									controlId="dayRateOrHourly"

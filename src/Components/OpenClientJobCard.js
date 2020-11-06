@@ -7,8 +7,6 @@ import {connect} from 'react-redux'
 import {updateJob, deleteJob} from '../Redux/actions/JobActions'
 
 
-
-
 class OpenClientJobCard extends React.Component {
 	state = {
         showEditForm: false,
@@ -44,13 +42,10 @@ class OpenClientJobCard extends React.Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
-
-    
     //google places
 
     handleAddressSelect = async (value) => {
 		const results = await geocodeByAddress(value);
-		//formatted address would bbe results[0].formatted_address
 		const latLong = await getLatLng(results[0]);
 		this.setState({ lat: latLong.lat, long: latLong.lng, address: value });
 	};
@@ -58,7 +53,6 @@ class OpenClientJobCard extends React.Component {
 	addressChangeHandler = (e) => {
 		this.setState({ address: e });
     };
-
 
 	updateJob = (e) => {
         e.preventDefault();
@@ -90,20 +84,16 @@ class OpenClientJobCard extends React.Component {
                 total_amount: null
             };
              this.props.updateJob(jobObj)
-
-            // will put everything below in here when time to actually demo
         } 
-
-        // going to make a patch request for this job
-	
-
-		
     };
     
     deleteHandler = e => {
         this.props.deleteJob(this.props.job.id)
     }
-    
+
+    showEditForm = () => {
+		this.setState({ showEditForm: true });
+	};
 
 	componentToRender = () => {
 		if (this.state.showEditForm) {
@@ -124,7 +114,6 @@ class OpenClientJobCard extends React.Component {
 					<td >
 						<InputGroup className="mb-3">
 							<FormControl
-
 								style={{ height: 32, fontSize: 12}}
 								value={this.state.freelancer_email}
 								onChange={this.basicChangeHandler}
@@ -135,10 +124,8 @@ class OpenClientJobCard extends React.Component {
 						</InputGroup>
 					</td>
 					<td>
-						{/* ///date and time picker goes here */}
 						<InputGroup style={{width: 210}} className="mb-3">
                         <DateTimePicker className='w-4'onChange={this.dateChangeHandler} value={this.state.date} />
-
 						</InputGroup>
 					</td>
 					<td>
@@ -192,34 +179,14 @@ class OpenClientJobCard extends React.Component {
 						</Button>
 					</td>
                     <td><Button onClick={this.deleteHandler}style={{ fontSize: 12 }} >Delete</Button></td>
-
 				</tr>
 			);
 		}
 	};
 
-	showEditForm = () => {
-		this.setState({ showEditForm: true });
-	};
-
 	render() {
 		return (
 			<>{this.componentToRender()}</>
-
-			// <tr>
-			// 	<td>{job.description}</td>
-			// 	<td>
-			// 		<a href={`mailto: ${job.freelancer_email}`}>{job.freelancer_email}</a>
-			// 	</td>
-			// 	<td>{this.restructuredDate()}</td>
-			// 	<td>{job.dayrate_or_hourly}</td>
-			// 	{this.tdToReturnForHourlyVsDay()}
-			// 	<td>{job.location}</td>
-			// 	<td>
-			// 		<Button onClick={this.showEditForm}style={{ fontSize: 12 }}>Edit</Button>
-			// 	</td>
-
-			// </tr>
 		);
 	}
 }
@@ -230,6 +197,7 @@ const mapStateToProps = state => {
         users: state.users
     }
 }
+
 const mapDispatchToProps = dispatch => {
     return {
         updateJob: (jobObj) => dispatch(updateJob(jobObj)),
