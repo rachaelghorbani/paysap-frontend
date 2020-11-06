@@ -40,7 +40,7 @@ const FreelanceJobsContainer = ({user, filterStartDate, filterEndDate, setStartD
 	
 		return (
 			<Container>
-                <GoogleMap jobs={openJobsForMap()}/>
+                {/* <GoogleMap jobs={openJobsForMap()}/> */}
 				<Table bordered className="mt-2">
 					<thead>
 						<tr>

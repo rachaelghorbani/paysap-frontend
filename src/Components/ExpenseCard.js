@@ -6,13 +6,15 @@ import { connect } from 'react-redux';
 import { updateExpense, deleteExpense } from '../Redux/actions/ExpenseActions';
 
 class ExpenseCard extends React.Component {
+    
 	state = {
 		showEditForm: false,
 		amount: this.props.expense.amount,
 		date: new Date(this.props.expense.date),
 		category: this.props.expense.category,
 		description: this.props.expense.description
-	};
+    };
+    
 	restructuredDate = () => {
 		return this.props.expense.date.slice(4, 15);
 	};
@@ -39,9 +41,6 @@ class ExpenseCard extends React.Component {
 		};
 		this.props.updateExpense(updatedExpense, this.props.expense.id);
 		this.setState({ showEditForm: false });
-		//need to create the obj to send back including id
-		//need to call a redux method
-		//nned to hide the form again
 	};
 
 	handleDelete = () => {
@@ -133,19 +132,6 @@ class ExpenseCard extends React.Component {
 	render() {
 		return (
 			<>{this.contentToShow()}</>
-
-			// <tr>
-			// 	<td>{this.restructuredDate()}</td>
-			// 	<td>{this.props.expense.description}</td>
-			// 	<td>{this.props.expense.category}</td>
-			// 	<td>{this.props.expense.amount}</td>
-			// 	<td>
-			// 		<Button style={{ fontSize: 12 }}>Edit</Button>
-			// 	</td>
-			// 	<td>
-			// 		<Button style={{ fontSize: 12 }}>Delete</Button>
-			// 	</td>
-			// </tr>
 		);
 	}
 }
@@ -155,4 +141,5 @@ const mapDispatchToProps = (dispatch) => {
 		deleteExpense: (id) => dispatch(deleteExpense(id))
 	};
 };
+
 export default connect(null, mapDispatchToProps)(ExpenseCard);
