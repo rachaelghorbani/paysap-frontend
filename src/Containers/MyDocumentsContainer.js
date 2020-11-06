@@ -5,43 +5,41 @@ import DocumentUploadComponent from '../DocumentComponents/DocumentUploadCompone
 import DocumentCard from '../DocumentComponents/DocumentCard';
 import PDFViewer from '../DocumentComponents/PDFViewer';
 import PDFJs from '../DocumentComponents/PDFJs';
-import {showUploadForm} from '../Redux/actions/DocumentActions'
+import { showUploadForm } from '../Redux/actions/DocumentActions';
 
-class MyDocumentsContainer extends React.Component {
+const MyDocumentsContainer = (props) => {
 
-    showForm =()=> {
-        this.props.showUploadForm()
-    }
-    buttonToShowFormOrFormItself = () => {
-        if(this.props.showDocumentUploadForm){
-            return <DocumentUploadComponent />
-        } else {
-            return <Button style={{fontSize: 14}}onClick={this.showForm}>Upload Document</Button>
-        }
-    }
-
-
-	showThumbnailsClickHandler = () => {
-		this.props.showThumbnails();
+	const showForm = () => {
+		props.showUploadForm();
 	};
 
-	renderDocs = () => {
-		return this.props.user.documents.map((doc) => <DocumentCard key={doc.id} doc={doc} />);
+	const buttonToShowFormOrFormItself = () => {
+		if (props.showDocumentUploadForm) {
+			return <DocumentUploadComponent />;
+		} else {
+			return (
+				<Button style={{ fontSize: 14 }} onClick={showForm}>
+					Upload Document
+				</Button>
+			);
+		}
 	};
 
-	componentsToRender = () => {
-		if (this.props.showOrHideThumbnails === false) {
+	const renderDocs = () => {
+		return props.user.documents.map((doc) => <DocumentCard key={doc.id} doc={doc} />);
+	};
+
+	const componentsToRender = () => {
+		if (props.showOrHideThumbnails === false) {
 			return (
 				<div>
-                   <div style={{fontSize: 36}}>My Documents</div>
-					<Container className="d-flex justify-content-center">
-                        {this.buttonToShowFormOrFormItself()}
-					</Container>
+					<div style={{ fontSize: 36 }}>My Documents</div>
+					<Container className="d-flex justify-content-center">{buttonToShowFormOrFormItself()}</Container>
 
 					<Container>
 						<Row className="d-flex justify-content-center">
 							<Col>
-								<CardGroup className="justify-content-center mb-4">{this.renderDocs()}</CardGroup>
+								<CardGroup className="justify-content-center mb-4">{renderDocs()}</CardGroup>
 							</Col>
 						</Row>
 					</Container>
@@ -53,7 +51,7 @@ class MyDocumentsContainer extends React.Component {
 					<Container className="d-flex justify-content-center">
 						<PDFViewer
 							style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
-							src={this.props.pdfUrl}
+							src={props.pdfUrl}
 							backend={PDFJs}
 						/>
 					</Container>
@@ -62,23 +60,24 @@ class MyDocumentsContainer extends React.Component {
 		}
 	};
 
-	render() {
-		return <div>{this.componentsToRender()}</div>;
-	}
-}
+	return (
+        <div>{componentsToRender()}</div>
+    ) 
+};
+
 const mapStateToProps = (state) => {
 	return {
 		user: state.user,
 		showOrHideThumbnails: state.showOrHideThumbnails,
-        pdfUrl: state.pdfUrl,
-        showDocumentUploadForm: state.showDocumentUploadForm
+		pdfUrl: state.pdfUrl,
+		showDocumentUploadForm: state.showDocumentUploadForm
 	};
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        showUploadForm: () => dispatch(showUploadForm())
-    }
-}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		showUploadForm: () => dispatch(showUploadForm())
+	};
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyDocumentsContainer);
