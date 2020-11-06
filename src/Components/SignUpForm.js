@@ -6,6 +6,7 @@ import { hideSignup, showSignupAndLoginButtons, resetSuccessfulLogin } from '../
 import { withRouter } from 'react-router-dom';
 
 class SignUpForm extends React.Component {
+
 	state = {
 		username: '',
 		first_name: '',
@@ -26,8 +27,6 @@ class SignUpForm extends React.Component {
 		last_name: '',
 		password: '',
 		email: ''})
-		// this.props.hideSignup()
-		// this.props.showSignupAndLoginButtons()
 	};
 
 	backClickHandler = (e) => {
@@ -37,7 +36,6 @@ class SignUpForm extends React.Component {
 	};
 
 	render() {
-		console.log(this.state);
 		return (
 			<Container>
 				{this.props.successfulLogin ? null : <p>Please Fill Out All Fields/Select Another Username</p>}
@@ -120,6 +118,7 @@ class SignUpForm extends React.Component {
 		);
 	}
 }
+
 const mapDispatchToProps = (dispatch) => {
 	return {
 		signupUser: (user, history) => dispatch(signupUser(user, history)),
