@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../Redux/actions/UserActions';
 
 const NavBar = (props) => {
-
+    
 	const localLogout = () => {
 		localStorage.removeItem('token');
 		props.logoutUser();
@@ -43,7 +43,7 @@ const NavBar = (props) => {
 						</Link>
 					</NavDropdown.Item>
 				</NavDropdown>
-                
+
 				<Link to="/" onClick={localLogout} className="mx-2 navLinks">
 					Logout
 				</Link>
@@ -62,4 +62,5 @@ const mapStateToProps = (state) => {
 		user: state.user
 	};
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
