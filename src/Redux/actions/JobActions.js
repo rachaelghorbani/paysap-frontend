@@ -29,8 +29,6 @@ export const createJob = (jobObj, history) => {
 
 			return dispatch({ type: 'CREATE_JOB', payload: newArr });
 		});
-
-		//will need to create job and update the current user. should navigate to our my client-side-jobs page after
 	};
 };
 
@@ -143,7 +141,6 @@ export const updateJob = (jobObj) => {
 				...getState().user,
 				jobs_as_client: userClientJobs
 			};
-			//find old job and then reaplace
 			return dispatch({ type: 'UPDATE_JOB', payload: newArr });
 		});
 	};
@@ -172,7 +169,5 @@ export const deleteJob = jobId => {
             };
             return dispatch({type: "DELETE_JOB",payload: newArr})
         })
-        //send delete request to jobs/id
-        //filter through a users client jobs and only return jobs where the id doesnt match this id and reset
     }
 }
