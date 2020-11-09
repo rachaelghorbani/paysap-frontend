@@ -47,13 +47,6 @@ export const findUserByToken = (history) => {
 	};
 };
 
-export const logoutUser = () => {
-	return {
-		type: 'LOGOUT_USER',
-		payload: null
-	};
-};
-
 export const signupUser = (user, history) => {
 	return function(dispatch) {
 		const options = {
@@ -75,6 +68,13 @@ export const signupUser = (user, history) => {
 				return dispatch({ type: 'UNSUCCESSFUL_LOGIN', payload: false });
 			}
 		});
+	};
+};
+
+export const logoutUser = () => {
+	return {
+		type: 'LOGOUT_USER',
+		payload: null
 	};
 };
 
