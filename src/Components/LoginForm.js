@@ -31,6 +31,7 @@ class LoginForm extends React.Component {
 	};
 
 	render() {
+        console.log(this.state)
 		return (
 			<Container>
 				{this.props.successfulLogin ? null : <p>Username and/or Password Incorrect</p>}
