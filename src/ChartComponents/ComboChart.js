@@ -9,7 +9,7 @@ const ComboChart = ({fl_jobs, cl_jobs}) => {
         for(let job of monthlyCompleted){
             sum += job.total_amount
         }
-        return sum
+        return +sum.toFixed(2)
     }
 
     const data = [

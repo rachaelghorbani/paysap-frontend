@@ -55,7 +55,15 @@ const ExpenseContainer = ({
 	const resetDate = () => {
 		setEndDateForFilter('');
 		setStartDateForFilter('');
-	};
+    };
+    
+    const totalSumOfShownExpenses = () => {
+        let sum = 0
+        for(let exp of sortByCat(expenseCategory)){
+            sum += exp.amount
+        }
+        return +sum.toFixed(2)
+    }
 
 	useEffect(() => {
         return () => {
@@ -108,13 +116,17 @@ const ExpenseContainer = ({
 										</Button>
 										<ReactToExcel
 											table="table-to-xls"
-											filename="expenses"
+											filename={`expenses ${new Date()}`}
 											sheet="sheet 1"
 											className="btn ml-2"
 											id="exlButton"
 											buttonText="Export To XLS"
 										/>
+                                        
 									</Col>
+                                    <Col style={{marginLeft: 395, color: 'red'}}>
+                                    TOTAL: ${totalSumOfShownExpenses()}
+                                    </Col>
 								</Row>
 								<Row>
 									<Col className="d-flex align-items-center">

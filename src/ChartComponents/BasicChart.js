@@ -15,7 +15,7 @@ const BasicChart = ({content, text, fill, dateKey, amountKey}) => {
         for(let content of jobVsExp()){
             sum += content[amountKey]
         }
-        return sum
+        return +sum.toFixed(2)
     }
 
    const data = [
