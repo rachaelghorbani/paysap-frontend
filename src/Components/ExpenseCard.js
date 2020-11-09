@@ -33,14 +33,16 @@ class ExpenseCard extends React.Component {
 	};
 
 	submitHandler = () => {
-		const updatedExpense = {
-			amount: parseFloat(this.state.amount),
-			date: this.state.date.toString(),
-			category: this.state.category,
-			description: this.state.description
-		};
-		this.props.updateExpense(updatedExpense, this.props.expense.id);
-		this.setState({ showEditForm: false });
+        if(this.state.date && this.state.amount !== '' && this.state.description !== ''){
+            const updatedExpense = {
+                amount: parseFloat(this.state.amount),
+                date: this.state.date.toString(),
+                category: this.state.category,
+                description: this.state.description
+            };
+            this.props.updateExpense(updatedExpense, this.props.expense.id);
+            this.setState({ showEditForm: false });
+        }
 	};
 
 	handleDelete = () => {
@@ -130,6 +132,7 @@ class ExpenseCard extends React.Component {
 		}
 	};
 	render() {
+        console.log(this.state.date)
 		return (
 			<>{this.contentToShow()}</>
 		);

@@ -27,7 +27,7 @@ class NewExpenseForm extends React.Component {
     };
     
 	addExpense = () => {
-		if (this.state.date !== '' && this.state.description !== '' && this.state.amount !== null) {
+		if (this.state.date !== '' && this.state.date && this.state.description !== '' && this.state.amount) {
 			const stringDate = this.state.date.toString();
             const parsedAmount = parseFloat(this.state.amount);
 			const newExpense = {
