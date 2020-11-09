@@ -56,7 +56,7 @@ class LoginForm extends React.Component {
 						<Form.Control
 							type="password"
 							name="password"
-							placeholder="Password"
+							placeholder="Enter password"
 							value={this.state.password}
 							onChange={this.changeHandler}
 						/>
