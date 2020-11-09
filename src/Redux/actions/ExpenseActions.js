@@ -73,3 +73,17 @@ export const hideNewExpenseForm = () => {
 		payload: false
 	};
 };
+
+export const showEditExpenseForm = () => {
+    return {
+        type: 'SHOW_EDIT_EXPENSE_FORM',
+		payload: true
+    }
+}
+
+export const hideEditExpenseForm = () => {
+    return {
+        type: 'HIDE_EDIT_EXPENSE_FORM',
+		payload: false
+    }
+}

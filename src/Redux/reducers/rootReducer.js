@@ -11,28 +11,40 @@ let defaultState = {
 	showOrHideLoginAndSignupButtons: true,
 	showOrHideNewExpenseForm: false,
 	expenseCategory: 'All',
-    showDocumentUploadForm: false,
-    filterStartDate: '',
-    filterEndDate: ''
+	showDocumentUploadForm: false,
+	filterStartDate: '',
+	filterEndDate: '',
+	showOrHideEditExpenseForm: false
+};
+
+const showOrHideEditExpenseFormReducer = (state = defaultState.showOrHideEditExpenseForm, action) => {
+	switch (action.type) {
+		case 'SHOW_EDIT_EXPENSE_FORM':
+			return action.payload;
+		case 'HIDE_EDIT_EXPENSE_FORM':
+			return action.payload;
+		default:
+			return state;
+	}
 };
 
 const filterStartDateReducer = (state = defaultState.filterStartDate, action) => {
-    switch (action.type){
-        case 'SET_START_DATE':
-            return action.payload;
+	switch (action.type) {
+		case 'SET_START_DATE':
+			return action.payload;
 		default:
 			return state;
-    }
-}
+	}
+};
 
 const filterEndDateReducer = (state = defaultState.filterEndDate, action) => {
-    switch (action.type){
-        case 'SET_END_DATE':
-            return action.payload;
+	switch (action.type) {
+		case 'SET_END_DATE':
+			return action.payload;
 		default:
 			return state;
-    }
-}
+	}
+};
 
 const showDocumentUploadFormReducer = (state = defaultState.showDocumentUploadForm, action) => {
 	switch (action.type) {
@@ -178,10 +190,11 @@ let rootReducer = combineReducers({
 	showSignupForm: showSignupFormReducer,
 	showOrHideLoginAndSignupButtons: showOrHideLoginAndSignupButtonsReducer,
 	showOrHideNewExpenseForm: showOrHideNewExpenseFormReducer,
-    expenseCategory: expenseCategoryReducer,
-    showDocumentUploadForm: showDocumentUploadFormReducer,
-    filterStartDate: filterStartDateReducer,
-    filterEndDate: filterEndDateReducer
+	expenseCategory: expenseCategoryReducer,
+	showDocumentUploadForm: showDocumentUploadFormReducer,
+	filterStartDate: filterStartDateReducer,
+    filterEndDate: filterEndDateReducer,
+    showOrHideEditExpenseForm: showOrHideEditExpenseFormReducer
 });
 
 export default rootReducer;

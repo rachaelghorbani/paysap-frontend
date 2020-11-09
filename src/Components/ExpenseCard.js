@@ -3,55 +3,59 @@ import { Button, Form, InputGroup, FormControl } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
-import { updateExpense, deleteExpense } from '../Redux/actions/ExpenseActions';
+import { deleteExpense, showEditExpenseForm } from '../Redux/actions/ExpenseActions';
+import EditExpenseForm from './EditExpenseForm';
 
 class ExpenseCard extends React.Component {
     
-	state = {
-		showEditForm: false,
-		amount: this.props.expense.amount,
-		date: new Date(this.props.expense.date),
-		category: this.props.expense.category,
-		description: this.props.expense.description
-    };
+	// state = {
+	// 	showEditForm: false,
+	// 	amount: this.props.expense.amount,
+	// 	date: new Date(this.props.expense.date),
+	// 	category: this.props.expense.category,
+	// 	description: this.props.expense.description
+    // };
     
 	restructuredDate = () => {
 		return this.props.expense.date.slice(4, 15);
 	};
 
-	dateChangeHandler = (date) => {
-		console.log(date);
-		this.setState({ date });
-	};
+	// dateChangeHandler = (date) => {
+	// 	console.log(date);
+	// 	this.setState({ date });
+	// };
 
-	basicChangeHandler = (e) => {
-		this.setState({ [e.target.name]: e.target.value });
-	};
+	// basicChangeHandler = (e) => {
+	// 	this.setState({ [e.target.name]: e.target.value });
+	// };
 
 	showEditForm = () => {
-		this.setState({ showEditForm: true });
+        this.props.showEditExpenseForm()
+		// this.setState({ showEditForm: true });
 	};
 
-	submitHandler = () => {
-        if(this.state.date && this.state.amount !== '' && this.state.description !== ''){
-            const updatedExpense = {
-                amount: parseFloat(this.state.amount),
-                date: this.state.date.toString(),
-                category: this.state.category,
-                description: this.state.description
-            };
-            this.props.updateExpense(updatedExpense, this.props.expense.id);
-            this.setState({ showEditForm: false });
-        }
-	};
+	// submitHandler = () => {
+    //     if(this.state.date && this.state.amount !== '' && this.state.description !== ''){
+    //         const updatedExpense = {
+    //             amount: parseFloat(this.state.amount),
+    //             date: this.state.date.toString(),
+    //             category: this.state.category,
+    //             description: this.state.description
+    //         };
+    //         this.props.updateExpense(updatedExpense, this.props.expense.id);
+    //         this.setState({ showEditForm: false });
+    //     }
+	// };
 
 	handleDelete = () => {
 		this.props.deleteExpense(this.props.expense.id);
 	};
 
 	contentToShow = () => {
-		if (this.state.showEditForm) {
+		if (this.props.showOrHideEditExpenseForm) {
+            console.log(this.props.showOrHideEditExpenseForm)
 			return (
+                // <EditExpenseForm expense={this.props.expense}/>
 				<tr>
 					<td>
 						<InputGroup style={{ height: 40 }} className="justify-content-center">
@@ -132,17 +136,23 @@ class ExpenseCard extends React.Component {
 		}
 	};
 	render() {
-        console.log(this.state.date)
+        console.log(this.props)
 		return (
 			<>{this.contentToShow()}</>
 		);
 	}
 }
+const mapStateToProps = state => {
+    return {
+        showOrHideEditExpenseForm: state.showOrHideEditExpenseForm
+    }
+}
 const mapDispatchToProps = (dispatch) => {
 	return {
-		updateExpense: (expenseObj, id) => dispatch(updateExpense(expenseObj, id)),
-		deleteExpense: (id) => dispatch(deleteExpense(id))
+		// updateExpense: (expenseObj, id) => dispatch(updateExpense(expenseObj, id)),
+        deleteExpense: (id) => dispatch(deleteExpense(id)),
+        showEditExpenseForm: () => dispatch(showEditExpenseForm())
 	};
 };
 
-export default connect(null, mapDispatchToProps)(ExpenseCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseCard);
