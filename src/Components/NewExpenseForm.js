@@ -36,7 +36,7 @@ class NewExpenseForm extends React.Component {
 				category: this.state.category,
 				amount: parsedAmount,
 				user_id: this.props.user.id
-			};
+            };
 			this.props.addExpense(newExpense);
 			this.props.hideNewExpenseForm();
 		}

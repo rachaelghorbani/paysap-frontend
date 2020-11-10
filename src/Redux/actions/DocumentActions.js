@@ -1,18 +1,16 @@
-const token = localStorage.getItem('token');
-
-const options = (method, data) => {
-    return {
-        method: method,
-        headers: {
-            Authorization: `Bearer ${token}`
-        },
-        body: data
-    }
-}
-
 export const addDocument = (formData) => {
 	return function(dispatch, getState) {
-        fetch('http://localhost:3000/documents', options('POST', formData))
+
+        const token = localStorage.getItem('token');
+        const options =  {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData
+        }
+
+        fetch('http://localhost:3000/documents', options)
         .then((resp) => resp.json())
         .then((document) => {
 			console.log(document);
@@ -30,7 +28,16 @@ export const addDocument = (formData) => {
 
 export const deleteDocument = (docObj, id) => {
 	return function(dispatch, getState) {
-        fetch(`http://localhost:3000/documents/${id}`, options('DELETE', docObj))
+        const token = localStorage.getItem('token');
+        const options =  {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: docObj
+        }
+
+        fetch(`http://localhost:3000/documents/${id}`, options)
         .then((resp) => resp.json())
         .then(() => {
 			const documents = getState().user.documents;

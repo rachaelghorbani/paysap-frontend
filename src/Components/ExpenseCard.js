@@ -132,7 +132,6 @@ class ExpenseCard extends React.Component {
 		}
 	};
 	render() {
-        console.log(this.state.date)
 		return (
 			<>{this.contentToShow()}</>
 		);

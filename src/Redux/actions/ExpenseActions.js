@@ -1,20 +1,19 @@
-const token = localStorage.getItem('token');
-
-const options = (method, data) => {
-	return {
-		method: method,
-		headers: {
-			'Content-Type': 'application/json',
-			Accept: 'application/json',
-			Authorization: `Bearer ${token}`
-		},
-		body: JSON.stringify(data)
-	};
-};
-
 export const addExpense = (expenseObj) => {
 	return function(dispatch, getState) {
-        fetch('http://localhost:3000/expenses', options('POST', expenseObj))
+
+        const token = localStorage.getItem('token');
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(expenseObj)
+        };
+
+        fetch('http://localhost:3000/expenses', options)
         .then((resp) => resp.json())
         .then((exp) => {
 			const newArr = { ...getState().user, expenses: [ ...getState().user.expenses, exp ] };
@@ -26,7 +25,20 @@ export const addExpense = (expenseObj) => {
 export const updateExpense = (expenseObj, id) => {
 
 	return function(dispatch, getState) {
-		fetch(`http://localhost:3000/expenses/${id}`, options('PATCH', expenseObj))
+
+        const token = localStorage.getItem('token');
+
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(expenseObj)
+        };
+
+		fetch(`http://localhost:3000/expenses/${id}`, options)
 			.then((resp) => resp.json())
 			.then((updatedExpense) => {
 				const expenses = getState().user.expenses;
@@ -45,8 +57,16 @@ export const updateExpense = (expenseObj, id) => {
 
 export const deleteExpense = (id) => {
 	return function(dispatch, getState) {
+        const token = localStorage.getItem('token');
+
+        const options = {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        };
 	
-        fetch(`http://localhost:3000/expenses/${id}`, options('DELETE'))
+        fetch(`http://localhost:3000/expenses/${id}`, options)
         .then((resp) => resp.json())
         .then(() => {
 			const expenses = getState().user.expenses;
