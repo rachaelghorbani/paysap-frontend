@@ -30,6 +30,7 @@ A user can:
 * Google Places `react-places-autocomplete`
 * Recharts `recharts`
 * Calendar `react-datepicker` and `react-datetime-picker`
+* Excel Export `react-html-table-to-excel`
 * PDF.js
 * Boostrap
 * Custom CSS
